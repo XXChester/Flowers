@@ -2,17 +2,19 @@
 	Objectives
 ============================
 Objectives of this demo is to write a simple 2d game with the ported engine code for XNA to identify remaining bugs and to finally write something in XNA. I 
-am expecting this demo to be my highest poilished demo. I am hoping to get the whole game functional within 10hours and polish there after.
+am expecting this demo to be my highest poilished demo. I am hoping to get the whole game functional within 10 hours and polish there after.
 
 
 ============================
 	Core(Phase 1)
 ============================
 Raw version of the game functional with programmer art
-[]Planning
-[]Placeholder art
-[]Model objects
-[]Render the board
+[*]Planning
+[*]Placeholder art
+[*]Model objects
+[*]Make each model script accessible
+[*]Render background with programmer art
+[*]Render the board
 []Render pieces on click
 []Render basic HUD
 []Implement easy and normal difficulties
@@ -38,14 +40,14 @@ Replace the programmer art with real art and make the game not only maintain its
 		Time
 ============================
 Planning:
-	2 hours
+	3 hours
 Programming:		
-core:				
+core:				3hours	
 MinMaxAlgorithm:	
 polish:				
 
 Art:
-	
+	2.5hours
 Sound:
 	
 Total Time:

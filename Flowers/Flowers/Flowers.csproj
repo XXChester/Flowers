@@ -113,9 +113,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackGround.cs" />
+    <Compile Include="Difficulties.cs" />
+    <Compile Include="Fence.cs" />
+    <Compile Include="Flower.cs" />
+    <Compile Include="GameDisplay.cs" />
+    <Compile Include="IDifficulty.cs" />
+    <Compile Include="InGameMenu.cs" />
+    <Compile Include="IRenderable.cs" />
+    <Compile Include="LogicUtils.cs" />
+    <Compile Include="MainMenu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="StateManager.cs" />
+    <Compile Include="Sun.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

@@ -184,6 +184,11 @@
             </summary>
             <param name="spriteBatch">SpriteBatch object</param>
         </member>
+        <member name="M:Engine.Model.Line2D.dispose">
+            <summary>
+            Disposes the texture used to draw the line
+            </summary>
+        </member>
         <member name="P:Engine.Model.Line2D.Position">
             <summary>
             Gets or sets the starting position of the line
@@ -1062,11 +1067,6 @@
             GraphicsDeviceManager object
             </summary>
         </member>
-        <member name="F:Engine.Engine.BaseRenderer.device">
-            <summary>
-            GraphicsDevice object
-            </summary>
-        </member>
         <member name="F:Engine.Engine.BaseRenderer.spriteBatch">
             <summary>
             SpriteBatch object
@@ -1198,6 +1198,49 @@
         <member name="F:Engine.Model.Animated2DSprite.LoadingType.CustomizedSheetDefineFrames">
             <summary>
             Loads the sprite sheet based on the framesStartWidth, framesStartHeight, framesHeight, framesWidth, and the space between the frames
+            </summary>
+        </member>
+        <member name="T:Engine.Model.StaticDrawable2D">
+            <summary>
+            Text class for writing text to the screen
+            </summary>
+        </member>
+        <member name="F:Engine.Model.StaticDrawable2D.texture">
+            <summary>
+            Texture2D object
+            </summary>
+        </member>
+        <member name="M:Engine.Model.StaticDrawable2D.#ctor(Engine.Model.Params.StaticDrawable2DParams)">
+            <summary>
+            Builds an object that can draw a texture to the screen
+            </summary>
+            <param name="parms">StaticDrawable2DParams object</param>
+        </member>
+        <member name="M:Engine.Model.StaticDrawable2D.update(System.Single)">
+            <summary>
+            Updates the texture
+            </summary>
+            <param name="elapsed">time elapsed sense the last method call</param>
+        </member>
+        <member name="M:Engine.Model.StaticDrawable2D.render(Microsoft.Xna.Framework.Graphics.SpriteBatch)">
+            <summary>
+            Renders the texture to the screen
+            </summary>
+            <param name="spriteBatch">SpriteBatch object used to render the etxture</param>
+        </member>
+        <member name="M:Engine.Model.StaticDrawable2D.dispose">
+            <summary>
+            Disposes the texture that was being drawn
+            </summary>
+        </member>
+        <member name="T:Engine.Model.Params.StaticDrawable2DParams">
+            <summary>
+            Models the data required to draw a static texture to the screen
+            </summary>
+        </member>
+        <member name="P:Engine.Model.Params.StaticDrawable2DParams.Texture">
+            <summary>
+            Gets or sets the texture to be drawn to the screen
             </summary>
         </member>
     </members>
