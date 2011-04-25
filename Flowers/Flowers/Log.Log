@@ -1,17 +1,27 @@
-﻿House {X:1000 Y:100}
-fence4 {X:1136 Y:350}
-fence3 getValu(fence3.position
-fence2 {X:852 Y:350}
-fence1 {X:708 Y:350}
-fence0 {X:564 Y:350}
-line0 start {X:350 Y:500}
-line0 end {X:900 Y:500}
-line1 start = 350,615...end is 900,615
-line0 start = 350, 515....end is 900,515
-line2 start = 515,450....end is 515,700
-line3 start is 715,450.....end is 715,700
-position0 {X:415 Y:480}
-position2 {X:600 Y:480}
-position3 {X:800 Y:480}
-position4 {X:415 Y:580}
-position7 {X:415 Y:670}
+﻿flower 0 {X:430 Y:500}
+flower2 {X:820 Y:500}
+flower1 {X:620 Y:500}
+second rows X is 590
+ (row 3's y is 678
+row 1's y is 502
+
+
+354,448
+515,518
+
+
+519,448
+717,522
+
+
+719,450
+901,521
+
+
+355,524
+515,609
+
+
+354,611
+516,693
+

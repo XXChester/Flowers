@@ -21,6 +21,11 @@ namespace Flowers {
 		private Line2D[] lines;
 		private int playersScore;
 		private int computersScore;
+		private MouseState previousMouseState;
+		private Texture2D playerOnesAliveTexture;
+		private Texture2D playerOnesDyingTexture;
+		private Texture2D playerTwosAliveTexture;
+		private Texture2D playerTwosDyingTexture;
 		#endregion Class variables
 
 		#region Class propeties
@@ -34,12 +39,12 @@ namespace Flowers {
 			Line2DParams lineParams = new Line2DParams();
 			lineParams.Texture = linesTexture;
 			lineParams.LightColour = Color.Black;
-			this.lines = new Line2D[4];
-			lineParams.StartPosition = new Vector2(350f,515f);
-			lineParams.EndPosition = new Vector2(900f, 515f);
+			this.lines = new Line2D[8];
+			lineParams.StartPosition = new Vector2(350f,525f);
+			lineParams.EndPosition = new Vector2(900f, 525f);
 			this.lines[0] = new Line2D(lineParams);
-			lineParams.StartPosition = new Vector2(350f,615f);
-			lineParams.EndPosition = new Vector2(900f, 615f);
+			lineParams.StartPosition = new Vector2(350f,612f);
+			lineParams.EndPosition = new Vector2(900f, 612f);
 			this.lines[1] = new Line2D(lineParams);
 			lineParams.StartPosition = new Vector2(515f,450f);
 			lineParams.EndPosition = new Vector2(515f, 700f);
@@ -47,18 +52,26 @@ namespace Flowers {
 			lineParams.StartPosition = new Vector2(715f,450f);
 			lineParams.EndPosition = new Vector2(715f, 700f);
 			this.lines[3] = new Line2D(lineParams);
+			lineParams.StartPosition = new Vector2(350f, 450f);
+			lineParams.EndPosition = new Vector2(350f, 700f);
+			this.lines[4] = new Line2D(lineParams);
+			lineParams.StartPosition = new Vector2(900f, 450f);
+			lineParams.EndPosition = new Vector2(900f, 700f);
+			this.lines[5] = new Line2D(lineParams);
+			lineParams.StartPosition = new Vector2(350f, 450f);
+			lineParams.EndPosition = new Vector2(905f, 450f);
+			this.lines[6] = new Line2D(lineParams);
+			lineParams.StartPosition = new Vector2(350f, 700f);
+			lineParams.EndPosition = new Vector2(900f, 700f);
+			this.lines[7] = new Line2D(lineParams);
 
 			// create the flowers
 			this.flowers = new Flower[9];
-			this.flowers[0] = new Flower(content, 0, new Vector2(415f, 480));
-			this.flowers[1] = new Flower(content, 1, new Vector2(600f, 480f));
-			this.flowers[2] = new Flower(content, 2, new Vector2(800f, 480f));
-			this.flowers[3] = new Flower(content, 3, new Vector2(415f, 580f));
-			this.flowers[4] = new Flower(content, 4, new Vector2(600f, 580f));
-			this.flowers[5] = new Flower(content, 5, new Vector2(800f, 580f));
-			this.flowers[6] = new Flower(content, 6, new Vector2(415f, 670f));
-			this.flowers[7] = new Flower(content, 7, new Vector2(600f, 670f));
-			this.flowers[8] = new Flower(content, 8, new Vector2(800f, 670f));
+			for (int i = 0; i < this.flowers.Length; i++) {
+				this.flowers[i] = new Flower(content, i);
+			}
+			this.playerOnesAliveTexture = content.Load<Texture2D>("Flower1");
+			this.playerTwosAliveTexture = content.Load<Texture2D>("Flower2");
 #if WINDOWS
 #if DEBUG
 			if (this.lines != null) {
@@ -68,16 +81,48 @@ namespace Flowers {
 			}
 #endif
 #endif
+			reset(true);
 		}
 		#endregion Constructor
 
 		#region Support methods
+		public void reset(bool fullReset) {
+			foreach (Flower flower in this.flowers) {
+				flower.Type = Flower.FlowerType.None;
+			}
+			if (fullReset) {
+				this.computersScore = 0;
+				this.playersScore = 0;
+			}
+		}
+
 		public void update(float elapsed) {
 			if (this.flowers != null) {
 				foreach (Flower flower in this.flowers) {
 					flower.update(elapsed);
 				}
 			}
+			MouseState currentState = Mouse.GetState();
+			if (currentState.LeftButton == ButtonState.Pressed && this.previousMouseState.LeftButton == ButtonState.Released) {// first press
+				// find the tile we clicked
+				Vector2 mousePos = new Vector2(currentState.X, currentState.Y);
+				Flower flower = null;
+				for (int i = 0; i < this.flowers.Length; i++) {
+					flower = this.flowers[i];
+					if (PickingUtils.pickRectangle(mousePos, SpritePositioner.getInstance().getPositionsRectangle(flower.Index))) {
+						//TODO: Need to tie into the state to see which texture we are going to use
+						if (StateManager.getInstance().WhosTurnIsIt == StateManager.TurnType.PlayerOnes) {
+							flower.initSprites(Flower.FlowerType.Rose, this.playerOnesAliveTexture, this.playerOnesDyingTexture);
+							StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.PlayerTwos;
+						} else {
+							flower.initSprites(Flower.FlowerType.Daisy, this.playerTwosAliveTexture, this.playerTwosDyingTexture);
+							StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.PlayerOnes;
+						}
+						break;
+					}
+				}
+			}
+			this.previousMouseState = Mouse.GetState();
 		}
 
 		public void render(SpriteBatch spriteBatch) {
@@ -96,6 +141,18 @@ namespace Flowers {
 
 		#region Destructor
 		public void dispose() {
+			if (this.playerOnesAliveTexture != null) {
+				this.playerOnesAliveTexture.Dispose();
+			}
+			if (this.playerOnesDyingTexture != null) {
+				this.playerOnesDyingTexture.Dispose();
+			}
+			if (this.playerTwosAliveTexture != null) {
+				this.playerTwosAliveTexture.Dispose();
+			}
+			if (this.playerTwosDyingTexture != null) {
+				this.playerTwosDyingTexture.Dispose();
+			}
 			if (this.lines != null) {
 				foreach (Line2D line in this.lines) {
 					line.dispose();

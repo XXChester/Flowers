@@ -21,22 +21,23 @@ namespace Flowers {
 			Daisy
 		}
 		#region Class variables
-		private Animated2DSprite activeSprite;
+		private Animated2DSprite aliveSprite;
 		private Animated2DSprite dyingSprite;
 		private FlowerType type;
 		private int index;
 		#endregion Class variables
 
 		#region Class propeties
-
+		public FlowerType Type { get { return this.type; } set { this.type = value; } }
+		public int Index { get { return this.index; } }
 		#endregion Class properties
 
 		#region Constructor
-		public Flower(ContentManager content, int index, Vector2 position) {
+		public Flower(ContentManager content, int index) {
 			this.type = FlowerType.None;
 			this.index = index;
 			Animated2DSpriteParams parms = new Animated2DSpriteParams();
-			parms.AnimationState = AnimationManager.AnimationState.PlayForwardOnce;
+			parms.AnimationState = AnimationManager.AnimationState.Paused;
 			parms.Content = content;
 			parms.FrameRate = 150f;
 			parms.FramesHeight = 96;
@@ -44,39 +45,48 @@ namespace Flowers {
 			parms.FramesStartWidth = 0;
 			parms.FramesWidth = 96;
 			parms.LoadingType = Animated2DSprite.LoadingType.CustomizedSheetDefineFrames;
-			parms.Position = position;
+			parms.Position = SpritePositioner.getInstance().getPosition(index);
 			parms.SpaceBetweenFrames = 0;
 			parms.TotalFrameCount = 5;
 			parms.Origin = new Vector2(40f,80f);
-			this.activeSprite = new Animated2DSprite(parms);
+			this.aliveSprite = new Animated2DSprite(parms);
+			//NEED TO UPDATE THIS LATER
+			this.dyingSprite = new Animated2DSprite(parms);
 #if WINDOWS
 #if DEBUG
-			
+
 #endif
 #endif
 		}
 		#endregion Constructor
 
 		#region Support methods
+		public void initSprites(FlowerType type, Texture2D aliveTextured, Texture2D dyingTexture) {
+			this.type = type;
+			this.aliveSprite.Texture = aliveTextured;
+			this.aliveSprite.AnimationManager.State = AnimationManager.AnimationState.PlayForwardOnce;
+			this.dyingSprite.Texture = dyingTexture;
+		}
+
 		public void update(float elapsed) {
 			if (this.type != FlowerType.None) {
 				// tie into state manager to determine what one to update
-				this.activeSprite.update(elapsed);
+				this.aliveSprite.update(elapsed);
 			}
 		}
 
 		public void render(SpriteBatch spriteBatch) {
 			if (this.type != FlowerType.None) {
 				// tie into state manager to determine what one to draw
-				this.activeSprite.render(spriteBatch);
+				this.aliveSprite.render(spriteBatch);
 			}
 		}
 		#endregion Support methods
 
 		#region Destructor
 		public void dispose() {
-			if (this.activeSprite != null) {
-				this.activeSprite.dispose();
+			if (this.aliveSprite != null) {
+				this.aliveSprite.dispose();
 			}
 			if (this.dyingSprite != null) {
 				this.dyingSprite.dispose();

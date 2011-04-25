@@ -458,6 +458,16 @@
             <param name="elapsed">Time elapsed sense the last call</param>
             <param name="maxFrameCount">Maximum frames of the object</param>
         </member>
+        <member name="P:Engine.Model.AnimationManager.State">
+            <summary>
+            Gets or sets the animation state for the animation manager
+            </summary>
+        </member>
+        <member name="P:Engine.Model.AnimationManager.TotalElapsed">
+            <summary>
+            Gets or sets the total elapsed time
+            </summary>
+        </member>
         <member name="P:Engine.Model.AnimationManager.FrameRate">
             <summary>
             Gets or sets the frame rate in which the sprite animates
@@ -626,12 +636,12 @@
             Class containg usefull methods for picking different types of objects
             </summary>
         </member>
-        <member name="M:Engine.Utils.PickingUtils.pickButton(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Rectangle)">
+        <member name="M:Engine.Utils.PickingUtils.pickRectangle(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Rectangle)">
             <summary>
-            Picks a button based on its rendering rectangle
+            Picks a rectangle based on its coordinates vs the actors position
             </summary>
             <param name="actorsPosition">Actors position. Could be mouse position, XBox controllers stick position etc</param>
-            <param name="buttonsRectangle">Buttons rendering rectangle</param>
+            <param name="buttonsRectangle">rectangle to check for collision</param>
             <returns></returns>
         </member>
         <member name="T:Engine.Scripting.Utils.ScriptUtils">
@@ -1183,6 +1193,11 @@
         <member name="P:Engine.Model.Animated2DSprite.AnimationManager">
             <summary>
             Gets or sets the animation manager for the sprite
+            </summary>
+        </member>
+        <member name="P:Engine.Model.Animated2DSprite.Texture">
+            <summary>
+            Gets or sets the texture of an animated sprite
             </summary>
         </member>
         <member name="T:Engine.Model.Animated2DSprite.LoadingType">
