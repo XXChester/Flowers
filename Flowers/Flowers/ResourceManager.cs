@@ -15,6 +15,10 @@ namespace Flowers {
 		#region Class variables
 		//singleton variable
 		private static ResourceManager instance = new ResourceManager();
+		public const int BUTTONS_WIDTH = 150;
+		public const int BUTTONS_HEIGHT = 50;
+		public const int BUTTONS_START_X = 1000;
+		public const float BUTTONS_TEXT_Y_DIFFERENCE = 10f;
 		#endregion Class variables
 
 		#region Class propeties
@@ -22,10 +26,6 @@ namespace Flowers {
 		public Texture2D ButtonsLineTexture { get; set; }
 		public Color ButtonsMouseOverColour { get; set; }
 		public Color ButtonsRegularColour { get; set; }
-		public int ButtonsHeight { get; set; }
-		public int ButtonsWidth { get; set; }
-		public float ButtonsTextYDifference { get; set; }
-		public int ButtonsStartX { get; set; }
 		#endregion Class properties
 
 		#region Constructor
@@ -42,10 +42,6 @@ namespace Flowers {
 			this.ButtonsLineTexture = TextureUtils.create2DColouredTexture(device, 1, 1, Color.White);
 			this.ButtonsMouseOverColour = Color.Gray;
 			this.ButtonsRegularColour = Color.Black;
-			this.ButtonsHeight = 50;
-			this.ButtonsWidth = 150;
-			this.ButtonsTextYDifference = 10f;
-			this.ButtonsStartX = 1000;
 		}
 		#endregion Support methods
 

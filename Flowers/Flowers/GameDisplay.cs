@@ -79,14 +79,14 @@ namespace Flowers {
 			ColouredButtonParams buttonParams = new ColouredButtonParams();
 			buttonParams.Font = ResourceManager.getInstance().Font;
 			buttonParams.LinesTexture = ResourceManager.getInstance().ButtonsLineTexture;
-			buttonParams.Height = ResourceManager.getInstance().ButtonsHeight;
-			buttonParams.Width = ResourceManager.getInstance().ButtonsWidth;
+			buttonParams.Height = ResourceManager.BUTTONS_HEIGHT;
+			buttonParams.Width = ResourceManager.BUTTONS_WIDTH;
 			buttonParams.MouseOverColour = ResourceManager.getInstance().ButtonsMouseOverColour;
 			buttonParams.RegularColour = ResourceManager.getInstance().ButtonsRegularColour;
-			buttonParams.StartX = ResourceManager.getInstance().ButtonsStartX;
+			buttonParams.StartX = ResourceManager.BUTTONS_START_X;
 			buttonParams.StartY = 550;
 			buttonParams.Text = "Replay";
-			buttonParams.TextsPosition = new Vector2(ResourceManager.getInstance().ButtonsStartX + 35f, buttonParams.StartY + ResourceManager.getInstance().ButtonsTextYDifference);
+			buttonParams.TextsPosition = new Vector2(ResourceManager.BUTTONS_START_X + 35f, buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
 			this.replayButton = new ColouredButton(buttonParams);
 #if WINDOWS
 #if DEBUG

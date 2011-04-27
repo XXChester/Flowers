@@ -27,12 +27,12 @@ namespace Flowers {
 		#region Constructor
 		public InGameMenu() {
 			this.buttons = new ColouredButton[2];
-			int startX = ResourceManager.getInstance().ButtonsStartX - 25;
+			int startX = ResourceManager.BUTTONS_START_X - 25;
 			ColouredButtonParams buttonParams = new ColouredButtonParams();
 			buttonParams.Font = ResourceManager.getInstance().Font;
 			buttonParams.LinesTexture = ResourceManager.getInstance().ButtonsLineTexture;
-			buttonParams.Height = ResourceManager.getInstance().ButtonsHeight;
-			buttonParams.Width = ResourceManager.getInstance().ButtonsWidth + 75;// These buttons are a little wider
+			buttonParams.Height = ResourceManager.BUTTONS_HEIGHT;
+			buttonParams.Width = ResourceManager.BUTTONS_WIDTH + 75;// These buttons are a little wider
 			buttonParams.MouseOverColour = ResourceManager.getInstance().ButtonsMouseOverColour;
 			buttonParams.RegularColour = ResourceManager.getInstance().ButtonsRegularColour;
 
@@ -40,14 +40,14 @@ namespace Flowers {
 			buttonParams.StartX = startX;
 			buttonParams.StartY = 500;
 			buttonParams.Text = "Return to Game";
-			buttonParams.TextsPosition = new Vector2(startX + 35f, buttonParams.StartY + ResourceManager.getInstance().ButtonsTextYDifference);
+			buttonParams.TextsPosition = new Vector2(startX + 35f, buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
 			this.buttons[0] = new ColouredButton(buttonParams);
 
 			buttonParams.ID = BUTTON_ID_EXIT_TO_MAIN_MENU;
 			buttonParams.StartX = startX;
 			buttonParams.StartY = 575;
 			buttonParams.Text = "Exit to Main Menu";
-			buttonParams.TextsPosition = new Vector2(startX + 20f, buttonParams.StartY + ResourceManager.getInstance().ButtonsTextYDifference);
+			buttonParams.TextsPosition = new Vector2(startX + 20f, buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
 			this.buttons[1] = new ColouredButton(buttonParams);
 #if WINDOWS
 #if DEBUG

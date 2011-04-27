@@ -31,6 +31,7 @@ Raw version of the game functional with programmer art
 ============================
 Replace the programmer art with real art and make the game not only maintain its functionality but also add a nice playable environment
 []Screen fades in and out?
+[]All sprites not part of the winning line do their dying animation
 []Sun sprite
 []Clouds
 []House
