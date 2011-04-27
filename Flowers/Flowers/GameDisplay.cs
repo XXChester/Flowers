@@ -76,6 +76,7 @@ namespace Flowers {
 			this.computer = new Player(content, ResourceManager.getInstance().Font, "Computer", new Vector2(Game1.RESOLUTION.X - 250f, textY), "flower2", TEMP_DYING_NAME, LogicUtils.COMPUTERS_TYPE);
 
 			// Replay button
+			int startX = 1000;
 			ColouredButtonParams buttonParams = new ColouredButtonParams();
 			buttonParams.Font = ResourceManager.getInstance().Font;
 			buttonParams.LinesTexture = ResourceManager.getInstance().ButtonsLineTexture;
@@ -83,10 +84,10 @@ namespace Flowers {
 			buttonParams.Width = ResourceManager.BUTTONS_WIDTH;
 			buttonParams.MouseOverColour = ResourceManager.getInstance().ButtonsMouseOverColour;
 			buttonParams.RegularColour = ResourceManager.getInstance().ButtonsRegularColour;
-			buttonParams.StartX = ResourceManager.BUTTONS_START_X;
+			buttonParams.StartX = startX;
 			buttonParams.StartY = 550;
 			buttonParams.Text = "Replay";
-			buttonParams.TextsPosition = new Vector2(ResourceManager.BUTTONS_START_X + 35f, buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
+			buttonParams.TextsPosition = new Vector2(startX + 35f, buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
 			this.replayButton = new ColouredButton(buttonParams);
 #if WINDOWS
 #if DEBUG

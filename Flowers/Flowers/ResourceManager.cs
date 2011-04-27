@@ -17,7 +17,6 @@ namespace Flowers {
 		private static ResourceManager instance = new ResourceManager();
 		public const int BUTTONS_WIDTH = 150;
 		public const int BUTTONS_HEIGHT = 50;
-		public const int BUTTONS_START_X = 1000;
 		public const float BUTTONS_TEXT_Y_DIFFERENCE = 10f;
 		#endregion Class variables
 

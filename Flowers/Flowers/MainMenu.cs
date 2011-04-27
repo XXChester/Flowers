@@ -30,6 +30,7 @@ namespace Flowers {
 		public MainMenu(ContentManager content) {
 			this.buttons = new ColouredButton[4];
 			const float textXDiff = 50f;
+			int startX = 1000;
 			ColouredButtonParams buttonParams = new ColouredButtonParams();
 			buttonParams.Font = ResourceManager.getInstance().Font;
 			buttonParams.LinesTexture = ResourceManager.getInstance().ButtonsLineTexture;
@@ -39,31 +40,31 @@ namespace Flowers {
 			buttonParams.RegularColour = ResourceManager.getInstance().ButtonsRegularColour;
 
 			buttonParams.ID = BUTTON_ID_EASY;
-			buttonParams.StartX = ResourceManager.BUTTONS_START_X;
+			buttonParams.StartX = startX;
 			buttonParams.StartY = 425;
 			buttonParams.Text = "Easy";
-			buttonParams.TextsPosition = new Vector2(ResourceManager.BUTTONS_START_X + textXDiff, buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
+			buttonParams.TextsPosition = new Vector2(startX + textXDiff, buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
 			this.buttons[0] = new ColouredButton(buttonParams);
 
 			buttonParams.ID = BUTTON_ID_MODERATE;
-			buttonParams.StartX = ResourceManager.BUTTONS_START_X;
+			buttonParams.StartX = startX;
 			buttonParams.StartY = 500;
 			buttonParams.Text = "Moderate";
-			buttonParams.TextsPosition = new Vector2(ResourceManager.BUTTONS_START_X + (textXDiff - 15f), buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
+			buttonParams.TextsPosition = new Vector2(startX + (textXDiff - 15f), buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
 			this.buttons[1] = new ColouredButton(buttonParams);
 
 			buttonParams.ID = BUTTON_ID_HARD;
-			buttonParams.StartX = ResourceManager.BUTTONS_START_X;
+			buttonParams.StartX = startX;
 			buttonParams.StartY = 575;
 			buttonParams.Text = "Hard";
-			buttonParams.TextsPosition = new Vector2(ResourceManager.BUTTONS_START_X + textXDiff, buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
+			buttonParams.TextsPosition = new Vector2(startX + textXDiff, buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
 			this.buttons[2] = new ColouredButton(buttonParams);
 
 			buttonParams.ID = BUTTON_ID_EXIT;
-			buttonParams.StartX = ResourceManager.BUTTONS_START_X;
+			buttonParams.StartX = startX;
 			buttonParams.StartY = 650;
 			buttonParams.Text = "Exit";
-			buttonParams.TextsPosition = new Vector2(ResourceManager.BUTTONS_START_X + textXDiff, buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
+			buttonParams.TextsPosition = new Vector2(startX + textXDiff, buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
 			this.buttons[3] = new ColouredButton(buttonParams);
 #if WINDOWS
 #if DEBUG

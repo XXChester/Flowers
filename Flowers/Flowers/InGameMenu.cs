@@ -27,7 +27,7 @@ namespace Flowers {
 		#region Constructor
 		public InGameMenu() {
 			this.buttons = new ColouredButton[2];
-			int startX = ResourceManager.BUTTONS_START_X - 25;
+			int startX = 1000 - 25;
 			ColouredButtonParams buttonParams = new ColouredButtonParams();
 			buttonParams.Font = ResourceManager.getInstance().Font;
 			buttonParams.LinesTexture = ResourceManager.getInstance().ButtonsLineTexture;

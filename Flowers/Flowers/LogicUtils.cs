@@ -5,11 +5,9 @@ using System.Text;
 
 namespace Flowers {
 	public static class LogicUtils {
-		public const Flower.FlowerType PLAYERS_TYPE = Flower.FlowerType.Daisy;
-		public const Flower.FlowerType COMPUTERS_TYPE = Flower.FlowerType.Rose;
-		public const int CHECKS_WIDTH = 3;
-		public const int CHECKS_HEIGHT = 8;
-		public readonly static int[,] BOARD_LINE_CHECKS = new int[CHECKS_HEIGHT, CHECKS_WIDTH] {
+		private const int CHECKS_WIDTH = 3;
+		private const int CHECKS_HEIGHT = 8;
+		private readonly static int[,] BOARD_LINE_CHECKS = new int[CHECKS_HEIGHT, CHECKS_WIDTH] {
 				{0,1,2},// top row
 				{0,3,6},// first column
 				{0,4,8},// top left to bottom right
@@ -19,6 +17,8 @@ namespace Flowers {
 				{1,4,7},// second column
 				{2,5,8},// last column
 		};
+		public const Flower.FlowerType PLAYERS_TYPE = Flower.FlowerType.Daisy;
+		public const Flower.FlowerType COMPUTERS_TYPE = Flower.FlowerType.Rose;
 
 		public static bool checkBoardsState(Flower[] board, Flower.FlowerType flowerType, out int[] winningIndexes) {
 			bool foundMatch = false;
