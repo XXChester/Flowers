@@ -14,18 +14,13 @@ using Engine.Model.Params;
 using Engine.Scripting;
 using Engine.Utils;
 namespace Flowers {
-	public class GameDisplay : IRenderable {
+	public class GameDisplay : Display {
 		#region Class variables
-		private SpriteFont font;
 		private Flower[] flowers;
 		private Line2D[] lines;
-		private int playersScore;
-		private int computersScore;
-		private MouseState previousMouseState;
-		private Texture2D playerOnesAliveTexture;
-		private Texture2D playerOnesDyingTexture;
-		private Texture2D playerTwosAliveTexture;
-		private Texture2D playerTwosDyingTexture;
+		private Player player;
+		private Player computer;
+		private Button replayButton;
 		#endregion Class variables
 
 		#region Class propeties
@@ -39,6 +34,7 @@ namespace Flowers {
 			Line2DParams lineParams = new Line2DParams();
 			lineParams.Texture = linesTexture;
 			lineParams.LightColour = Color.Black;
+			lineParams.Scale = new Vector2(5f, 5f);
 			this.lines = new Line2D[8];
 			lineParams.StartPosition = new Vector2(350f,525f);
 			lineParams.EndPosition = new Vector2(900f, 525f);
@@ -70,8 +66,28 @@ namespace Flowers {
 			for (int i = 0; i < this.flowers.Length; i++) {
 				this.flowers[i] = new Flower(content, i);
 			}
-			this.playerOnesAliveTexture = content.Load<Texture2D>("Flower1");
-			this.playerTwosAliveTexture = content.Load<Texture2D>("Flower2");
+
+			/********************** TOD: REMOVE ME ONCE I GET DYING SPRITES **********************/
+			const string TEMP_DYING_NAME = "Flower1";
+
+			// create our players
+			float textY = (Game1.RESOLUTION.Y - 50f);
+			this.player = new Player(content, ResourceManager.getInstance().Font, "Player", new Vector2(100f, textY), "Flower1", TEMP_DYING_NAME, LogicUtils.PLAYERS_TYPE);
+			this.computer = new Player(content, ResourceManager.getInstance().Font, "Computer", new Vector2(Game1.RESOLUTION.X - 250f, textY), "flower2", TEMP_DYING_NAME, LogicUtils.COMPUTERS_TYPE);
+
+			// Replay button
+			ColouredButtonParams buttonParams = new ColouredButtonParams();
+			buttonParams.Font = ResourceManager.getInstance().Font;
+			buttonParams.LinesTexture = ResourceManager.getInstance().ButtonsLineTexture;
+			buttonParams.Height = ResourceManager.getInstance().ButtonsHeight;
+			buttonParams.Width = ResourceManager.getInstance().ButtonsWidth;
+			buttonParams.MouseOverColour = ResourceManager.getInstance().ButtonsMouseOverColour;
+			buttonParams.RegularColour = ResourceManager.getInstance().ButtonsRegularColour;
+			buttonParams.StartX = ResourceManager.getInstance().ButtonsStartX;
+			buttonParams.StartY = 550;
+			buttonParams.Text = "Replay";
+			buttonParams.TextsPosition = new Vector2(ResourceManager.getInstance().ButtonsStartX + 35f, buttonParams.StartY + ResourceManager.getInstance().ButtonsTextYDifference);
+			this.replayButton = new ColouredButton(buttonParams);
 #if WINDOWS
 #if DEBUG
 			if (this.lines != null) {
@@ -88,44 +104,101 @@ namespace Flowers {
 		#region Support methods
 		public void reset(bool fullReset) {
 			foreach (Flower flower in this.flowers) {
-				flower.Type = Flower.FlowerType.None;
+				flower.reset();
 			}
 			if (fullReset) {
-				this.computersScore = 0;
-				this.playersScore = 0;
+				this.computer.Score = 0;
+				this.player.Score = 0;
+				Random rand = new Random();
+				int turn = rand.Next(2);
+				if (turn == 0) {
+					StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Computers;
+				} else {
+					StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Players;
+				}
+			}
+			// if we just finished a game we need to re-activate the game
+			if (StateManager.getInstance().CurrentState == StateManager.GameState.GameOver) {
+				StateManager.getInstance().CurrentState = StateManager.GameState.Active;
 			}
 		}
 
-		public void update(float elapsed) {
+		public override void update(float elapsed) {
 			if (this.flowers != null) {
 				foreach (Flower flower in this.flowers) {
 					flower.update(elapsed);
 				}
 			}
+			if (this.computer != null) {
+				this.computer.update(elapsed);
+			}
+			if (this.player != null) {
+				this.player.update(elapsed);
+			}
 			MouseState currentState = Mouse.GetState();
-			if (currentState.LeftButton == ButtonState.Pressed && this.previousMouseState.LeftButton == ButtonState.Released) {// first press
-				// find the tile we clicked
-				Vector2 mousePos = new Vector2(currentState.X, currentState.Y);
-				Flower flower = null;
-				for (int i = 0; i < this.flowers.Length; i++) {
-					flower = this.flowers[i];
-					if (PickingUtils.pickRectangle(mousePos, SpritePositioner.getInstance().getPositionsRectangle(flower.Index))) {
-						//TODO: Need to tie into the state to see which texture we are going to use
-						if (StateManager.getInstance().WhosTurnIsIt == StateManager.TurnType.PlayerOnes) {
-							flower.initSprites(Flower.FlowerType.Rose, this.playerOnesAliveTexture, this.playerOnesDyingTexture);
-							StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.PlayerTwos;
-						} else {
-							flower.initSprites(Flower.FlowerType.Daisy, this.playerTwosAliveTexture, this.playerTwosDyingTexture);
-							StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.PlayerOnes;
+			// accept input to the tiles if the game is running
+			if (StateManager.getInstance().CurrentState == StateManager.GameState.Active) {
+				if (StateManager.getInstance().WhosTurnIsIt == StateManager.TurnType.Players) {
+					if (currentState.LeftButton == ButtonState.Pressed && base.previousMouseState.LeftButton == ButtonState.Released) {// first press
+						// find the tile we clicked
+						Vector2 mousePos = new Vector2(currentState.X, currentState.Y);
+						Flower flower = null;
+						for (int i = 0; i < this.flowers.Length; i++) {
+							flower = this.flowers[i];
+							if (PickingUtils.pickRectangle(mousePos, SpritePositioner.getInstance().getPositionsRectangle(flower.Index))) {
+								if (StateManager.getInstance().WhosTurnIsIt == StateManager.TurnType.Players) {
+									flower.initSprites(this.player);
+									StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Computers;
+								} /*else {// player two if we implement it
+									flower.initSprites(Flower.FlowerType.Daisy, this.computersAliveTexture, this.computersDyingTexture);
+									StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Players;
+								}*/
+								break;
+							}
 						}
-						break;
+					}
+				} else if (StateManager.getInstance().WhosTurnIsIt == StateManager.TurnType.Computers) {
+					int move = StateManager.getInstance().ActiveDifficulty.getMove(this.flowers);
+					this.flowers[move].initSprites(this.computer);
+					StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Players;
+				}
+				int[] winningIndexes;
+				Flower.FlowerType winningType;
+				if (LogicUtils.isGameOver(this.flowers, out winningType, out winningIndexes)) {
+					StateManager.getInstance().CurrentState = StateManager.GameState.GameOver;
+					if (winningType == LogicUtils.COMPUTERS_TYPE) {
+						this.computer.Score++;
+					} else if (winningType == LogicUtils.PLAYERS_TYPE) {
+						this.player.Score++;
+					}
+				}
+			} else if (StateManager.getInstance().CurrentState == StateManager.GameState.GameOver) {
+				Vector2 mousePos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+				this.replayButton.processActorsMovement(mousePos);
+				if (this.replayButton.isActorOver(mousePos)) {
+					if (currentState.LeftButton == ButtonState.Pressed && base.previousMouseState.LeftButton == ButtonState.Released) {// first press
+						reset(false);
 					}
 				}
 			}
-			this.previousMouseState = Mouse.GetState();
+			// At any time if we press escape we need to go to the in game menu
+			if (Keyboard.GetState().IsKeyDown(Keys.Escape) && base.previousKeyboardState.IsKeyUp(Keys.Escape)) {
+				StateManager.getInstance().CurrentState = StateManager.GameState.InGameMenu;
+			}
+			// Did we just return from the In Game Menu? If so determine the games state
+			if (StateManager.getInstance().CurrentState == StateManager.GameState.ReturnToGame) {
+				Flower.FlowerType dummy;
+				int[] dummyIndexes;
+				if (LogicUtils.isGameOver(this.flowers, out dummy, out dummyIndexes)) {
+					StateManager.getInstance().CurrentState = StateManager.GameState.GameOver;
+				} else {
+					StateManager.getInstance().CurrentState = StateManager.GameState.Active;
+				}
+			}
+			base.update(elapsed);
 		}
 
-		public void render(SpriteBatch spriteBatch) {
+		public override void render(SpriteBatch spriteBatch) {
 			if (this.lines != null) {
 				foreach (Line2D line in this.lines) {
 					line.render(spriteBatch);
@@ -136,22 +209,25 @@ namespace Flowers {
 					flower.render(spriteBatch);
 				}
 			}
+			if (this.computer != null) {
+				this.computer.render(spriteBatch);
+			}
+			if (this.player != null) {
+				this.player.render(spriteBatch);
+			}
+			if (this.replayButton != null && StateManager.getInstance().CurrentState == StateManager.GameState.GameOver) {
+				this.replayButton.render(spriteBatch);
+			}
 		}
 		#endregion Support methods
 
 		#region Destructor
-		public void dispose() {
-			if (this.playerOnesAliveTexture != null) {
-				this.playerOnesAliveTexture.Dispose();
+		public override void dispose() {
+			if (this.computer != null) {
+				this.computer.dispose();
 			}
-			if (this.playerOnesDyingTexture != null) {
-				this.playerOnesDyingTexture.Dispose();
-			}
-			if (this.playerTwosAliveTexture != null) {
-				this.playerTwosAliveTexture.Dispose();
-			}
-			if (this.playerTwosDyingTexture != null) {
-				this.playerTwosDyingTexture.Dispose();
+			if (this.player != null) {
+				this.player.dispose();
 			}
 			if (this.lines != null) {
 				foreach (Line2D line in this.lines) {
@@ -162,6 +238,9 @@ namespace Flowers {
 				foreach (Flower flower in this.flowers) {
 					flower.dispose();
 				}
+			}
+			if (this.replayButton != null) {
+				this.replayButton.dispose();
 			}
 		}
 		#endregion Destructor

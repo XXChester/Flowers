@@ -20,19 +20,19 @@ namespace Flowers {
 	public class Game1 : BaseRenderer {
 		#region Class variables
 		private IRenderable backGround;
-		private IRenderable activeDisplay;
-		private IRenderable gameDisplay;
-		private IRenderable mainMenu;
-		private IRenderable inGameMenu;
-		private StaticDrawable2D temp;
+		private Display activeDisplay;
+		private Display gameDisplay;
+		private Display mainMenu;
+		private Display inGameMenu;
+		public static readonly Vector2 RESOLUTION = new Vector2(1280f, 720f);
 		#endregion Class variables
 
 		#region Cosntructor
 		public Game1() {
 			BaseRendererParams parms = new BaseRendererParams();
 			parms.WindowsText = "Flowers";
-			parms.ScreenHeight = 720;
-			parms.ScreenWidth = 1280;
+			parms.ScreenHeight = (int)RESOLUTION.Y;
+			parms.ScreenWidth = (int)RESOLUTION.X;
 #if WINDOWS
 #if DEBUG
 			parms.RunningMode = RunningMode.Debug;
@@ -51,17 +51,13 @@ namespace Flowers {
 		/// all of your content.
 		/// </summary>
 		protected override void LoadContent() {
+			ResourceManager.getInstance().loadResources(GraphicsDevice, Content);
 			this.backGround = new BackGround(Content);
-			this.gameDisplay = new GameDisplay(base.GraphicsDevice, Content);
-			
-			this.activeDisplay = this.gameDisplay;
+			this.mainMenu = new MainMenu(Content);
+			this.gameDisplay = new GameDisplay(GraphicsDevice, Content);
+			this.inGameMenu = new InGameMenu();
 #if WINDOWS
 #if DEBUG
-			Texture2D texture = TextureUtils.create2DColouredTexture(base.GraphicsDevice, 25, 25, Color.Green);
-			StaticDrawable2DParams parms = new StaticDrawable2DParams();
-			parms.Texture = texture;
-			this.temp = new StaticDrawable2D(parms);
-			ScriptManager.getInstance().registerObject(this.temp, "temp");
 			ScriptManager.getInstance().LogFile = "Log.log";
 #endif
 #endif
@@ -73,8 +69,24 @@ namespace Flowers {
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime) {
+			if (StateManager.getInstance().CurrentState == StateManager.GameState.ReturnToMainMenu) {
+				// if we just came here we need to reset our Game
+				((GameDisplay)this.gameDisplay).reset(true);
+				StateManager.getInstance().CurrentState = StateManager.GameState.MainMenu;
+			}
+			if (StateManager.getInstance().CurrentState == StateManager.GameState.MainMenu) {
+				this.activeDisplay = this.mainMenu;
+			} else if (StateManager.getInstance().CurrentState == StateManager.GameState.InGameMenu) {
+				this.activeDisplay = this.inGameMenu;
+			} else {
+				this.activeDisplay = this.gameDisplay;
+			}
 			// Allows the game to exit
-			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) {
+			if (StateManager.getInstance().CurrentState == StateManager.GameState.MainMenu) {
+				if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) {
+					this.Exit();
+				}
+			} else if (StateManager.getInstance().CurrentState == StateManager.GameState.ShutDown) {
 				this.Exit();
 			}
 			float elapsed = gameTime.ElapsedGameTime.Milliseconds;
@@ -88,12 +100,14 @@ namespace Flowers {
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime) {
+#if DEBUG
+			base.Window.Title = "Flowers...FPS: " + FrameRate.getInstance().calculateFrameRate(gameTime);
+#endif
 			GraphicsDevice.Clear(Color.White);
 
 			base.spriteBatch.Begin();
 			this.backGround.render(spriteBatch);
 			this.activeDisplay.render(spriteBatch);
-			this.temp.render(spriteBatch);
 			base.spriteBatch.End();
 
 			base.Draw(gameTime);
@@ -119,7 +133,7 @@ namespace Flowers {
 			if (this.gameDisplay != null) {
 				this.gameDisplay.dispose();
 			}
-			this.temp.dispose();
+			ResourceManager.getInstance().dispose();
 			base.UnloadContent();
 		}
 		#endregion Destructor

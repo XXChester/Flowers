@@ -342,6 +342,11 @@
             Gets or sets the height of the button
             </summary>
         </member>
+        <member name="P:Engine.Model.Params.BaseButtonParams.ID">
+            <summary>
+            Buttons ID used for determining if a button was clicked
+            </summary>
+        </member>
         <member name="T:Engine.Scripting.Model.ScriptException">
             <summary>
             Used to handle exceptions thrown within the script management
@@ -450,6 +455,12 @@
             <summary>
             Handles incrementing the animation steps
             </summary>
+        </member>
+        <member name="M:Engine.Model.AnimationManager.resetAnimation(System.Int32)">
+            <summary>
+            Resets the animation sequence that the AnimationManager is controlling
+            </summary>
+            <param name="maxFrameCount">Max frames used to reset reverse sprites</param>
         </member>
         <member name="M:Engine.Model.AnimationManager.update(System.Single,System.Int32)">
             <summary>
@@ -884,14 +895,14 @@
             <param name="actorsPosition">Actors current position</param>
             <returns>boolean based on whether the actor is over the button</returns>
         </member>
-        <member name="M:Engine.Model.Button.Finalize">
-            <summary>
-            Buttons destructor with an implicit call to dispose()
-            </summary>
-        </member>
         <member name="M:Engine.Model.Button.dispose">
             <summary>
             abstract disposal of the base button
+            </summary>
+        </member>
+        <member name="P:Engine.Model.Button.ID">
+            <summary>
+            Gets or sets the ID of the button
             </summary>
         </member>
         <member name="M:Engine.Model.TexturedButton.#ctor(Engine.Model.Params.TexturedButtonParams)">
@@ -911,11 +922,6 @@
             Rendering of the button
             </summary>
             <param name="spriteBatch">SpriteBatch object to render the button</param>
-        </member>
-        <member name="M:Engine.Model.TexturedButton.Finalize">
-            <summary>
-            Buttons destructor with an implicit call to dispose
-            </summary>
         </member>
         <member name="M:Engine.Model.TexturedButton.dispose">
             <summary>
@@ -954,6 +960,25 @@
             <param name="boundingBox">BoundingBox object to draw</param>
             <param name="debugColour">Colour to draw the box in</param>
             <param name="lineTexture">Texture2D used for drawing the bounding box</param>
+        </member>
+        <member name="M:Engine.Utils.DebugUtils.drawRectangle(Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Graphics.Texture2D)">
+            <summary>
+            Draws a rectangle using Line2D's
+            </summary>
+            <param name="spriteBatch">SpriteBatch object used to draw the bounding box</param>
+            <param name="rectangle">Rectable object to draw</param>
+            <param name="debugColour">Colour to draw the rectangle in</param>
+            <param name="lineTexture">Texture2D used for drawing the rectangle</param>
+        </member>
+        <member name="M:Engine.Utils.DebugUtils.drawVector3s(Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Graphics.Texture2D)">
+            <summary>
+            Draws a set of vector 3s
+            </summary>
+            <param name="spriteBatch">SpriteBatch object used to draw the vectors</param>
+            <param name="max">Max position to draw</param>
+            <param name="min">Min position to draw</param>
+            <param name="debugColour">Colour to draw the Vectors in</param>
+            <param name="lineTexture">Texture2D used for drawing the vectors</param>
         </member>
         <member name="T:Engine.Model.Params.Line2DParams">
             <summary>
@@ -1166,6 +1191,11 @@
             <param name="frameHeight">Y size of a sprites single frame</param>
             <param name="spaceBetweenFrames">Space between the frames in the sprite sheet</param>
         </member>
+        <member name="M:Engine.Model.Animated2DSprite.reset">
+            <summary>
+            Resets the sprite
+            </summary>
+        </member>
         <member name="M:Engine.Model.Animated2DSprite.update(System.Single)">
             <summary>
             Updates the sprite, by default only the animation
@@ -1256,6 +1286,79 @@
         <member name="P:Engine.Model.Params.StaticDrawable2DParams.Texture">
             <summary>
             Gets or sets the texture to be drawn to the screen
+            </summary>
+        </member>
+        <member name="T:Engine.Model.Params.ColouredButtonParams">
+            <summary>
+            Params object containing the data required to build a coloured button
+            </summary>
+        </member>
+        <member name="P:Engine.Model.Params.ColouredButtonParams.LinesTexture">
+            <summary>
+            Gets or sets the lines texture
+            </summary>
+        </member>
+        <member name="P:Engine.Model.Params.ColouredButtonParams.RegularColour">
+            <summary>
+            Gets or sets the regular light colour
+            </summary>
+        </member>
+        <member name="P:Engine.Model.Params.ColouredButtonParams.MouseOverColour">
+            <summary>
+            Gets or sets the mouse over light colour
+            </summary>
+        </member>
+        <member name="P:Engine.Model.Params.ColouredButtonParams.Font">
+            <summary>
+            Gets or sets the SpriteFont object
+            </summary>
+        </member>
+        <member name="P:Engine.Model.Params.ColouredButtonParams.Text">
+            <summary>
+            Gets or sets the text to be written inside the button
+            </summary>
+        </member>
+        <member name="P:Engine.Model.Params.ColouredButtonParams.TextsPosition">
+            <summary>
+            Gets or sets the Texts position
+            </summary>
+        </member>
+        <member name="T:Engine.Model.ColouredButton">
+            <summary>
+            Coloured button
+            </summary>
+        </member>
+        <member name="M:Engine.Model.ColouredButton.#ctor(Engine.Model.Params.ColouredButtonParams)">
+            <summary>
+            Building of a coloured button
+            </summary>
+            <param name="parms"></param>
+        </member>
+        <member name="M:Engine.Model.ColouredButton.processActorsMovement(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Processes the movement of the actor (Mouse/XBox Controller etc)
+            </summary>
+            <param name="actorsPosition">Actors current position</param>
+        </member>
+        <member name="M:Engine.Model.ColouredButton.render(Microsoft.Xna.Framework.Graphics.SpriteBatch)">
+            <summary>
+            Rendering of the button
+            </summary>
+            <param name="spriteBatch">SpriteBatch object to render the button</param>
+        </member>
+        <member name="M:Engine.Model.ColouredButton.dispose">
+            <summary>
+            Releases the portions of the button that cause memory leaks
+            </summary>
+        </member>
+        <member name="P:Engine.Model.ColouredButton.Text">
+            <summary>
+            Gets or sets the Text2D object used by the button
+            </summary>
+        </member>
+        <member name="P:Engine.Model.ColouredButton.Lines">
+            <summary>
+            Gets or sets the Line2D object used by the button
             </summary>
         </member>
     </members>

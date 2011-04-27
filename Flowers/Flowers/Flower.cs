@@ -34,7 +34,6 @@ namespace Flowers {
 
 		#region Constructor
 		public Flower(ContentManager content, int index) {
-			this.type = FlowerType.None;
 			this.index = index;
 			Animated2DSpriteParams parms = new Animated2DSpriteParams();
 			parms.AnimationState = AnimationManager.AnimationState.Paused;
@@ -50,8 +49,9 @@ namespace Flowers {
 			parms.TotalFrameCount = 5;
 			parms.Origin = new Vector2(40f,80f);
 			this.aliveSprite = new Animated2DSprite(parms);
-			//NEED TO UPDATE THIS LATER
+			//TOD: NEED TO UPDATE THIS LATER
 			this.dyingSprite = new Animated2DSprite(parms);
+			reset();
 #if WINDOWS
 #if DEBUG
 
@@ -61,11 +61,17 @@ namespace Flowers {
 		#endregion Constructor
 
 		#region Support methods
-		public void initSprites(FlowerType type, Texture2D aliveTextured, Texture2D dyingTexture) {
-			this.type = type;
-			this.aliveSprite.Texture = aliveTextured;
+		public void initSprites(Player player) {
+			this.type = player.FlowerType;
+			this.aliveSprite.Texture = player.AliveTexture;
 			this.aliveSprite.AnimationManager.State = AnimationManager.AnimationState.PlayForwardOnce;
-			this.dyingSprite.Texture = dyingTexture;
+			this.dyingSprite.Texture = player.DyingTexture;
+		}
+
+		public void reset() {
+			this.type = FlowerType.None;
+			this.aliveSprite.reset();
+			this.dyingSprite.reset();
 		}
 
 		public void update(float elapsed) {
