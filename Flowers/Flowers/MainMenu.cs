@@ -37,7 +37,7 @@ namespace Flowers {
 			buttonParams.Height = ResourceManager.BUTTONS_HEIGHT;
 			buttonParams.Width = ResourceManager.BUTTONS_WIDTH;
 			buttonParams.MouseOverColour = ResourceManager.getInstance().ButtonsMouseOverColour;
-			buttonParams.RegularColour = ResourceManager.getInstance().ButtonsRegularColour;
+			buttonParams.RegularColour = ResourceManager.getInstance().TextColour;
 
 			buttonParams.ID = BUTTON_ID_EASY;
 			buttonParams.StartX = startX;

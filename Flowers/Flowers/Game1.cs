@@ -54,7 +54,7 @@ namespace Flowers {
 			ResourceManager.getInstance().loadResources(GraphicsDevice, Content);
 			this.backGround = new BackGround(Content);
 			this.mainMenu = new MainMenu(Content);
-			this.gameDisplay = new GameDisplay(GraphicsDevice, Content);
+			this.gameDisplay = new GameDisplay(Content);
 			this.inGameMenu = new InGameMenu();
 #if WINDOWS
 #if DEBUG

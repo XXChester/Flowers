@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackGround.cs" />
+    <Compile Include="Cloud.cs" />
     <Compile Include="Display.cs" />
     <Compile Include="Difficulties.cs" />
     <Compile Include="Fence.cs" />

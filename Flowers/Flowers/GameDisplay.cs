@@ -17,7 +17,6 @@ namespace Flowers {
 	public class GameDisplay : Display {
 		#region Class variables
 		private Flower[] flowers;
-		private Line2D[] lines;
 		private Player player;
 		private Player computer;
 		private Button replayButton;
@@ -28,39 +27,7 @@ namespace Flowers {
 		#endregion Class properties
 
 		#region Constructor
-		public GameDisplay(GraphicsDevice device, ContentManager content) {
-			// create the boards lines
-			Texture2D linesTexture = TextureUtils.create2DColouredTexture(device, 5, 5, Color.White);
-			Line2DParams lineParams = new Line2DParams();
-			lineParams.Texture = linesTexture;
-			lineParams.LightColour = Color.Black;
-			lineParams.Scale = new Vector2(5f, 5f);
-			this.lines = new Line2D[8];
-			lineParams.StartPosition = new Vector2(350f,525f);
-			lineParams.EndPosition = new Vector2(900f, 525f);
-			this.lines[0] = new Line2D(lineParams);
-			lineParams.StartPosition = new Vector2(350f,612f);
-			lineParams.EndPosition = new Vector2(900f, 612f);
-			this.lines[1] = new Line2D(lineParams);
-			lineParams.StartPosition = new Vector2(515f,450f);
-			lineParams.EndPosition = new Vector2(515f, 700f);
-			this.lines[2] = new Line2D(lineParams);
-			lineParams.StartPosition = new Vector2(715f,450f);
-			lineParams.EndPosition = new Vector2(715f, 700f);
-			this.lines[3] = new Line2D(lineParams);
-			lineParams.StartPosition = new Vector2(350f, 450f);
-			lineParams.EndPosition = new Vector2(350f, 700f);
-			this.lines[4] = new Line2D(lineParams);
-			lineParams.StartPosition = new Vector2(900f, 450f);
-			lineParams.EndPosition = new Vector2(900f, 700f);
-			this.lines[5] = new Line2D(lineParams);
-			lineParams.StartPosition = new Vector2(350f, 450f);
-			lineParams.EndPosition = new Vector2(905f, 450f);
-			this.lines[6] = new Line2D(lineParams);
-			lineParams.StartPosition = new Vector2(350f, 700f);
-			lineParams.EndPosition = new Vector2(900f, 700f);
-			this.lines[7] = new Line2D(lineParams);
-
+		public GameDisplay(ContentManager content) {
 			// create the flowers
 			this.flowers = new Flower[9];
 			for (int i = 0; i < this.flowers.Length; i++) {
@@ -83,7 +50,7 @@ namespace Flowers {
 			buttonParams.Height = ResourceManager.BUTTONS_HEIGHT;
 			buttonParams.Width = ResourceManager.BUTTONS_WIDTH;
 			buttonParams.MouseOverColour = ResourceManager.getInstance().ButtonsMouseOverColour;
-			buttonParams.RegularColour = ResourceManager.getInstance().ButtonsRegularColour;
+			buttonParams.RegularColour = ResourceManager.getInstance().TextColour;
 			buttonParams.StartX = startX;
 			buttonParams.StartY = 550;
 			buttonParams.Text = "Replay";
@@ -91,11 +58,7 @@ namespace Flowers {
 			this.replayButton = new ColouredButton(buttonParams);
 #if WINDOWS
 #if DEBUG
-			if (this.lines != null) {
-				for (int i = 0; i < this.lines.Length; i++) {
-					ScriptManager.getInstance().registerObject(this.lines[i], "line" + i);
-				}
-			}
+			
 #endif
 #endif
 			reset(true);
@@ -122,6 +85,20 @@ namespace Flowers {
 			if (StateManager.getInstance().CurrentState == StateManager.GameState.GameOver) {
 				StateManager.getInstance().CurrentState = StateManager.GameState.Active;
 			}
+
+			// TODO: TEST DATA REMOVE ME!!
+			flowers[1].initSprites(this.computer);
+			flowers[3].initSprites(this.computer);
+			flowers[4].initSprites(this.player);
+			flowers[5].initSprites(this.player);
+			/*flowers[0].initSprites(this.player);
+			flowers[1].initSprites(this.player);
+			flowers[3].initSprites(this.computer);
+			flowers[4].initSprites(this.computer);
+			//flowers[6].initSprites(this.player);
+			//flowers[7].initSprites(this.computer);*/
+			StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Computers;
+			//StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Players;
 		}
 
 		public override void update(float elapsed) {
@@ -146,20 +123,25 @@ namespace Flowers {
 						Flower flower = null;
 						for (int i = 0; i < this.flowers.Length; i++) {
 							flower = this.flowers[i];
-							if (PickingUtils.pickRectangle(mousePos, SpritePositioner.getInstance().getPositionsRectangle(flower.Index))) {
-								if (StateManager.getInstance().WhosTurnIsIt == StateManager.TurnType.Players) {
-									flower.initSprites(this.player);
-									StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Computers;
-								} /*else {// player two if we implement it
+							if (flower.Type == Flower.FlowerType.None) {
+								if (PickingUtils.pickRectangle(mousePos, SpritePositioner.getInstance().getPositionsRectangle(flower.Index))) {
+									if (StateManager.getInstance().WhosTurnIsIt == StateManager.TurnType.Players) {
+										flower.initSprites(this.player);
+										StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Computers;
+									} /*else {// player two if we implement it
 									flower.initSprites(Flower.FlowerType.Daisy, this.computersAliveTexture, this.computersDyingTexture);
 									StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Players;
 								}*/
-								break;
+									break;
+								}
 							}
 						}
 					}
 				} else if (StateManager.getInstance().WhosTurnIsIt == StateManager.TurnType.Computers) {
 					int move = StateManager.getInstance().ActiveDifficulty.getMove(this.flowers);
+					if (this.flowers[move].Type != Flower.FlowerType.None) {// once the minimax algorithm is working this should never happen
+						throw new ArgumentException("Failed to generate a correct move, generated a move in the same damn spot that is takin already");
+					}
 					this.flowers[move].initSprites(this.computer);
 					StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Players;
 				}
@@ -200,11 +182,6 @@ namespace Flowers {
 		}
 
 		public override void render(SpriteBatch spriteBatch) {
-			if (this.lines != null) {
-				foreach (Line2D line in this.lines) {
-					line.render(spriteBatch);
-				}
-			}
 			if (this.flowers != null) {
 				foreach (Flower flower in this.flowers) {
 					flower.render(spriteBatch);
@@ -229,11 +206,6 @@ namespace Flowers {
 			}
 			if (this.player != null) {
 				this.player.dispose();
-			}
-			if (this.lines != null) {
-				foreach (Line2D line in this.lines) {
-					line.dispose();
-				}
 			}
 			if (this.flowers != null) {
 				foreach (Flower flower in this.flowers) {

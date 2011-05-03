@@ -23,8 +23,9 @@ namespace Flowers {
 		#region Class propeties
 		public SpriteFont Font { get; set; }
 		public Texture2D ButtonsLineTexture { get; set; }
+		public Texture2D CloudTexture { get; set; }
 		public Color ButtonsMouseOverColour { get; set; }
-		public Color ButtonsRegularColour { get; set; }
+		public Color TextColour { get; set; }
 		#endregion Class properties
 
 		#region Constructor
@@ -38,9 +39,10 @@ namespace Flowers {
 
 		public void loadResources(GraphicsDevice device, ContentManager content) {
 			this.Font = content.Load<SpriteFont>("HUDFont");
+			this.CloudTexture = content.Load<Texture2D>("Cloud");
 			this.ButtonsLineTexture = TextureUtils.create2DColouredTexture(device, 1, 1, Color.White);
-			this.ButtonsMouseOverColour = Color.Gray;
-			this.ButtonsRegularColour = Color.Black;
+			this.ButtonsMouseOverColour = Color.White;
+			this.TextColour = Color.Gray;
 		}
 		#endregion Support methods
 
@@ -52,6 +54,9 @@ namespace Flowers {
 		public void dispose() {
 			if (this.ButtonsLineTexture != null) {
 				this.ButtonsLineTexture.Dispose();
+			}
+			if (this.CloudTexture != null) {
+				this.CloudTexture.Dispose();
 			}
 		}
 		#endregion Destructor

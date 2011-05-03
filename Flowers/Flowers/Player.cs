@@ -34,7 +34,7 @@ namespace Flowers {
 			this.Score = 0;
 			Text2DParams textParams = new Text2DParams();
 			textParams.Font = font;
-			textParams.LightColour = Color.Black;
+			textParams.LightColour = ResourceManager.getInstance().TextColour;
 			textParams.Position = position;
 			this.Text = new Text2D(textParams);
 		}

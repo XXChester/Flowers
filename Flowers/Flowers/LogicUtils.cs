@@ -7,7 +7,7 @@ namespace Flowers {
 	public static class LogicUtils {
 		private const int CHECKS_WIDTH = 3;
 		private const int CHECKS_HEIGHT = 8;
-		private readonly static int[,] BOARD_LINE_CHECKS = new int[CHECKS_HEIGHT, CHECKS_WIDTH] {
+		public readonly static int[,] BOARD_LINE_CHECKS = new int[CHECKS_HEIGHT, CHECKS_WIDTH] {
 				{0,1,2},// top row
 				{0,3,6},// first column
 				{0,4,8},// top left to bottom right
@@ -20,11 +20,11 @@ namespace Flowers {
 		public const Flower.FlowerType PLAYERS_TYPE = Flower.FlowerType.Daisy;
 		public const Flower.FlowerType COMPUTERS_TYPE = Flower.FlowerType.Rose;
 
-		public static bool checkBoardsState(Flower[] board, Flower.FlowerType flowerType, out int[] winningIndexes) {
+		public static bool checkBoardsState(Flower.FlowerType[] board, Flower.FlowerType flowerType, out int[] winningIndexes) {
 			bool foundMatch = false;
 			winningIndexes = null;
 			for (int i = 0; i < CHECKS_HEIGHT; i++) {
-				if (board[BOARD_LINE_CHECKS[i, 0]].Type == flowerType && board[BOARD_LINE_CHECKS[i, 1]].Type == flowerType && board[BOARD_LINE_CHECKS[i, 2]].Type == flowerType) {
+				if (board[BOARD_LINE_CHECKS[i, 0]] == flowerType && board[BOARD_LINE_CHECKS[i, 1]] == flowerType && board[BOARD_LINE_CHECKS[i, 2]] == flowerType) {
 					foundMatch = true;
 					winningIndexes = new int[CHECKS_WIDTH];
 					for (int j = 0; j < CHECKS_WIDTH; j++) {
@@ -36,7 +36,17 @@ namespace Flowers {
 			return foundMatch;
 		}
 
+		public static bool isGameOver(Flower.FlowerType[] board) {
+			int[] dummy1;
+			Flower.FlowerType dummy2;
+			return (isGameOver(board, out dummy2, out dummy1));
+		}
+
 		public static bool isGameOver(Flower[] board, out Flower.FlowerType winningType, out int[] winningIndexes) {
+			return isGameOver(getFlowerTypes(board), out winningType, out winningIndexes);
+		}
+
+		public static bool isGameOver(Flower.FlowerType[] board, out Flower.FlowerType winningType, out int[] winningIndexes) {
 			bool gameOver = false;
 			// first check if anyone has won
 			if (checkBoardsState(board, Flower.FlowerType.Daisy, out winningIndexes)) {
@@ -54,7 +64,7 @@ namespace Flowers {
 			if (!gameOver) {
 				gameOver = true;
 				for (int i = 0; i < board.Length; i++) {
-					if (board[i].Type == Flower.FlowerType.None) {
+					if (board[i] == Flower.FlowerType.None) {
 						gameOver = false;
 						break;
 					}
@@ -86,6 +96,22 @@ namespace Flowers {
 				}
 			}
 			return canWin;
+		}
+
+		public static Flower.FlowerType[] getFlowerTypes(Flower[] board) {
+			Flower.FlowerType[] types = new Flower.FlowerType[board.Length];
+			for (int i = 0; i < board.Length; i++) {
+				types[i] = board[i].Type;
+			}
+			return types;
+		}
+
+		public static Flower.FlowerType[] cloneFlowerTypes(Flower.FlowerType[] oldTypes) {
+			Flower.FlowerType[] newTypes = new Flower.FlowerType[oldTypes.Length];
+			for (int i = 0; i < oldTypes.Length; i++) {
+				newTypes[i] = oldTypes[i];
+			}
+			return newTypes;
 		}
 	}
 }

@@ -30,27 +30,32 @@ Raw version of the game functional with programmer art
 	Polish(Phase 2)
 ============================
 Replace the programmer art with real art and make the game not only maintain its functionality but also add a nice playable environment
+[*]Background
 []Screen fades in and out?
 []All sprites not part of the winning line do their dying animation
 []Sun sprite
-[]Clouds
-[]House
+[*]Clouds
+[*]House
 []Fence
-[]Garden
+[*]Garden
+[]Bush around the gardens edge
+[]Smoke particles from the house's chimney
 []Sfx
 
 ============================
 		Time
 ============================
 Planning:
-	3 hours
+Game mechanics:	3 hours
+MinMax algorithm:	6:15pm-7:15pm
+
 Programming:		
 core:				9.5hours
-MinMaxAlgorithm:	
-polish:				
+MinMaxAlgorithm:	4.5hours
+polish:				.5hours
 
-Art:
-	2.5hours
+Art(programmer):
+	3.75hours	
 Sound:
 	
 Total Time:
