@@ -87,18 +87,21 @@ namespace Flowers {
 			}
 
 			// TODO: TEST DATA REMOVE ME!!
-			flowers[1].initSprites(this.computer);
+			/*flowers[2].initSprites(this.computer);
+			flowers[5].initSprites(this.computer);
+			flowers[7].initSprites(this.player);*/
+			/*flowers[1].initSprites(this.computer);
 			flowers[3].initSprites(this.computer);
 			flowers[4].initSprites(this.player);
-			flowers[5].initSprites(this.player);
+			flowers[5].initSprites(this.player);*/
 			/*flowers[0].initSprites(this.player);
 			flowers[1].initSprites(this.player);
 			flowers[3].initSprites(this.computer);
 			flowers[4].initSprites(this.computer);
 			//flowers[6].initSprites(this.player);
 			//flowers[7].initSprites(this.computer);*/
-			StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Computers;
-			//StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Players;
+			//StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Computers;
+			StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Players;
 		}
 
 		public override void update(float elapsed) {

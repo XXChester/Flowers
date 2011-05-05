@@ -435,8 +435,7 @@ namespace Flowers {
 			}
 		}
 
-		private int miniMax(Flower.FlowerType[] types, Flower.FlowerType turn, ref int movesToAchieve) {
-			movesToAchieve += 1;
+		private int miniMax(Flower.FlowerType[] types, Flower.FlowerType turn) {
 			int bestMove;
 			int move;
 			int[] dummy;
@@ -450,20 +449,25 @@ namespace Flowers {
 					return 0;
 				}
 			} else {
-				if (turn == LogicUtils.COMPUTERS_TYPE) {
-					bestMove = -2;
+				if (LogicUtils.COMPUTERS_TYPE.Equals(turn)) {
+					bestMove = -INFINITY;
 				} else {
-					bestMove = 2;
+					bestMove = INFINITY;
 				}
+				Flower.FlowerType[] cloned = null;
 				for (int i = 0; i < types.Length; i++) {
-				Flower.FlowerType[] cloned = LogicUtils.cloneFlowerTypes(types);
 					if (types[i] == Flower.FlowerType.None) {// get valid moves
 						cloned = LogicUtils.cloneFlowerTypes(types);
-						cloned[i] = EnumUtils.numberToEnum<Flower.FlowerType>(-((int)turn));
-						move = miniMax(cloned, EnumUtils.numberToEnum<Flower.FlowerType>(-((int)turn)), ref movesToAchieve);
-						if (turn == LogicUtils.COMPUTERS_TYPE && move > bestMove) {
+						if (LogicUtils.COMPUTERS_TYPE.Equals(turn)) {
+							cloned[i] = LogicUtils.COMPUTERS_TYPE;
+							move = miniMax(cloned, LogicUtils.PLAYERS_TYPE);
+						} else {
+							cloned[i] = LogicUtils.PLAYERS_TYPE;
+							move = miniMax(cloned, LogicUtils.COMPUTERS_TYPE);
+						}
+						if (LogicUtils.COMPUTERS_TYPE.Equals(turn) && move > bestMove) {
 							bestMove = move;
-						} else if (turn == LogicUtils.PLAYERS_TYPE && move < bestMove) {
+						} else if (LogicUtils.PLAYERS_TYPE.Equals(turn) && move < bestMove) {
 							bestMove = move;
 						}
 					}
@@ -472,11 +476,14 @@ namespace Flowers {
 			return bestMove;
 		}
 		#endregion Tests
-		private struct temp {
+		/*private struct temp {
 			public int index;
 			public int score;
-			public int movesToAchieve;
-		}
+
+			public override string ToString() {
+				return (string.Format("Index: {0} Score: {1}", index, score));
+			}
+		}*/
 		public override int getMove(Flower[] board) {
 			//int result = -1;
 			int result = -2;
@@ -493,85 +500,26 @@ namespace Flowers {
 				result = base.generateMove(board);
 			} else {
 				int move;
-				int bestMove = -2;
-				int bestMovesToAchieve = -2;
-				int movesToAchieve;
-				List<temp> possibilities = new List<temp>();
-				//int[] possibilities = new int[9];
+				int bestMove = -INFINITY;
+				//List<temp> possibilities = new List<temp>();
+				Flower.FlowerType[] cloned;
 				for (int i = 0; i < types.Length; i++) {
 					if (types[i] == Flower.FlowerType.None) {
-						movesToAchieve = 0;
-						types[i] = LogicUtils.COMPUTERS_TYPE;
-							move = miniMax(types, LogicUtils.PLAYERS_TYPE, ref movesToAchieve);
+						cloned = LogicUtils.cloneFlowerTypes(types);
+						cloned[i] = LogicUtils.COMPUTERS_TYPE;
+						move = miniMax(cloned, LogicUtils.PLAYERS_TYPE);
+							/*temp test = new temp();
+							test.index = i;
+							test.score = move;
+							possibilities.Add(test);*/
 						if (move > bestMove) {
 							result = i;
 							bestMove = move;
-							bestMovesToAchieve = movesToAchieve;
-							//result = move;
-							//possibilities[i] = movesToAchieve;
-							/*temp bestMove = new temp();
-							bestMove.index = i;
-							bestMove.movesToAchieve = movesToAchieve;
-							bestMove.score = move;
-							possibilities.Add(bestMove);*/
-						} else if (move == bestMove) {
-							if (movesToAchieve < bestMovesToAchieve) {
-								bestMovesToAchieve = movesToAchieve;
-								result = i;
-							}
 						}
 					}
 				}
-				/*int lowestCost = INFINITY;
-				for (int i = 0; i < possibilities.Count; i++) {
-					if (possibilities[i].movesToAchieve <= lowestCost) {
-						lowestCost = possibilities[i].movesToAchieve;
-						result = possibilities[i].index;
-					}
-				}*/
-				/*int temp;
-				int alpha = -INFINITY;
-				int beta = INFINITY;
-				int[] values = new int[9];// for debugging
-				for (int i = 0; i < types.Length; i++) {
-					if (types[i] == Flower.FlowerType.None) {
-						types = LogicUtils.cloneFlowerTypes(types);
-						types[i] = LogicUtils.COMPUTERS_TYPE;
-						temp = alphaBeta(types, StateManager.TurnType.Players, alpha, beta);
-						values[i] = temp;
-						// NEED to add in tracking the depth that it goes so winning in 1 move vs 2 we want to choose the first option
-						if (temp > alpha) {
-							alpha = temp;
-							result = i;
-						}
-					}
-				}*/
+				//int asdt23ra = possibilities.Count;
 			}
-			//result = miniMax(types, LogicUtils.COMPUTERS_TYPE);
-			//result = minMax(types, -1);
-			//result = miniMax(types, StateManager.TurnType.Computers);
-			//result = miniMax(types, 8);
-			//result = miniMax(types, 8);
-			/*int v = MASTER_ALPHA;
-			int alpha = MASTER_ALPHA;
-			int beta = MASTER_BETA;
-			int temp;
-			for (int i = 0; i < types.Length; i++) {
-				// if the type is none
-				if (types[i] == Flower.FlowerType.None) {
-					types[i] = LogicUtils.COMPUTERS_TYPE;		//PROBLEM IS RIGHT HERE....TYPE[] is retaining values from child calls...it is passed as ref not value
-					temp = minValue(types, alpha, beta);
-					if (temp > v) {
-						result = i;
-						v = temp;
-					}
-					if (v >= beta) {
-						break;
-					}
-					alpha = max(alpha, v);
-					types[i] = Flower.FlowerType.None;
-				}
-			}*/
 			return result;
 		}
 		#endregion Support methods

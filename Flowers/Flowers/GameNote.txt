@@ -46,12 +46,13 @@ Replace the programmer art with real art and make the game not only maintain its
 		Time
 ============================
 Planning:
-Game mechanics:	3 hours
-MinMax algorithm:	6:15pm-7:15pm
+Game mechanics:	3hours
+MinMax algorithm:	2hours
 
 Programming:		
 core:				9.5hours
-MinMaxAlgorithm:	4.5hours
+MinMaxAlgorithm:	5.25hours
+Alpha/Beta pruning:
 polish:				.5hours
 
 Art(programmer):
