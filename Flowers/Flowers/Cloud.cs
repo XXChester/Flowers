@@ -17,7 +17,7 @@ namespace Flowers {
 	public class Cloud : IRenderable {
 		#region Class variables
 		private StaticDrawable2D drawable;
-		private const float SPEED = 25f;
+		private const float SPEED = 10f / 1000f;// float a second
 		private const float RESET_X = 1400f;
 		#endregion Class variables
 
@@ -37,7 +37,7 @@ namespace Flowers {
 		#region Support methods
 		public void update(float elapsed) {
 			if (this.drawable != null) {
-				Vector2 newPosition = new Vector2(this.drawable.Position.X - (SPEED * (elapsed / 1000)), this.drawable.Position.Y);
+				Vector2 newPosition = new Vector2(this.drawable.Position.X - (SPEED * elapsed), this.drawable.Position.Y);
 				if (newPosition.X < -100f) {
 					newPosition.X = RESET_X;
 				}
