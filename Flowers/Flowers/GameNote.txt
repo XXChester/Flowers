@@ -23,7 +23,8 @@ Raw version of the game functional with programmer art
 [*]Render main menu screen
 [*]Render in game menu screen
 [*]Implement flow mechanism
-[]Implement Min Max algorithm (Hard AI)
+[]*Implement Min Max algorithm (Impossible AI)
+[]Implement Alpha/Beta pruning on the algorithm to make it faster...although in TicTacToe you will never see this performance increase...this is more of a best practises step
 
 
 ============================
