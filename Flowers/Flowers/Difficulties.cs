@@ -75,7 +75,7 @@ namespace Flowers {
 	//			//max is the greatest a value of all the children
 	//	return a
 	#endregion MinMax psudeo
-	public class HardDifficulty : Difficulty {
+	public class ImpossibleDifficulty : Difficulty {
 		#region Class variables
 		private const int INFINITY = 10000;
 		private const int MASTER_ALPHA = -2;

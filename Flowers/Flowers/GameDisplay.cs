@@ -85,23 +85,6 @@ namespace Flowers {
 			if (StateManager.getInstance().CurrentState == StateManager.GameState.GameOver) {
 				StateManager.getInstance().CurrentState = StateManager.GameState.Active;
 			}
-
-			// TODO: TEST DATA REMOVE ME!!
-			/*flowers[2].initSprites(this.computer);
-			flowers[5].initSprites(this.computer);
-			flowers[7].initSprites(this.player);*/
-			/*flowers[1].initSprites(this.computer);
-			flowers[3].initSprites(this.computer);
-			flowers[4].initSprites(this.player);
-			flowers[5].initSprites(this.player);*/
-			/*flowers[0].initSprites(this.player);
-			flowers[1].initSprites(this.player);
-			flowers[3].initSprites(this.computer);
-			flowers[4].initSprites(this.computer);
-			//flowers[6].initSprites(this.player);
-			//flowers[7].initSprites(this.computer);*/
-			//StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Computers;
-			StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Players;
 		}
 
 		public override void update(float elapsed) {
@@ -142,9 +125,6 @@ namespace Flowers {
 					}
 				} else if (StateManager.getInstance().WhosTurnIsIt == StateManager.TurnType.Computers) {
 					int move = StateManager.getInstance().ActiveDifficulty.getMove(this.flowers);
-					if (this.flowers[move].Type != Flower.FlowerType.None) {// once the minimax algorithm is working this should never happen
-						throw new ArgumentException("Failed to generate a correct move, generated a move in the same damn spot that is takin already");
-					}
 					this.flowers[move].initSprites(this.computer);
 					StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Players;
 				}

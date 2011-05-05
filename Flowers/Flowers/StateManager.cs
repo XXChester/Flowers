@@ -47,7 +47,7 @@ namespace Flowers {
 					this.activeDifficulty = new ModerateDifficulty();
 					this.currentState = GameState.Active;
 				} else if (value == GameState.InitHardGame) {
-					this.activeDifficulty = new HardDifficulty();
+					this.activeDifficulty = new ImpossibleDifficulty();
 					this.currentState = GameState.Active;
 				} else {
 					this.currentState = value;

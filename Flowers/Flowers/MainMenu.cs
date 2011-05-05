@@ -18,7 +18,7 @@ namespace Flowers {
 		private Button[] buttons;
 		private const int BUTTON_ID_EASY = 1;
 		private const int BUTTON_ID_MODERATE = 2;
-		private const int BUTTON_ID_HARD = 3;
+		private const int BUTTON_ID_IMPOSSIBLE = 3;
 		private const int BUTTON_ID_EXIT = 4;
 		#endregion Class variables
 
@@ -53,11 +53,11 @@ namespace Flowers {
 			buttonParams.TextsPosition = new Vector2(startX + (textXDiff - 15f), buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
 			this.buttons[1] = new ColouredButton(buttonParams);
 
-			buttonParams.ID = BUTTON_ID_HARD;
+			buttonParams.ID = BUTTON_ID_IMPOSSIBLE;
 			buttonParams.StartX = startX;
 			buttonParams.StartY = 575;
-			buttonParams.Text = "Hard";
-			buttonParams.TextsPosition = new Vector2(startX + textXDiff, buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
+			buttonParams.Text = "Impossible";
+			buttonParams.TextsPosition = new Vector2(startX + (textXDiff - 30f), buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
 			this.buttons[2] = new ColouredButton(buttonParams);
 
 			buttonParams.ID = BUTTON_ID_EXIT;
@@ -92,7 +92,7 @@ namespace Flowers {
 								StateManager.getInstance().CurrentState = StateManager.GameState.InitEasyGame;
 							} else if (BUTTON_ID_MODERATE == button.ID) {
 								StateManager.getInstance().CurrentState = StateManager.GameState.InitModerateGame;
-							} else if (BUTTON_ID_HARD == button.ID) {
+							} else if (BUTTON_ID_IMPOSSIBLE == button.ID) {
 								StateManager.getInstance().CurrentState = StateManager.GameState.InitHardGame;
 							} else if (BUTTON_ID_EXIT == button.ID) {
 								StateManager.getInstance().CurrentState = StateManager.GameState.ShutDown;
