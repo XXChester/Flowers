@@ -16,9 +16,9 @@ using Engine.Scripting;
 namespace Flowers {
 	public class Flower : IRenderable {
 		public enum FlowerType {
-			None = 0,
-			Rose = 1,
-			Daisy = -1
+			None,
+			Rose,
+			Daisy
 		}
 		#region Class variables
 		private Animated2DSprite aliveSprite;

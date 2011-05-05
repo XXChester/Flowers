@@ -104,269 +104,6 @@ namespace Flowers {
 			return (a < b ? a : b);// if a is less than b, return a, else return b
 		}
 
-		private int isGameOver(Flower.FlowerType[] types) {
-			int value = -INFINITY;
-			int[] dummy;
-			Flower.FlowerType winningType;
-			if (LogicUtils.isGameOver(types, out winningType, out dummy)) {
-				if (LogicUtils.COMPUTERS_TYPE.Equals(winningType)) {
-					value = 1;// maximizer
-				} else if (LogicUtils.PLAYERS_TYPE.Equals(winningType)) {
-					value = -1;// minamizer
-				}
-				value = 0;
-			}
-			return value;
-		}
-
-		private int maxValue(Flower.FlowerType[] types, int alpha, int beta) {
-			int value = isGameOver(types);
-			if (value == -INFINITY) {
-				value = MASTER_ALPHA;
-				Flower.FlowerType[] clonedTypes;
-				for (int i = 0; i < types.Length; i++) {
-					clonedTypes = LogicUtils.cloneFlowerTypes(types);
-					// if the type is none than process minimax
-					if (clonedTypes[i] == Flower.FlowerType.None) {
-						clonedTypes[i] = LogicUtils.COMPUTERS_TYPE;	// maximizer
-						value = max(value, minValue(clonedTypes, alpha, beta));
-						if (value >= beta) {
-							break;
-						}
-						alpha = max(alpha, value);
-						//types[i] = Flower.FlowerType.None;
-					}
-				}
-			}
-			return value;
-		}
-
-		private int minValue(Flower.FlowerType[] types, int alpha, int beta) {
-			int value = isGameOver(types);
-			if (value == -INFINITY) {
-				value = MASTER_BETA;
-				Flower.FlowerType[] clonedTypes;
-				for (int i = 0; i < types.Length; i++) {
-					clonedTypes = LogicUtils.cloneFlowerTypes(types);
-					// if the type is none than process minimax
-					if (clonedTypes[i] == Flower.FlowerType.None) {
-						clonedTypes[i] = LogicUtils.PLAYERS_TYPE;	// minamizer
-						value = min(value, maxValue(clonedTypes, alpha, beta));
-						if (value <= alpha) {
-							break;
-						}
-						beta = min(beta, value);
-						//types[i] = Flower.FlowerType.None;
-					}
-				}
-			}
-			return value;
-		}
-		#region Tests
-		private int miniMax(Flower.FlowerType[] types,/* StateManager.TurnType turn,*/ int depth) {
-			// computer is the maximizer
-			int[] dummy;
-			Flower.FlowerType winningType;
-			if (LogicUtils.isGameOver(types, out winningType, out dummy)) {
-				if (winningType == LogicUtils.COMPUTERS_TYPE) {
-					return +1;
-				} else if (winningType == LogicUtils.PLAYERS_TYPE) {
-					return -1;
-				}
-				return 0;
-			} else if (depth <= 0) {
-				return 0;
-			} else {
-				int a = -INFINITY;
-				types = LogicUtils.cloneFlowerTypes(types);
-				for (int i = 0; i < types.Length; i++) {
-					// if the type is none than process minimax
-					if (types[i] == Flower.FlowerType.None) {
-						types[i] = LogicUtils.COMPUTERS_TYPE;
-						a = max(a, miniMax(types, depth - 1));
-					}
-				}
-				return a;
-				/*int value = -INFINITY;
-				int bestScore = -INFINITY;
-				int previousScore = -INFINITY;
-				for (int i = 0; i < types.Length; i++) {
-					// if the type is none than process minimax
-					if (types[i] == Flower.FlowerType.None) {
-						if (turn == StateManager.TurnType.Computers) {
-							types[i] = LogicUtils.COMPUTERS_TYPE;
-							value = (miniMax(types, StateManager.TurnType.Players, depth - 1));
-						} else {
-							types[i] = LogicUtils.PLAYERS_TYPE;
-							value = (miniMax(types, StateManager.TurnType.Computers, depth - 1));
-						}
-
-						if (value > previousScore) {
-							bestScore = i;
-						}
-						types[i] = Flower.FlowerType.None;
-						previousScore = value;
-					}
-				}*/
-				/*int value = INFINITY;
-				int bestScore = INFINITY;
-				int previousScore = INFINITY;
-				for (int i = 0; i < types.Length; i++) {
-					// if the type is none than process minimax
-					if (types[i] == Flower.FlowerType.None) {
-						types[i] = LogicUtils.COMPUTERS_TYPE;
-						value = (miniMax(types, turn, depth -1));
-						if (value < previousScore) {
-							bestScore = value;
-						}
-						types[i] = Flower.FlowerType.None;
-						previousScore = value;
-					}
-				}*/
-				/*int bestMove;
-				if (turn == StateManager.TurnType.Computers) {
-					bestScore = -INFINITY;
-					bestMove = -INFINITY;
-				} else {
-					bestScore = INFINITY;
-					bestMove = INFINITY;
-				}
-				int newScore;
-				for (int i = 0; i < types.Length; i++) {
-					// if the type is none than process minimax
-					if (types[i] == Flower.FlowerType.None) {
-						if (turn == StateManager.TurnType.Computers) {
-							types[i] = LogicUtils.COMPUTERS_TYPE;
-							newScore = miniMax(types, StateManager.TurnType.Players);
-							if (newScore > bestScore) {
-								bestScore = newScore;
-								bestMove = i;
-							}
-						} else {
-							types[i] = LogicUtils.PLAYERS_TYPE;
-							newScore = miniMax(types, StateManager.TurnType.Computers);
-							if (newScore < bestScore) {
-								bestScore = newScore;
-								bestMove = i;
-							}
-						}
-						// reset the type
-						types[i] = Flower.FlowerType.None;
-					}
-				}
-				return bestMove;*/
-				//return bestScore;
-			}
-		}
-
-		/*private int minMax(Flower.FlowerType[] types, int depth) {
-			int bestMove = +INFINITY;
-			int value;
-			int index = 0;
-			int[] bestMoves = new int[9];
-			for (int i = 0; i < types.Length; i++) {
-				// if the type is none
-				if (types[i] == Flower.FlowerType.None) {
-					types[i] = LogicUtils.COMPUTERS_TYPE;
-					value = maxSearch(types);
-					if (value < bestMove) {
-						bestMove = value;
-						index = 0;
-						bestMoves[index] = i;
-					} else if (value == bestMove) {
-						bestMoves[index++] = i;
-					}
-					// set the type back to none
-					types[i] = Flower.FlowerType.None;
-				}
-			}
-			if (index > 0) {
-				index = random.Next() % index;
-			}
-			//return bestMove;
-			return bestMoves[index];
-		}
-
-		private int minSearch(Flower.FlowerType[] types) {
-			int bestMove = +INFINITY;
-			int value;
-			if (LogicUtils.isGameOver(types)) {
-				bestMove = 0;
-			} else {
-				for (int i = 0; i < types.Length; i++) {
-					// if the type is none
-					if (types[i] == Flower.FlowerType.None) {
-						types[i] = LogicUtils.COMPUTERS_TYPE;
-						value = maxSearch(types);
-						if (value < bestMove) {
-							bestMove = value;
-						}
-						// reset this type back to none
-						types[i] = Flower.FlowerType.None;
-					}
-				}
-			}
-			return bestMove;
-		}
-
-		private int maxSearch(Flower.FlowerType[] types) {
-			int bestMove = -INFINITY;
-			int value;
-			if (LogicUtils.isGameOver(types)) {
-				bestMove = 0;
-			} else {
-				for (int i = 0; i < types.Length; i++) {
-					// if the type is none
-					if (types[i] == Flower.FlowerType.None) {
-						types[i] = LogicUtils.PLAYERS_TYPE;
-						value = minSearch(types);
-						if (value > bestMove) {
-							bestMove = value;
-						}
-						// reset this type back to none
-						types[i] = Flower.FlowerType.None;
-					}
-				}
-			}
-			return bestMove;
-		}*/
-		
-		/*private Flower.FlowerType[] getOpenSpaces(Flower.FlowerType[] types) {
-			List<Flower.FlowerType> openSpaces = new List<Flower.FlowerType>();
-			for (int i = 0; i < types.Length; i++) {
-				if (types[i] == Flower.FlowerType.None) {
-					openSpaces.Add(types[i]);
-				}
-			}
-			return openSpaces.ToArray<Flower.FlowerType>();
-		}*/
-
-		/*private int miniMax(Flower.FlowerType[] types, Flower.FlowerType turn) {
-			int move = -INFINITY;
-			//Flower.FlowerType[] openSpaces = getOpenSpaces(types);
-			Flower.FlowerType[] newTypes;
-			int value;
-			int index = -INFINITY;
-			for (int i = 0; i < types.Length; i++) {
-				if (types[i] == Flower.FlowerType.None) {
-					newTypes = LogicUtils.cloneFlowerTypes(types);
-					newTypes[i] = turn;
-					value = isGameOver(newTypes);
-					if (value == -INFINITY) {
-						int temp = miniMax(newTypes, EnumUtils.numberToEnum<Flower.FlowerType>(-(int)turn));
-						value = temp;
-					}
-					if (LogicUtils.PLAYERS_TYPE.Equals(turn) && value < move ||
-						LogicUtils.COMPUTERS_TYPE.Equals(turn) && value > move) {
-						move = value;
-						index = i;
-						//move = i;
-					}
-				}
-			}
-			return index;
-		}*/
-		
 		private int alphaBeta(Flower.FlowerType[] board, StateManager.TurnType turn, int alpha, int beta) {
 			/*int gameOver = isGameOver(board);
 			if (gameOver != -INFINITY) {
@@ -475,18 +212,9 @@ namespace Flowers {
 			}
 			return bestMove;
 		}
-		#endregion Tests
-		/*private struct temp {
-			public int index;
-			public int score;
 
-			public override string ToString() {
-				return (string.Format("Index: {0} Score: {1}", index, score));
-			}
-		}*/
 		public override int getMove(Flower[] board) {
-			//int result = -1;
-			int result = -2;
+			int result = -INFINITY;
 			Flower.FlowerType[] types = LogicUtils.getFlowerTypes(board);
 			// figure out if this is our first move
 			bool firstMove = true;
@@ -501,24 +229,18 @@ namespace Flowers {
 			} else {
 				int move;
 				int bestMove = -INFINITY;
-				//List<temp> possibilities = new List<temp>();
 				Flower.FlowerType[] cloned;
 				for (int i = 0; i < types.Length; i++) {
 					if (types[i] == Flower.FlowerType.None) {
 						cloned = LogicUtils.cloneFlowerTypes(types);
 						cloned[i] = LogicUtils.COMPUTERS_TYPE;
 						move = miniMax(cloned, LogicUtils.PLAYERS_TYPE);
-							/*temp test = new temp();
-							test.index = i;
-							test.score = move;
-							possibilities.Add(test);*/
 						if (move > bestMove) {
 							result = i;
 							bestMove = move;
 						}
 					}
 				}
-				//int asdt23ra = possibilities.Count;
 			}
 			return result;
 		}
