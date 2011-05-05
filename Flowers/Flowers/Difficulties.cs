@@ -195,6 +195,7 @@ namespace Flowers {
 				for (int i = 0; i < types.Length; i++) {
 					if (types[i] == Flower.FlowerType.None) {// get valid moves
 						cloned = LogicUtils.cloneFlowerTypes(types);
+						// get our result based on whose turn it is
 						if (LogicUtils.COMPUTERS_TYPE.Equals(turn)) {
 							cloned[i] = LogicUtils.COMPUTERS_TYPE;
 							move = miniMax(cloned, LogicUtils.PLAYERS_TYPE);
@@ -202,6 +203,7 @@ namespace Flowers {
 							cloned[i] = LogicUtils.PLAYERS_TYPE;
 							move = miniMax(cloned, LogicUtils.COMPUTERS_TYPE);
 						}
+						// interpret our result
 						if (LogicUtils.COMPUTERS_TYPE.Equals(turn) && move > bestMove) {
 							bestMove = move;
 						} else if (LogicUtils.PLAYERS_TYPE.Equals(turn) && move < bestMove) {
@@ -231,11 +233,11 @@ namespace Flowers {
 				int bestMove = -INFINITY;
 				Flower.FlowerType[] cloned;
 				for (int i = 0; i < types.Length; i++) {
-					if (types[i] == Flower.FlowerType.None) {
-						cloned = LogicUtils.cloneFlowerTypes(types);
-						cloned[i] = LogicUtils.COMPUTERS_TYPE;
-						move = miniMax(cloned, LogicUtils.PLAYERS_TYPE);
-						if (move > bestMove) {
+					if (types[i] == Flower.FlowerType.None) {// only process empty nodes
+						cloned = LogicUtils.cloneFlowerTypes(types);// clone our board
+						cloned[i] = LogicUtils.COMPUTERS_TYPE;// change this piece to the computers piece
+						move = miniMax(cloned, LogicUtils.PLAYERS_TYPE);//run the algorithm
+						if (move > bestMove) {// interpret the results
 							result = i;
 							bestMove = move;
 						}
