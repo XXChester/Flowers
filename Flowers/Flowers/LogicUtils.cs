@@ -36,28 +36,22 @@ namespace Flowers {
 			return foundMatch;
 		}
 
-		public static bool isGameOver(Flower.FlowerType[] board) {
-			int[] dummy1;
-			Flower.FlowerType dummy2;
-			return (isGameOver(board, out dummy2, out dummy1));
+		public static bool isGameOver(Flower[] board, out Winner winner) {
+			return isGameOver(getFlowerTypes(board), out winner);
 		}
 
-		public static bool isGameOver(Flower[] board, out Flower.FlowerType winningType, out int[] winningIndexes) {
-			return isGameOver(getFlowerTypes(board), out winningType, out winningIndexes);
-		}
-
-		public static bool isGameOver(Flower.FlowerType[] board, out Flower.FlowerType winningType, out int[] winningIndexes) {
+		public static bool isGameOver(Flower.FlowerType[] board, out Winner winner) {
 			bool gameOver = false;
 			// first check if anyone has won
-			if (checkBoardsState(board, Flower.FlowerType.Daisy, out winningIndexes)) {
+			if (checkBoardsState(board, Flower.FlowerType.Daisy, out winner.winningIndexes)) {
 				gameOver = true;
-				winningType = Flower.FlowerType.Daisy;
-			} else if (checkBoardsState(board, Flower.FlowerType.Rose, out winningIndexes)) {
+				winner.winningType = Flower.FlowerType.Daisy;
+			} else if (checkBoardsState(board, Flower.FlowerType.Rose, out winner.winningIndexes)) {
 				gameOver = true;
-				winningType = Flower.FlowerType.Rose;
+				winner.winningType = Flower.FlowerType.Rose;
 			} else {
-				winningType = Flower.FlowerType.None;
-				winningIndexes = null;
+				winner.winningType = Flower.FlowerType.None;
+				winner.winningIndexes = null;
 			}
 
 			// if we haven't found a win check for cats game

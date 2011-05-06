@@ -20,6 +20,8 @@ namespace Flowers {
 		private Player player;
 		private Player computer;
 		private Button replayButton;
+		private float currentDelay;
+		private const float DELAY = 750f;//Time the conmputer takes to place a move
 		#endregion Class variables
 
 		#region Class propeties
@@ -34,13 +36,10 @@ namespace Flowers {
 				this.flowers[i] = new Flower(content, i);
 			}
 
-			/********************** TOD: REMOVE ME ONCE I GET DYING SPRITES **********************/
-			const string TEMP_DYING_NAME = "Flower1";
-
 			// create our players
 			float textY = (Game1.RESOLUTION.Y - 50f);
-			this.player = new Player(content, ResourceManager.getInstance().Font, "Player", new Vector2(100f, textY), "Flower1", TEMP_DYING_NAME, LogicUtils.PLAYERS_TYPE);
-			this.computer = new Player(content, ResourceManager.getInstance().Font, "Computer", new Vector2(Game1.RESOLUTION.X - 250f, textY), "flower2", TEMP_DYING_NAME, LogicUtils.COMPUTERS_TYPE);
+			this.player = new Player(content, ResourceManager.getInstance().Font, "Player", new Vector2(100f, textY), "DaisyAlive", "DaisyDying", LogicUtils.PLAYERS_TYPE);
+			this.computer = new Player(content, ResourceManager.getInstance().Font, "Computer", new Vector2(Game1.RESOLUTION.X - 250f, textY), "RoseAlive", "RoseDying", LogicUtils.COMPUTERS_TYPE);
 
 			// Replay button
 			int startX = 1000;
@@ -92,6 +91,9 @@ namespace Flowers {
 				foreach (Flower flower in this.flowers) {
 					flower.update(elapsed);
 				}
+				if (StateManager.getInstance().CurrentState == StateManager.GameState.InitGameOver) {
+					StateManager.getInstance().CurrentState = StateManager.GameState.GameOver;
+				}
 			}
 			if (this.computer != null) {
 				this.computer.update(elapsed);
@@ -114,6 +116,7 @@ namespace Flowers {
 									if (StateManager.getInstance().WhosTurnIsIt == StateManager.TurnType.Players) {
 										flower.initSprites(this.player);
 										StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Computers;
+										this.currentDelay = 0f;
 									} /*else {// player two if we implement it
 									flower.initSprites(Flower.FlowerType.Daisy, this.computersAliveTexture, this.computersDyingTexture);
 									StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Players;
@@ -124,17 +127,19 @@ namespace Flowers {
 						}
 					}
 				} else if (StateManager.getInstance().WhosTurnIsIt == StateManager.TurnType.Computers) {
-					int move = StateManager.getInstance().ActiveDifficulty.getMove(this.flowers);
-					this.flowers[move].initSprites(this.computer);
-					StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Players;
+					if (this.currentDelay >= DELAY) {
+						int move = StateManager.getInstance().ActiveDifficulty.getMove(this.flowers);
+						this.flowers[move].initSprites(this.computer);
+						StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Players;
+					}
 				}
-				int[] winningIndexes;
-				Flower.FlowerType winningType;
-				if (LogicUtils.isGameOver(this.flowers, out winningType, out winningIndexes)) {
-					StateManager.getInstance().CurrentState = StateManager.GameState.GameOver;
-					if (winningType == LogicUtils.COMPUTERS_TYPE) {
+				Winner winner;
+				if (LogicUtils.isGameOver(this.flowers, out winner)) {
+					StateManager.getInstance().CurrentState = StateManager.GameState.InitGameOver;
+					StateManager.getInstance().Winner = winner;
+					if (winner.winningType == LogicUtils.COMPUTERS_TYPE) {
 						this.computer.Score++;
-					} else if (winningType == LogicUtils.PLAYERS_TYPE) {
+					} else if (winner.winningType == LogicUtils.PLAYERS_TYPE) {
 						this.player.Score++;
 					}
 				}
@@ -153,14 +158,14 @@ namespace Flowers {
 			}
 			// Did we just return from the In Game Menu? If so determine the games state
 			if (StateManager.getInstance().CurrentState == StateManager.GameState.ReturnToGame) {
-				Flower.FlowerType dummy;
-				int[] dummyIndexes;
-				if (LogicUtils.isGameOver(this.flowers, out dummy, out dummyIndexes)) {
+				Winner winner;
+				if (LogicUtils.isGameOver(this.flowers, out winner)) {
 					StateManager.getInstance().CurrentState = StateManager.GameState.GameOver;
 				} else {
 					StateManager.getInstance().CurrentState = StateManager.GameState.Active;
 				}
 			}
+			this.currentDelay += elapsed;
 			base.update(elapsed);
 		}
 

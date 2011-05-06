@@ -132,6 +132,7 @@
     <Compile Include="SpritePositioner.cs" />
     <Compile Include="StateManager.cs" />
     <Compile Include="Sun.cs" />
+    <Compile Include="Winner.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

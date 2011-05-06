@@ -44,7 +44,6 @@ namespace Flowers {
 			this.fence = new Fence(content);
 
 			// create the boards lines
-			Color brownColour = new Color(96f, 57f, 19f);
 			Texture2D linesTexture =  content.Load<Texture2D>("LineColour");
 			Line2DParams lineParams = new Line2DParams();
 			lineParams.Texture = linesTexture;

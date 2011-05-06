@@ -13,6 +13,7 @@ namespace Flowers {
 			InitModerateGame,
 			InitHardGame,
 			Active,
+			InitGameOver,
 			GameOver,
 			ReturnToGame,
 			ReturnToMainMenu,
@@ -40,6 +41,9 @@ namespace Flowers {
 		public GameState CurrentState {
 			get { return this.currentState; }
 			set {
+				if (value == GameState.Active) {
+					this.Winner = new Winner();
+				}
 				if (value == GameState.InitEasyGame) {
 					this.activeDifficulty = new EasyDifficulty();
 					this.currentState = GameState.Active;
@@ -54,6 +58,7 @@ namespace Flowers {
 				}
 			}
 		}
+		public Winner Winner { get; set; }
 		#endregion Class properties
 
 		#region Constructor

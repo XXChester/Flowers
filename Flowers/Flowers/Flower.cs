@@ -17,12 +17,13 @@ namespace Flowers {
 	public class Flower : IRenderable {
 		public enum FlowerType {
 			None,
-			Rose,
-			Daisy
+			Rose = -1,
+			Daisy = 1
 		}
 		#region Class variables
 		private Animated2DSprite aliveSprite;
 		private Animated2DSprite dyingSprite;
+		private Animated2DSprite activeSprite;
 		private FlowerType type;
 		private int index;
 		#endregion Class variables
@@ -49,7 +50,6 @@ namespace Flowers {
 			parms.TotalFrameCount = 5;
 			parms.Origin = new Vector2(40f,80f);
 			this.aliveSprite = new Animated2DSprite(parms);
-			//TOD: NEED TO UPDATE THIS LATER
 			this.dyingSprite = new Animated2DSprite(parms);
 			reset();
 #if WINDOWS
@@ -65,6 +65,7 @@ namespace Flowers {
 			this.type = player.FlowerType;
 			this.aliveSprite.Texture = player.AliveTexture;
 			this.aliveSprite.AnimationManager.State = AnimationManager.AnimationState.PlayForwardOnce;
+			this.activeSprite = this.aliveSprite;
 			this.dyingSprite.Texture = player.DyingTexture;
 		}
 
@@ -76,15 +77,21 @@ namespace Flowers {
 
 		public void update(float elapsed) {
 			if (this.type != FlowerType.None) {
-				// tie into state manager to determine what one to update
-				this.aliveSprite.update(elapsed);
+				if (StateManager.getInstance().CurrentState == StateManager.GameState.InitGameOver) {
+					if (StateManager.getInstance().Winner.winningType != this.type || !StateManager.getInstance().Winner.winningIndexes.Contains(this.index)) {
+						this.dyingSprite.AnimationManager.State = AnimationManager.AnimationState.PlayForwardOnce;
+						this.dyingSprite.reset();
+						this.activeSprite = this.dyingSprite;
+					}
+				}
+
+				this.activeSprite.update(elapsed);
 			}
 		}
 
 		public void render(SpriteBatch spriteBatch) {
 			if (this.type != FlowerType.None) {
-				// tie into state manager to determine what one to draw
-				this.aliveSprite.render(spriteBatch);
+				this.activeSprite.render(spriteBatch);
 			}
 		}
 		#endregion Support methods
@@ -96,6 +103,9 @@ namespace Flowers {
 			}
 			if (this.dyingSprite != null) {
 				this.dyingSprite.dispose();
+			}
+			if (this.activeSprite != null) {
+				this.activeSprite.dispose();
 			}
 		}
 		#endregion Destructor

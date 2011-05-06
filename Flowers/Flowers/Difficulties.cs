@@ -109,12 +109,11 @@ namespace Flowers {
 			if (gameOver != -INFINITY) {
 				return gameOver;
 			}*/
-			int[] dummy;
-			Flower.FlowerType winner;
-			if (LogicUtils.isGameOver(board, out winner, out dummy)) {
-				if (winner == LogicUtils.COMPUTERS_TYPE) {
+			Winner winner;
+			if (LogicUtils.isGameOver(board, out winner)) {
+				if (winner.winningType == LogicUtils.COMPUTERS_TYPE) {
 					return 1;
-				} else if (winner == LogicUtils.PLAYERS_TYPE) {
+				} else if (winner.winningType == LogicUtils.PLAYERS_TYPE) {
 					return -1;
 				} else {
 					return 0;
@@ -175,12 +174,11 @@ namespace Flowers {
 		private int miniMax(Flower.FlowerType[] types, Flower.FlowerType turn) {
 			int bestMove;
 			int move;
-			int[] dummy;
-			Flower.FlowerType winner;
-			if (LogicUtils.isGameOver(types, out winner, out dummy)) {
-				if (winner == LogicUtils.COMPUTERS_TYPE) {
+			Winner winner;
+			if (LogicUtils.isGameOver(types, out winner)) {
+				if (winner.winningType == LogicUtils.COMPUTERS_TYPE) {
 					return 1;
-				} else if (winner == LogicUtils.PLAYERS_TYPE) {
+				} else if (winner.winningType == LogicUtils.PLAYERS_TYPE) {
 					return -1;
 				} else {
 					return 0;
@@ -192,17 +190,13 @@ namespace Flowers {
 					bestMove = INFINITY;
 				}
 				Flower.FlowerType[] cloned = null;
+				Flower.FlowerType inversedTurn = EnumUtils.inverseValue<Flower.FlowerType>(turn);
 				for (int i = 0; i < types.Length; i++) {
 					if (types[i] == Flower.FlowerType.None) {// get valid moves
 						cloned = LogicUtils.cloneFlowerTypes(types);
-						// get our result based on whose turn it is
-						if (LogicUtils.COMPUTERS_TYPE.Equals(turn)) {
-							cloned[i] = LogicUtils.COMPUTERS_TYPE;
-							move = miniMax(cloned, LogicUtils.PLAYERS_TYPE);
-						} else {
-							cloned[i] = LogicUtils.PLAYERS_TYPE;
-							move = miniMax(cloned, LogicUtils.COMPUTERS_TYPE);
-						}
+						// get our result
+						cloned[i] = turn;
+						move = miniMax(cloned, inversedTurn);
 						// interpret our result
 						if (LogicUtils.COMPUTERS_TYPE.Equals(turn) && move > bestMove) {
 							bestMove = move;

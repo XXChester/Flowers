@@ -33,7 +33,7 @@ Raw version of the game functional with programmer art
 Replace the programmer art with real art and make the game not only maintain its functionality but also add a nice playable environment
 [*]Background
 []Screen fades in and out?
-[]All sprites not part of the winning line do their dying animation
+[*]All sprites not part of the winning line do their dying animation
 []Sun sprite
 [*]Clouds
 [*]House
@@ -41,6 +41,7 @@ Replace the programmer art with real art and make the game not only maintain its
 [*]Garden
 []Bush around the gardens edge
 []Smoke particles from the house's chimney
+[*]Delay computers move by a CONSTANT so it doesn't move right away
 []Sfx
 
 ============================
@@ -54,10 +55,10 @@ Programming:
 core:				9.5hours
 MinMaxAlgorithm:	5.25hours
 Alpha/Beta pruning:
-polish:				.5hours
+polish:				1.5hours
 
 Art(programmer):
-	3.75hours	
+	4.25hours	
 Sound:
 	
 Total Time:
