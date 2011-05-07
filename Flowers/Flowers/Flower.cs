@@ -39,7 +39,7 @@ namespace Flowers {
 			Animated2DSpriteParams parms = new Animated2DSpriteParams();
 			parms.AnimationState = AnimationManager.AnimationState.Paused;
 			parms.Content = content;
-			parms.FrameRate = 150f;
+			parms.FrameRate = 125f;
 			parms.FramesHeight = 96;
 			parms.FramesStartHeight = 0;
 			parms.FramesStartWidth = 0;
