@@ -32,7 +32,7 @@ Raw version of the game functional with programmer art
 ============================
 Replace the programmer art with real art and make the game not only maintain its functionality but also add a nice playable environment
 [*]Background
-[]Screen fades in and out?
+[*]Screen fades in and out
 [*]All sprites not part of the winning line do their dying animation
 []Sun sprite
 [*]Clouds
@@ -55,7 +55,7 @@ Programming:
 core:				9.5hours
 MinMaxAlgorithm:	5.25hours
 Alpha/Beta pruning:
-polish:				1.5hours
+polish:				5.75hours
 
 Art(programmer):
 	4.25hours	

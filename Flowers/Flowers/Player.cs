@@ -41,6 +41,14 @@ namespace Flowers {
 		#endregion Constructor
 
 		#region Support methods
+		public void updateColour(float transitionTime) {
+			if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionIn) {
+				this.Text.LightColour = Display.fadeIn(ResourceManager.getInstance().TextColour, transitionTime);
+			} else if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionOut) {
+				this.Text.LightColour = Display.fadeOut(ResourceManager.getInstance().TextColour, transitionTime);
+			}
+		}
+
 		public void update(float elapsed) {
 			this.Text.WrittenText = name + ": " + this.Score;
 		}

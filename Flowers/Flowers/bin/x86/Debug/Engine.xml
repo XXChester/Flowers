@@ -36,6 +36,24 @@
             </summary>
             <param name="message">Message to log to the log file</param>
         </member>
+        <member name="M:Engine.Scripting.ScriptManager.lockOn(System.String)">
+            <summary>
+            Enables the ability to lock onto an object and move it around the screen with the mouse for map building purposes
+            </summary>
+            <param name="input">String representation of a boolean value</param>
+        </member>
+        <member name="M:Engine.Scripting.ScriptManager.handleMouseMovement(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Moves the locked onto object around the screen based on the mouses position
+            </summary>
+            <param name="mousePosition">Vector2 of the mouse position</param>
+        </member>
+        <member name="M:Engine.Scripting.ScriptManager.handleMouseClick(Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Handles the locking on and off of an object
+            </summary>
+            <param name="mousePosition">Vector2 of the mouse position used to find the object</param>
+        </member>
         <member name="M:Engine.Scripting.ScriptManager.getValue(System.Object)">
             <summary>
             Outputs the toString() of an object
@@ -49,6 +67,14 @@
             <param name="input">Input from the console</param>
             <param name="output">Outputs the resulting object if a method/property returns one</param>
             <returns>true if we found a registered object and a method within that object</returns>
+        </member>
+        <member name="M:Engine.Scripting.ScriptManager.findObject(System.String,System.Object@)">
+            <summary>
+            Finds a registered object based on the reference name provided
+            </summary>
+            <param name="referenceName">Objects reference name to look up</param>
+            <param name="output">Outputs the found RegisteredObject</param>
+            <returns>true if we found a registered object, otherwise false</returns>
         </member>
         <member name="M:Engine.Scripting.ScriptManager.registerObject(System.Object,System.String)">
             <summary>
@@ -66,6 +92,11 @@
         <member name="P:Engine.Scripting.ScriptManager.LogFile">
             <summary>
              File that the script console will log too undet the "Log" command
+            </summary>
+        </member>
+        <member name="P:Engine.Scripting.ScriptManager.LockOnEnabled">
+            <summary>
+            Gets whether or not locking on is enabled
             </summary>
         </member>
         <member name="T:Engine.Model.Line2D">
@@ -782,6 +813,12 @@
             </summary>
             <param name="actorsPosition">Actors current position</param>
         </member>
+        <member name="M:Engine.Model.ColouredButton.updateColours(Microsoft.Xna.Framework.Color)">
+            <summary>
+            Updates both the Line and text's colour to the colour passed in
+            </summary>
+            <param name="newColour">Colour to assign to the Text2D and Lin2D objects</param>
+        </member>
         <member name="M:Engine.Model.ColouredButton.render(Microsoft.Xna.Framework.Graphics.SpriteBatch)">
             <summary>
             Rendering of the button
@@ -1004,6 +1041,11 @@
         <member name="P:Engine.Scripting.Model.RegisteredObject.ReferenceName">
             <summary>
             Gets the reference name of the registered object
+            </summary>
+        </member>
+        <member name="P:Engine.Scripting.Model.RegisteredObject.Reference">
+            <summary>
+            Gets the actual reference object of the registered object
             </summary>
         </member>
         <member name="T:Engine.Model.Params.StaticDrawable2DParams">
@@ -1241,6 +1283,12 @@
             related content.  Calling base.Initialize will enumerate through any components
             and initialize them as well.
             </summary>
+        </member>
+        <member name="M:Engine.Engine.BaseRenderer.Update(Microsoft.Xna.Framework.GameTime)">
+            <summary>
+            Allows the games scripting component to run and lock on to objects for mapping purposes
+            </summary>
+            <param name="gameTime">Provides a snapshot of timing values.</param>
         </member>
         <member name="M:Engine.Engine.BaseRenderer.UnloadContent">
             <summary>

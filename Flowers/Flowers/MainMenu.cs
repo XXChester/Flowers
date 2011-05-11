@@ -84,20 +84,47 @@ namespace Flowers {
 				Vector2 mousePos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
 				MouseState currentState = Mouse.GetState();
 				foreach (Button button in this.buttons) {
-					button.processActorsMovement(mousePos);
-					if (button.isActorOver(mousePos)) {
-						//was a button clicked
-						if (currentState.LeftButton == ButtonState.Pressed && base.previousMouseState.LeftButton == ButtonState.Released) {
-							if (BUTTON_ID_EASY == button.ID) {
-								StateManager.getInstance().CurrentState = StateManager.GameState.InitEasyGame;
-							} else if (BUTTON_ID_MODERATE == button.ID) {
-								StateManager.getInstance().CurrentState = StateManager.GameState.InitModerateGame;
-							} else if (BUTTON_ID_IMPOSSIBLE == button.ID) {
-								StateManager.getInstance().CurrentState = StateManager.GameState.InitHardGame;
-							} else if (BUTTON_ID_EXIT == button.ID) {
-								StateManager.getInstance().CurrentState = StateManager.GameState.ShutDown;
+					if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.None) {
+						button.processActorsMovement(mousePos);
+						if (button.isActorOver(mousePos)) {
+							//was a button clicked
+							if (currentState.LeftButton == ButtonState.Pressed && base.previousMouseState.LeftButton == ButtonState.Released) {
+								if (BUTTON_ID_EASY == button.ID) {
+									StateManager.getInstance().CurrentState = StateManager.GameState.InitEasyGame;
+									StateManager.getInstance().CurrentTransitionState = StateManager.TransitionState.TransitionOut;
+								} else if (BUTTON_ID_MODERATE == button.ID) {
+									StateManager.getInstance().CurrentState = StateManager.GameState.InitModerateGame;
+									StateManager.getInstance().CurrentTransitionState = StateManager.TransitionState.TransitionOut;
+								} else if (BUTTON_ID_IMPOSSIBLE == button.ID) {
+									StateManager.getInstance().CurrentState = StateManager.GameState.InitHardGame;
+									StateManager.getInstance().CurrentTransitionState = StateManager.TransitionState.TransitionOut;
+								} else if (BUTTON_ID_EXIT == button.ID) {
+									StateManager.getInstance().CurrentState = StateManager.GameState.ShutDown;
+								}
 							}
 						}
+					} else if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionIn) {
+						if (button.isActorOver(mousePos)) {
+							((ColouredButton)button).updateColours(base.fadeIn(ResourceManager.getInstance().ButtonsMouseOverColour));
+						} else {
+							((ColouredButton)button).updateColours(base.fadeIn(ResourceManager.getInstance().TextColour));
+						}
+					} else 	if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionOut) {
+						if (button.isActorOver(mousePos)) {
+							((ColouredButton)button).updateColours(base.fadeOut(ResourceManager.getInstance().ButtonsMouseOverColour));
+						} else {
+							((ColouredButton)button).updateColours(base.fadeOut(ResourceManager.getInstance().TextColour));
+						}
+					}
+				}
+				// if our transition time is up change our state
+				if (base.transitionTimeElapsed()) {
+					if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionIn) {
+						StateManager.getInstance().CurrentTransitionState = StateManager.TransitionState.None;
+					} else if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionOut) {
+						// if our transition out is done we need to transition in our next set
+						StateManager.getInstance().CurrentTransitionState = StateManager.TransitionState.TransitionIn;
+						StateManager.getInstance().CurrentState = StateManager.GameState.Active;
 					}
 				}
 			}

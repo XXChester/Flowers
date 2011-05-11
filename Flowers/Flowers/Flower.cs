@@ -75,6 +75,16 @@ namespace Flowers {
 			this.dyingSprite.reset();
 		}
 
+		public void updateColour(float transitionTime) {
+			if (this.activeSprite != null) {
+				if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionIn) {
+					this.activeSprite.LightColour = Display.fadeIn(Color.White, transitionTime);
+				} else if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionOut) {
+					this.activeSprite.LightColour = Display.fadeOut(Color.White, transitionTime);
+				}
+			}
+		}
+
 		public void update(float elapsed) {
 			if (this.type != FlowerType.None) {
 				if (StateManager.getInstance().CurrentState == StateManager.GameState.InitGameOver) {

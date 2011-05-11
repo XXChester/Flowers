@@ -90,17 +90,22 @@ namespace Flowers {
 			if (this.flowers != null) {
 				foreach (Flower flower in this.flowers) {
 					flower.update(elapsed);
+					flower.updateColour(base.currentTransitionTime);
 				}
 				if (StateManager.getInstance().CurrentState == StateManager.GameState.InitGameOver) {
 					StateManager.getInstance().CurrentState = StateManager.GameState.GameOver;
 				}
 			}
+
 			if (this.computer != null) {
 				this.computer.update(elapsed);
+				this.computer.updateColour(base.currentTransitionTime);
 			}
 			if (this.player != null) {
 				this.player.update(elapsed);
+				this.player.updateColour(base.currentTransitionTime);
 			}
+
 			MouseState currentState = Mouse.GetState();
 			// accept input to the tiles if the game is running
 			if (StateManager.getInstance().CurrentState == StateManager.GameState.Active) {
@@ -152,18 +157,37 @@ namespace Flowers {
 					}
 				}
 			}
+
+			if (StateManager.getInstance().CurrentTransitionState != StateManager.TransitionState.None) {
+				Vector2 mousePos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+				if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionIn) {
+					if (this.replayButton.isActorOver(mousePos)) {
+						((ColouredButton)this.replayButton).updateColours(base.fadeIn(ResourceManager.getInstance().ButtonsMouseOverColour));
+					} else {
+						((ColouredButton)this.replayButton).updateColours(base.fadeIn(ResourceManager.getInstance().TextColour));
+					}
+				} else if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionOut) {
+					if (this.replayButton.isActorOver(mousePos)) {
+						((ColouredButton)this.replayButton).updateColours(base.fadeOut(ResourceManager.getInstance().ButtonsMouseOverColour));
+					} else {
+						((ColouredButton)this.replayButton).updateColours(base.fadeOut(ResourceManager.getInstance().TextColour));
+					}
+				}
+
+				// if the fade ins/outs are complete we change the state
+				if (base.transitionTimeElapsed()) {
+					if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionIn) {
+						StateManager.getInstance().CurrentTransitionState = StateManager.TransitionState.None;
+					} else if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionOut) {
+						// we need to transition in our in game menu screen
+						StateManager.getInstance().CurrentTransitionState = StateManager.TransitionState.TransitionIn;
+					}
+				}
+			}
 			// At any time if we press escape we need to go to the in game menu
 			if (Keyboard.GetState().IsKeyDown(Keys.Escape) && base.previousKeyboardState.IsKeyUp(Keys.Escape)) {
 				StateManager.getInstance().CurrentState = StateManager.GameState.InGameMenu;
-			}
-			// Did we just return from the In Game Menu? If so determine the games state
-			if (StateManager.getInstance().CurrentState == StateManager.GameState.ReturnToGame) {
-				Winner winner;
-				if (LogicUtils.isGameOver(this.flowers, out winner)) {
-					StateManager.getInstance().CurrentState = StateManager.GameState.GameOver;
-				} else {
-					StateManager.getInstance().CurrentState = StateManager.GameState.Active;
-				}
+				StateManager.getInstance().CurrentTransitionState = StateManager.TransitionState.TransitionOut;
 			}
 			this.currentDelay += elapsed;
 			base.update(elapsed);
@@ -181,7 +205,9 @@ namespace Flowers {
 			if (this.player != null) {
 				this.player.render(spriteBatch);
 			}
-			if (this.replayButton != null && StateManager.getInstance().CurrentState == StateManager.GameState.GameOver) {
+			if (this.replayButton != null && StateManager.getInstance().CurrentState == StateManager.GameState.GameOver ||
+				(StateManager.getInstance().PreviousState == StateManager.GameState.GameOver && 
+				StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionOut)) {
 				this.replayButton.render(spriteBatch);
 			}
 		}

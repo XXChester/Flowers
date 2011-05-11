@@ -15,10 +15,14 @@ namespace Flowers {
 			Active,
 			InitGameOver,
 			GameOver,
-			ReturnToGame,
-			ReturnToMainMenu,
 			ShutDown,
 		};
+
+		public enum TransitionState {
+			None,
+			TransitionIn,
+			TransitionOut
+		}
 
 		public enum TurnType {
 			None,
@@ -38,20 +42,27 @@ namespace Flowers {
 		#region Class properties
 		public TurnType WhosTurnIsIt { get { return this.turnType; } set { this.turnType = value; } }
 		public Difficulty ActiveDifficulty { get { return this.activeDifficulty; } set { this.activeDifficulty = value; } }
+		public TransitionState CurrentTransitionState { get; set; }
+		public TransitionState PreviousTransitionState { get; set; }
+		public GameState PreviousState { get; set; }
 		public GameState CurrentState {
 			get { return this.currentState; }
 			set {
+				this.PreviousState = this.currentState;
 				if (value == GameState.Active) {
 					this.Winner = new Winner();
 				}
 				if (value == GameState.InitEasyGame) {
 					this.activeDifficulty = new EasyDifficulty();
 					this.currentState = GameState.Active;
+					this.PreviousState = GameState.MainMenu;
 				} else if (value == GameState.InitModerateGame) {
 					this.activeDifficulty = new ModerateDifficulty();
+					this.PreviousState = GameState.MainMenu;
 					this.currentState = GameState.Active;
 				} else if (value == GameState.InitHardGame) {
 					this.activeDifficulty = new ImpossibleDifficulty();
+					this.PreviousState = GameState.MainMenu;
 					this.currentState = GameState.Active;
 				} else {
 					this.currentState = value;
@@ -64,6 +75,7 @@ namespace Flowers {
 		#region Constructor
 		public StateManager() {
 			this.CurrentState = GameState.MainMenu;
+			this.CurrentTransitionState = TransitionState.TransitionIn;
 		}
 		#endregion Constructor
 

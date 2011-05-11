@@ -69,18 +69,72 @@ namespace Flowers {
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime) {
-			if (StateManager.getInstance().CurrentState == StateManager.GameState.ReturnToMainMenu) {
+			if (StateManager.getInstance().PreviousState == StateManager.GameState.InGameMenu && StateManager.getInstance().CurrentState == StateManager.GameState.MainMenu) {
 				// if we just came here we need to reset our Game
 				((GameDisplay)this.gameDisplay).reset(true);
-				StateManager.getInstance().CurrentState = StateManager.GameState.MainMenu;
 			}
+
+			// Transitioning code
 			if (StateManager.getInstance().CurrentState == StateManager.GameState.MainMenu) {
-				this.activeDisplay = this.mainMenu;
+				if (StateManager.getInstance().PreviousState == StateManager.GameState.MainMenu && 
+					StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionOut) {
+						this.activeDisplay = this.mainMenu;
+				} else if (StateManager.getInstance().PreviousState == StateManager.GameState.InGameMenu &&
+					StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionIn) {
+						this.activeDisplay = this.mainMenu;
+				} else if (StateManager.getInstance().PreviousState == StateManager.GameState.InGameMenu &&
+					StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionOut) {
+						this.activeDisplay = this.inGameMenu;
+				} else {
+					this.activeDisplay = this.mainMenu;
+				}
 			} else if (StateManager.getInstance().CurrentState == StateManager.GameState.InGameMenu) {
-				this.activeDisplay = this.inGameMenu;
+				if (StateManager.getInstance().PreviousState == StateManager.GameState.Active &&
+					StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionIn) {
+					this.activeDisplay = this.inGameMenu;
+				} else if (StateManager.getInstance().PreviousState == StateManager.GameState.Active &&
+					StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionOut) {
+					this.activeDisplay = this.gameDisplay;
+				} else if (StateManager.getInstance().PreviousState == StateManager.GameState.GameOver &&
+					StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionIn) {
+						this.activeDisplay = this.inGameMenu;
+				} else if (StateManager.getInstance().PreviousState == StateManager.GameState.GameOver &&
+					StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionOut) {
+						this.activeDisplay = this.gameDisplay;
+				} else {
+					this.activeDisplay = this.inGameMenu;
+				}
+			} else if (StateManager.getInstance().CurrentState == StateManager.GameState.GameOver) {
+				if (StateManager.getInstance().PreviousState == StateManager.GameState.InGameMenu &&
+					StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionIn) {
+					this.activeDisplay = this.gameDisplay;
+				} else if (StateManager.getInstance().PreviousState == StateManager.GameState.InGameMenu &&
+					StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionOut) {
+					this.activeDisplay = this.inGameMenu;
+				} else {
+					this.activeDisplay = this.gameDisplay;
+				}
 			} else {
-				this.activeDisplay = this.gameDisplay;
+				if (StateManager.getInstance().PreviousState == StateManager.GameState.MainMenu &&
+					StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionOut) {
+					this.activeDisplay = this.mainMenu;
+				} else if (StateManager.getInstance().PreviousState == StateManager.GameState.MainMenu &&
+					StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionIn) {
+					this.activeDisplay = this.gameDisplay;
+				} else if (StateManager.getInstance().PreviousState == StateManager.GameState.Active &&
+					StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionOut) {
+					this.activeDisplay = this.gameDisplay;
+				} else if (StateManager.getInstance().PreviousState == StateManager.GameState.InGameMenu &&
+					StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionIn) {
+					this.activeDisplay = this.gameDisplay;
+				} else if (StateManager.getInstance().PreviousState == StateManager.GameState.InGameMenu &&
+					StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionOut) {
+					this.activeDisplay = this.inGameMenu;
+				} else {
+					this.activeDisplay = this.gameDisplay;
+				}
 			}
+
 			// Allows the game to exit
 			if (StateManager.getInstance().CurrentState == StateManager.GameState.MainMenu) {
 				if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) {
