@@ -9,10 +9,10 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using Engine.Model;
-using Engine.Model.Params;
-using Engine.Scripting;
-using Engine.Utils;
+using GWNorthEngine.Model;
+using GWNorthEngine.Model.Params;
+using GWNorthEngine.Scripting;
+using GWNorthEngine.Utils;
 namespace Flowers {
 	public class GameDisplay : Display {
 		#region Class variables
