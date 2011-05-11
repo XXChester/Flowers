@@ -63,8 +63,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GWNorthEngine">
-      <HintPath>..\..\..\..\..\..\Team Work\Engine\bin\x86\Debug\GWNorthEngine.dll</HintPath>
+    <Reference Include="GWNorthEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Team Work\GWNorthEngine\bin\x86\Debug\GWNorthEngine.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <Private>False</Private>

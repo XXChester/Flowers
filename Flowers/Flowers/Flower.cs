@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 using GWNorthEngine.Model;
 using GWNorthEngine.Model.Params;
 using GWNorthEngine.Scripting;
-
+using GWNorthEngine.Utils;
 namespace Flowers {
 	public class Flower : IRenderable {
 		public enum FlowerType {
@@ -78,9 +78,9 @@ namespace Flowers {
 		public void updateColour(float transitionTime) {
 			if (this.activeSprite != null) {
 				if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionIn) {
-					this.activeSprite.LightColour = Display.fadeIn(Color.White, transitionTime);
+					this.activeSprite.LightColour = TransitionUtils.fadeIn(Color.White, Display.TRANSITION_TIME, transitionTime);
 				} else if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionOut) {
-					this.activeSprite.LightColour = Display.fadeOut(Color.White, transitionTime);
+					this.activeSprite.LightColour = TransitionUtils.fadeOut(Color.White, Display.TRANSITION_TIME, transitionTime);
 				}
 			}
 		}

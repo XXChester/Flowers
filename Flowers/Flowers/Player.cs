@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using GWNorthEngine.Model;
 using GWNorthEngine.Model.Params;
+using GWNorthEngine.Utils;
 namespace Flowers {
 	public class Player : IRenderable {
 		#region Class variables
@@ -43,9 +44,9 @@ namespace Flowers {
 		#region Support methods
 		public void updateColour(float transitionTime) {
 			if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionIn) {
-				this.Text.LightColour = Display.fadeIn(ResourceManager.getInstance().TextColour, transitionTime);
+				this.Text.LightColour = TransitionUtils.fadeIn(ResourceManager.getInstance().TextColour, Display.TRANSITION_TIME, transitionTime);
 			} else if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionOut) {
-				this.Text.LightColour = Display.fadeOut(ResourceManager.getInstance().TextColour, transitionTime);
+				this.Text.LightColour = TransitionUtils.fadeOut(ResourceManager.getInstance().TextColour, Display.TRANSITION_TIME, transitionTime);
 			}
 		}
 

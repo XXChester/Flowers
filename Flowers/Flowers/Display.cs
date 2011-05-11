@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+using GWNorthEngine.Utils;
 namespace Flowers {
 	public abstract class Display {
 		#region Class variables
@@ -16,21 +17,11 @@ namespace Flowers {
 
 		#region Support methods
 		protected Color fadeOut(Color colour) {
-			return fadeOut(colour, this.currentTransitionTime);
-		}
-
-		public static Color fadeOut(Color colour, float elapsedTransitionTime) {
-			float alpha = 1f - (elapsedTransitionTime / Display.TRANSITION_TIME);
-			return Color.Lerp(Color.Transparent, colour, alpha);
+			return TransitionUtils.fadeOut(colour, Display.TRANSITION_TIME, this.currentTransitionTime);
 		}
 
 		protected Color fadeIn(Color colour) {
-			return fadeIn(colour, this.currentTransitionTime);
-		}
-
-		public static Color fadeIn(Color colour, float elapsedTransitionTime) {
-			float alpha = 1f - (elapsedTransitionTime / Display.TRANSITION_TIME);
-			return Color.Lerp(colour, Color.Transparent, alpha);
+			return TransitionUtils.fadeIn(colour, Display.TRANSITION_TIME, this.currentTransitionTime);
 		}
 
 		public static bool resetTransitionTimes() {
