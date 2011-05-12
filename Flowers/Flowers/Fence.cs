@@ -29,9 +29,10 @@ namespace Flowers {
 			Texture2D fenceTexture = content.Load<Texture2D>("Fence");
 			StaticDrawable2DParams parms = new StaticDrawable2DParams();
 			parms.Texture = fenceTexture;
+			parms.Scale = new Vector2(1f, 1.5f);
 			int textureWidth = fenceTexture.Width;
 			for (int i = 0; i < size; i++) {
-				parms.Position = new Vector2(i * textureWidth, 350f);
+				parms.Position = new Vector2(i * textureWidth, 330f);
 				this.pieces[i] = new StaticDrawable2D(parms);
 			}
 

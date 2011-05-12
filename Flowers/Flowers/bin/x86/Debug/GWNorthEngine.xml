@@ -39,6 +39,11 @@
             Colour to render the sprite in
             </summary>
         </member>
+        <member name="F:GWNorthEngine.Model.Base2DSpriteDrawable.spriteEffect">
+            <summary>
+            SpriteEffects to render the sprite with
+            </summary>
+        </member>
         <member name="M:GWNorthEngine.Model.Base2DSpriteDrawable.#ctor(GWNorthEngine.Model.Params.Base2DSpriteDrawableParams)">
             <summary>
             Builds a basic SpriteBatch drawable item
@@ -164,6 +169,29 @@
             <summary>
             Buttons ID used for determining if a button was clicked
             </summary>
+        </member>
+        <member name="T:GWNorthEngine.Utils.TransitionUtils">
+            <summary>
+            Helper methods for screen and object transitions
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Utils.TransitionUtils.fadeOut(Microsoft.Xna.Framework.Color,System.Single,System.Single)">
+            <summary>
+            Fades out a colour over time
+            </summary>
+            <param name="colour">The constant colour of the object is rendered in</param>
+            <param name="TOTAL_TIME_TO_TRANSITION">Constant value of the total transition time</param>
+            <param name="elapsedTransitionTime">Time that has elapsed sense the transition started</param>
+            <returns>Newly created colour to assign to the object for its next rendering pass</returns>
+        </member>
+        <member name="M:GWNorthEngine.Utils.TransitionUtils.fadeIn(Microsoft.Xna.Framework.Color,System.Single,System.Single)">
+            <summary>
+            Fades in a colour over time
+            </summary>
+            <param name="colour">The constant colour of the object is rendered in</param>
+            <param name="TOTAL_TIME_TO_TRANSITION">Constant value of the total transition time</param>
+            <param name="elapsedTransitionTime">Time that has elapsed sense the transition started</param>
+            <returns>Newly created colour to assign to the object for its next rendering pass</returns>
         </member>
         <member name="T:GWNorthEngine.Scripting.Utils.ObjectTranslator">
             <summary>
@@ -734,6 +762,7 @@
             Scale:			Vector2(1f,1f)
             Rotation:		0f
             Layer:			0f
+            SpriteEffect:	None
             </summary>
         </member>
         <member name="P:GWNorthEngine.Model.Params.Base2DSpriteDrawableParams.Position">
@@ -764,6 +793,11 @@
         <member name="P:GWNorthEngine.Model.Params.Base2DSpriteDrawableParams.LightColour">
             <summary>
             Gets or sets the starting colour in which to render the sprite in
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Model.Params.Base2DSpriteDrawableParams.SpriteEffect">
+            <summary>
+            Gets or sets the SpriteEffect technique used for rendering the sprite
             </summary>
         </member>
         <member name="P:GWNorthEngine.Model.Params.StaticDrawable2DParams.Texture">
@@ -1416,29 +1450,6 @@
             <summary>
             Disposes the texture that was being drawn
             </summary>
-        </member>
-        <member name="T:GWNorthEngine.Utils.TransitionUtils">
-            <summary>
-            Helper methods for screen and object transitions
-            </summary>
-        </member>
-        <member name="M:GWNorthEngine.Utils.TransitionUtils.fadeOut(Microsoft.Xna.Framework.Color,System.Single,System.Single)">
-            <summary>
-            Fades out a colour over time
-            </summary>
-            <param name="colour">The constant colour of the object is rendered in</param>
-            <param name="TOTAL_TIME_TO_TRANSITION">Constant value of the total transition time</param>
-            <param name="elapsedTransitionTime">Time that has elapsed sense the transition started</param>
-            <returns>Newly created colour to assign to the object for its next rendering pass</returns>
-        </member>
-        <member name="M:GWNorthEngine.Utils.TransitionUtils.fadeIn(Microsoft.Xna.Framework.Color,System.Single,System.Single)">
-            <summary>
-            Fades in a colour over time
-            </summary>
-            <param name="colour">The constant colour of the object is rendered in</param>
-            <param name="TOTAL_TIME_TO_TRANSITION">Constant value of the total transition time</param>
-            <param name="elapsedTransitionTime">Time that has elapsed sense the transition started</param>
-            <returns>Newly created colour to assign to the object for its next rendering pass</returns>
         </member>
     </members>
 </doc>

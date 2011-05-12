@@ -18,10 +18,11 @@ namespace Flowers {
 		#region Class variables
 		private Sun sun;
 		private Fence fence;
-		private StaticDrawable2D house;
+		private House house;
 		private StaticDrawable2D backGround;
 		private Line2D[] lines;
 		private Cloud[] clouds;
+		private StaticDrawable2D[] shrubs;
 		#endregion Class variables
 
 		#region Class propeties
@@ -30,18 +31,15 @@ namespace Flowers {
 
 		#region Constructor
 		public BackGround(ContentManager content) {
-			Texture2D houseTexture = content.Load<Texture2D>("House");
+			
 			Texture2D backGroundTexture = content.Load<Texture2D>("BackGround");
 
 			StaticDrawable2DParams backGroundParams = new StaticDrawable2DParams();
 			backGroundParams.Texture = backGroundTexture;
 			this.backGround = new StaticDrawable2D(backGroundParams);
-
-			backGroundParams.Texture = houseTexture;
-			backGroundParams.Position = new Vector2(1000f, 100f);
-			this.house = new StaticDrawable2D(backGroundParams);
 			this.sun = new Sun(content);
 			this.fence = new Fence(content);
+			this.house = new House(content);
 
 			// create the boards lines
 			Texture2D linesTexture =  content.Load<Texture2D>("LineColour");
@@ -90,6 +88,49 @@ namespace Flowers {
 			this.clouds[7] = new Cloud(new Vector2(900f, layer3Y));
 			this.clouds[8] = new Cloud(new Vector2(400f, layer3Y));
 
+			// shrubs
+			this.shrubs = new StaticDrawable2D[42];
+			StaticDrawable2DParams shrubParams = new StaticDrawable2DParams();
+			shrubParams.Origin = new Vector2(48f, 48f);
+			shrubParams.Scale = new Vector2(1f, .5f);
+			shrubParams.Texture = content.Load<Texture2D>("Shrub");
+
+			float x = 320;
+			float y = 430;
+			float xCutoff = 48f;
+			float yCutoff = 30f;
+			int index = 0;
+			//shrubs across the top
+			for (int i = 1; i <= 12; i++) {
+				shrubParams.Position = new Vector2(x + (i * xCutoff), y);
+				this.shrubs[index] = new StaticDrawable2D(shrubParams);
+				index += 1;
+			}
+
+			// shrubs down the left
+			x = 324;
+			y = 430;
+			for (int i = 1; i <= 9; i++) {
+				shrubParams.Position = new Vector2(x, y + (i * yCutoff));
+				this.shrubs[index] = new StaticDrawable2D(shrubParams);
+				index += 1;
+			}
+			// shrubs down the right
+			x = 918f;
+			for (int i = 1; i <= 9; i++) {
+				shrubParams.Position = new Vector2(x, y + (i * yCutoff));
+				this.shrubs[index] = new StaticDrawable2D(shrubParams);
+				index += 1;
+			}
+
+			// shrubs across the bottom
+			y = 718f;
+			x = 320f;
+			for (int i = 1; i <= 12; i++) {
+				shrubParams.Position = new Vector2(x + (i * xCutoff), y);
+				this.shrubs[index] = new StaticDrawable2D(shrubParams);
+				index += 1;
+			}
 #if WINDOWS
 #if DEBUG
 			if (this.house != null) {
@@ -101,6 +142,11 @@ namespace Flowers {
 			if (this.lines != null) {
 				for (int i = 0; i < this.lines.Length; i++) {
 					ScriptManager.getInstance().registerObject(this.lines[i], "line" + i);
+				}
+			}
+			if (this.shrubs != null) {
+				for (int i = 0; i < this.shrubs.Length; i++) {
+					ScriptManager.getInstance().registerObject(this.shrubs[i], "shrub" + i);
 				}
 			}
 #endif
@@ -117,6 +163,9 @@ namespace Flowers {
 				foreach (Cloud cloud in this.clouds) {
 					cloud.update(elapsed);
 				}
+			}
+			if (this.house != null) {
+				this.house.update(elapsed);
 			}
 		}
 
@@ -137,11 +186,16 @@ namespace Flowers {
 					line.render(spriteBatch);
 				}
 			}
+			if (this.house != null) {
+				this.house.render(spriteBatch);
+			}
 			if (this.fence != null) {
 				this.fence.render(spriteBatch);
 			}
-			if (this.house != null) {
-				this.house.render(spriteBatch);
+			if (this.shrubs != null) {
+				foreach (StaticDrawable2D shrub in this.shrubs) {
+					shrub.render(spriteBatch);
+				}
 			}
 		}
 		#endregion Support methods
@@ -169,6 +223,11 @@ namespace Flowers {
 			}
 			if (this.backGround != null) {
 				this.backGround.dispose();
+			}
+			if (this.shrubs != null) {
+				foreach (StaticDrawable2D shrub in this.shrubs) {
+					shrub.dispose();
+				}
 			}
 		}
 		#endregion Destructor

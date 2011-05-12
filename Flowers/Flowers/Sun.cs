@@ -15,8 +15,10 @@ using GWNorthEngine.Scripting;
 namespace Flowers {
 	public class Sun : IRenderable {
 		#region Class variables
-		private Animated2DSprite innerLayer;
-		private Animated2DSprite outterLayer;
+		private StaticDrawable2D innerLayer;
+		private StaticDrawable2D outterLayer;
+		private const float INNER_ROTATION_SPEED = .1f / 1000f;
+		private const float OUTER_ROTATION_SPEED = .2f / 1000f;
 		#endregion Class variables
 
 		#region Class propeties
@@ -25,15 +27,19 @@ namespace Flowers {
 
 		#region Constructor
 		public Sun(ContentManager content) {
-			Animated2DSpriteParams parms = new Animated2DSpriteParams();
-			parms.AnimationState = AnimationManager.AnimationState.Paused;
-			parms.Content = content;
-			parms.FrameRate = 200f;
-			parms.LoadingType = Animated2DSprite.LoadingType.WholeSheetReadFramesFromFile;
-			parms.TexturesName = "Sun";
-			parms.TotalFrameCount = 1;
-			parms.Position = new Vector2(20f, 20f);
-			this.innerLayer = new Animated2DSprite(parms);
+			StaticDrawable2DParams parms = new StaticDrawable2DParams();
+			Texture2D sunTx = content.Load<Texture2D>("Sun");
+			parms.Texture = sunTx;
+			parms.Scale = new Vector2(1.5f, 1.5f);
+			parms.Origin = new Vector2(48f, 48f);
+			parms.Position = new Vector2(70f, 70f);
+			this.innerLayer = new StaticDrawable2D(parms);
+			parms.Position = new Vector2(70f, 70f);
+			parms.Origin = new Vector2(50f, 50f);
+			parms.Scale = new Vector2(1.8f, 1.8f);
+			parms.SpriteEffect = SpriteEffects.FlipHorizontally;
+			parms.LightColour = Color.LightGray;
+			this.outterLayer = new StaticDrawable2D(parms);
 #if WINDOWS
 #if DEBUG
 			if (this.innerLayer != null) {
@@ -50,19 +56,19 @@ namespace Flowers {
 		#region Support methods
 		public void update(float elapsed) {
 			if (this.innerLayer != null) {
-				this.innerLayer.update(elapsed);
+				this.innerLayer.Rotation = this.innerLayer.Rotation + (INNER_ROTATION_SPEED * elapsed);
 			}
 			if (this.outterLayer != null) {
-				this.outterLayer.update(elapsed);
+				this.outterLayer.Rotation = this.outterLayer.Rotation - (OUTER_ROTATION_SPEED * elapsed);
 			}
 		}
 
 		public void render(SpriteBatch spriteBatch) {
-			if (this.innerLayer != null) {
-				this.innerLayer.render(spriteBatch);
-			}
 			if (this.outterLayer != null) {
 				this.outterLayer.render(spriteBatch);
+			}
+			if (this.innerLayer != null) {
+				this.innerLayer.render(spriteBatch);
 			}
 		}
 		#endregion Support methods

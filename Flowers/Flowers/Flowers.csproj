@@ -121,6 +121,7 @@
     <Compile Include="Fence.cs" />
     <Compile Include="Flower.cs" />
     <Compile Include="GameDisplay.cs" />
+    <Compile Include="House.cs" />
     <Compile Include="InGameMenu.cs" />
     <Compile Include="IRenderable.cs" />
     <Compile Include="LogicUtils.cs" />
