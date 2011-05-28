@@ -25,7 +25,7 @@ namespace Flowers {
 		private StaticDrawable2D[] shrubs;
 		private SoundEffect birdChirpSFX;
 		private float currentWaitTime;
-		private const float CHIRP_WAIT_TIME = 45000f;
+		private const float CHIRP_WAIT_TIME = 30000f;
 		#endregion Class variables
 
 		#region Class propeties

@@ -64,17 +64,7 @@ namespace Flowers {
 	}
 	#endregion Moderate difficulty
 
-	#region Hard difficulty
-	#region MinMax psuedo
-	//int minMax(Node, depth) {
-	//	if node is a terminal node or depth <= 0
-	//		return the hueristic value of the node
-	//	a = -INFINITY
-	//	foreach child in node.children
-	//		a = max(a, -minMax(child, depth - 1);
-	//			//max is the greatest a value of all the children
-	//	return a
-	#endregion MinMax psudeo
+	#region Impossible difficulty
 	public class ImpossibleDifficulty : Difficulty {
 		#region Class variables
 		private const int INFINITY = 10000;
@@ -105,10 +95,6 @@ namespace Flowers {
 		}
 
 		private int alphaBeta(Flower.FlowerType[] board, StateManager.TurnType turn, int alpha, int beta) {
-			/*int gameOver = isGameOver(board);
-			if (gameOver != -INFINITY) {
-				return gameOver;
-			}*/
 			Winner winner;
 			if (LogicUtils.isGameOver(board, out winner)) {
 				if (winner.winningType == LogicUtils.COMPUTERS_TYPE) {
@@ -242,5 +228,5 @@ namespace Flowers {
 		}
 		#endregion Support methods
 	}
-	#endregion Hard difficulty
+	#endregion Impossible difficulty
 }
