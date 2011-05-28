@@ -20,6 +20,7 @@ namespace Flowers {
 		private Player player;
 		private Player computer;
 		private Button replayButton;
+		private SoundEffect diggingSFX;
 		private float currentDelay;
 		private const float DELAY = 750f;//Time the conmputer takes to place a move
 		#endregion Class variables
@@ -36,6 +37,7 @@ namespace Flowers {
 				this.flowers[i] = new Flower(content, i);
 			}
 
+			this.diggingSFX = content.Load<SoundEffect>("Digging");
 			// create our players
 			float textY = (Game1.RESOLUTION.Y - 50f);
 			this.player = new Player(content, ResourceManager.getInstance().Font, "Player", new Vector2(100f, textY), "DaisyAlive", "DaisyDying", LogicUtils.PLAYERS_TYPE);
@@ -119,6 +121,7 @@ namespace Flowers {
 							if (flower.Type == Flower.FlowerType.None) {
 								if (PickingUtils.pickRectangle(mousePos, SpritePositioner.getInstance().getPositionsRectangle(flower.Index))) {
 									if (StateManager.getInstance().WhosTurnIsIt == StateManager.TurnType.Players) {
+										this.diggingSFX.Play();
 										flower.initSprites(this.player);
 										StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Computers;
 										this.currentDelay = 0f;
@@ -134,6 +137,7 @@ namespace Flowers {
 				} else if (StateManager.getInstance().WhosTurnIsIt == StateManager.TurnType.Computers) {
 					if (this.currentDelay >= DELAY) {
 						int move = StateManager.getInstance().ActiveDifficulty.getMove(this.flowers);
+						this.diggingSFX.Play();
 						this.flowers[move].initSprites(this.computer);
 						StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Players;
 					}
@@ -228,6 +232,9 @@ namespace Flowers {
 			}
 			if (this.replayButton != null) {
 				this.replayButton.dispose();
+			}
+			if (this.diggingSFX != null) {
+				this.diggingSFX.Dispose();
 			}
 		}
 		#endregion Destructor

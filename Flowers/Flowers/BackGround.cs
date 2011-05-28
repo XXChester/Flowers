@@ -23,6 +23,9 @@ namespace Flowers {
 		private Line2D[] lines;
 		private Cloud[] clouds;
 		private StaticDrawable2D[] shrubs;
+		private SoundEffect birdChirpSFX;
+		private float currentWaitTime;
+		private const float CHIRP_WAIT_TIME = 45000f;
 		#endregion Class variables
 
 		#region Class propeties
@@ -31,9 +34,8 @@ namespace Flowers {
 
 		#region Constructor
 		public BackGround(ContentManager content) {
-			
+			this.birdChirpSFX = content.Load<SoundEffect>("BirdChirp");
 			Texture2D backGroundTexture = content.Load<Texture2D>("BackGround");
-
 			StaticDrawable2DParams backGroundParams = new StaticDrawable2DParams();
 			backGroundParams.Texture = backGroundTexture;
 			this.backGround = new StaticDrawable2D(backGroundParams);
@@ -167,6 +169,14 @@ namespace Flowers {
 			if (this.house != null) {
 				this.house.update(elapsed);
 			}
+			if (this.currentWaitTime == 0) {
+				this.birdChirpSFX.Play(.5f, 0f, 0f);
+				this.currentWaitTime += elapsed;
+			} else if (this.currentWaitTime >= CHIRP_WAIT_TIME) {
+				this.currentWaitTime = 0f;
+			} else {
+				this.currentWaitTime += elapsed;
+			}
 		}
 
 		public void render(SpriteBatch spriteBatch) {
@@ -228,6 +238,9 @@ namespace Flowers {
 				foreach (StaticDrawable2D shrub in this.shrubs) {
 					shrub.dispose();
 				}
+			}
+			if (this.birdChirpSFX != null) {
+				this.birdChirpSFX.Dispose();
 			}
 		}
 		#endregion Destructor
