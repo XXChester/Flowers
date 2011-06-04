@@ -36,21 +36,22 @@ namespace Flowers {
 		#region Constructor
 		public Flower(ContentManager content, int index) {
 			this.index = index;
-			Animated2DSpriteParams parms = new Animated2DSpriteParams();
-			parms.AnimationState = AnimationManager.AnimationState.Paused;
-			parms.Content = content;
-			parms.FrameRate = 125f;
-			parms.FramesHeight = 96;
-			parms.FramesStartHeight = 0;
-			parms.FramesStartWidth = 0;
-			parms.FramesWidth = 96;
-			parms.LoadingType = Animated2DSprite.LoadingType.CustomizedSheetDefineFrames;
-			parms.Position = SpritePositioner.getInstance().getPosition(index);
-			parms.SpaceBetweenFrames = 0;
-			parms.TotalFrameCount = 5;
-			parms.Origin = new Vector2(40f,80f);
-			this.aliveSprite = new Animated2DSprite(parms);
-			this.dyingSprite = new Animated2DSprite(parms);
+			BaseAnimationManagerParams animationParams = new BaseAnimationManagerParams();
+			animationParams.FrameRate = 125f;
+			animationParams.TotalFrameCount = 5;
+			Animated2DSpriteParams spriteParams = new Animated2DSpriteParams();
+			spriteParams.Content = content;
+			spriteParams.FramesHeight = 96;
+			spriteParams.FramesStartHeight = 0;
+			spriteParams.FramesStartWidth = 0;
+			spriteParams.FramesWidth = 96;
+			spriteParams.LoadingType = Animated2DSprite.LoadingType.CustomizedSheetDefineFrames;
+			spriteParams.Position = SpritePositioner.getInstance().getPosition(index);
+			spriteParams.SpaceBetweenFrames = 0;
+			spriteParams.Origin = new Vector2(40f,80f);
+			spriteParams.AnimationParams = animationParams;
+			this.aliveSprite = new Animated2DSprite(spriteParams);
+			this.dyingSprite = new Animated2DSprite(spriteParams);
 			reset();
 #if WINDOWS
 #if DEBUG
