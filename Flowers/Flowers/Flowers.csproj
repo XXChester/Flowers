@@ -131,6 +131,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="ResourceManager.cs" />
+    <Compile Include="SmokeEmitter.cs" />
+    <Compile Include="SmokeParticle.cs" />
     <Compile Include="SpritePositioner.cs" />
     <Compile Include="StateManager.cs" />
     <Compile Include="Sun.cs" />
