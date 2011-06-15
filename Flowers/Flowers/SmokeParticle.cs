@@ -16,8 +16,8 @@ using GWNorthEngine.Utils;
 namespace Flowers {
 	public class SmokeParticle : BaseParticle2D {
 		#region Class variables
-		private readonly Vector2 SCALE_BY = new Vector2(.75f / 1000f, .75f / 1000f);//scale per second
-		private readonly float ROTATION_SPEED = 10f / 1000f;//rotation per second
+		private readonly Vector2 SCALE_BY = new Vector2(1f / 1000f, .75f / 1000f);//scale per second
+		private readonly float ROTATION_SPEED = 20f / 1000f;//rotation per second
 		#endregion Class variables
 
 		#region Constructor
