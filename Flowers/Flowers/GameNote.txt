@@ -58,7 +58,7 @@ Programming:
 core:				9.5hours
 MinMaxAlgorithm:	5.25hours
 Alpha/Beta pruning:
-polish:				7hours	8:35pm-9:08pm	6:15pm-6:45pm	7:20pm-7:50pm	4:50pm-5pm
+polish:				8.75hours
 
 Art:
 	5.5hours	
