@@ -41,7 +41,7 @@ Replace the programmer art with real art and make the game not only maintain its
 [*]Fence
 [*]Garden
 [*]Bush around the gardens edge
-[]Smoke particles from the house's chimney
+[*]Smoke particles from the house's chimney
 [*]Delay computers move by a CONSTANT so it doesn't move right away
 [*]Sfx
 []Score is on a rock or engraved
@@ -58,10 +58,10 @@ Programming:
 core:				9.5hours
 MinMaxAlgorithm:	5.25hours
 Alpha/Beta pruning:
-polish:				8.75hours
+polish:				9.75hours
 
 Art:
-	5.5hours	
+	5.5hours	7:30pm-8pm
 Sound:
 	.5 hours
 	

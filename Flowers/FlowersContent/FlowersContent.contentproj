@@ -113,13 +113,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sun.png">
-      <Name>Sun</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Digging.mp3">
       <Name>Digging</Name>
       <Importer>Mp3Importer</Importer>
@@ -141,15 +134,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="smoke2.png">
-      <Name>smoke2</Name>
+    <Compile Include="SunLayer1.png">
+      <Name>SunLayer1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Particle.png">
-      <Name>Particle</Name>
+    <Compile Include="SunLayer2.png">
+      <Name>SunLayer2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

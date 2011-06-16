@@ -9,6 +9,11 @@
             Models the basis of every SpriteBatch drawable object
             </summary>
         </member>
+        <member name="F:GWNorthEngine.Model.Base2DSpriteDrawable.positivePulse">
+            <summary>
+            Used by the scalingPulse(...) effect to determine which way it is scaling
+            </summary>
+        </member>
         <member name="F:GWNorthEngine.Model.Base2DSpriteDrawable.position">
             <summary>
             Position of the sprite
@@ -66,6 +71,14 @@
             Rotates the object over time
             </summary>
             <param name="rotationSpeed"></param>
+        </member>
+        <member name="M:GWNorthEngine.Model.Base2DSpriteDrawable.scalingPulse(System.Single,System.Single,Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Pulse effect by scaling the object between to pre-defined scales
+            </summary>
+            <param name="startScale">Lowest scale value we want to shrink too</param>
+            <param name="endScale">Highest scale value we want to grow to</param>
+            <param name="scaleSpeed">Speed in which we want to pulse at</param>
         </member>
         <member name="M:GWNorthEngine.Model.Base2DSpriteDrawable.update(System.Single)">
             <summary>
@@ -646,11 +659,6 @@
             Time the particle dies at
             </summary>
         </member>
-        <member name="F:GWNorthEngine.Model.BaseParticle2D.originalPosition">
-            <summary>
-            Original position of the particle
-            </summary>
-        </member>
         <member name="F:GWNorthEngine.Model.BaseParticle2D.acceleration">
             <summary>
             Acceleration of the particle
@@ -664,6 +672,11 @@
         <member name="F:GWNorthEngine.Model.BaseParticle2D.texture">
             <summary>
             Texture of the particle
+            </summary>
+        </member>
+        <member name="F:GWNorthEngine.Model.BaseParticle2D.originalPosition">
+            <summary>
+            Original position of the particle
             </summary>
         </member>
         <member name="M:GWNorthEngine.Model.BaseParticle2D.#ctor(GWNorthEngine.Model.Params.BaseParticle2DParams)">
@@ -697,11 +710,6 @@
         <member name="P:GWNorthEngine.Model.BaseParticle2D.TimeToLive">
             <summary>
             Gets or sets the maximum time the particle can live for
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Model.BaseParticle2D.OriginalPosition">
-            <summary>
-            Gets or sets the original position of the particle
             </summary>
         </member>
         <member name="P:GWNorthEngine.Model.BaseParticle2D.Acceleration">

@@ -37,7 +37,7 @@ namespace Flowers {
 			this.particleParms.Position = new Vector2(1199f, 122f);
 			this.particleParms.Origin = new Vector2(32f, 32f);
 			this.particleParms.Texture = this.particleTexture;
-			this.particleParms.LightColour = Color.Gray;
+			this.particleParms.LightColour = Color.Black;
 			this.particleParms.TimeToLive = TIME_TO_LIVE;
 			this.particleParms.Direction = MOVEMENT_SPEED;
 			this.smokeParticles = new List<SmokeParticle>();
@@ -71,14 +71,10 @@ namespace Flowers {
 			}
 
 			// add any new particles if required
-			//if (this.smokeParticles.Count < MAX_PARTICLES) {
 			if (this.elapsedSpawnTime >= SPAWN_DELAY) {
 				this.smokeParticles.Add(new SmokeParticle(this.particleParms));
 				this.elapsedSpawnTime = 0f;
 			}
-			/*if (Mouse.GetState().LeftButton == ButtonState.Pressed) {
-				Console.WriteLine(Mouse.GetState().X + " " + Mouse.GetState().Y);
-			}*/
 		}
 
 		public void render(SpriteBatch spriteBatch) {
