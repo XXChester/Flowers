@@ -35,7 +35,7 @@ namespace Flowers {
 			this.Score = 0;
 			Text2DParams textParams = new Text2DParams();
 			textParams.Font = font;
-			textParams.LightColour = Color.White;
+			textParams.LightColour = ResourceManager.getInstance().TextColour;
 			textParams.Position = position;
 			this.Text = new Text2D(textParams);
 		}
@@ -44,9 +44,9 @@ namespace Flowers {
 		#region Support methods
 		public void updateColour(float transitionTime) {
 			if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionIn) {
-				this.Text.LightColour = TransitionUtils.fadeIn(Color.White, Display.TRANSITION_TIME, transitionTime);
+				this.Text.LightColour = TransitionUtils.fadeIn(ResourceManager.getInstance().TextColour, Display.TRANSITION_TIME, transitionTime);
 			} else if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionOut) {
-				this.Text.LightColour = TransitionUtils.fadeOut(Color.White, Display.TRANSITION_TIME, transitionTime);
+				this.Text.LightColour = TransitionUtils.fadeOut(ResourceManager.getInstance().TextColour, Display.TRANSITION_TIME, transitionTime);
 			}
 		}
 

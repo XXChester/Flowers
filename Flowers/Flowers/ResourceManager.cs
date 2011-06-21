@@ -43,8 +43,8 @@ namespace Flowers {
 			this.CloudTexture = content.Load<Texture2D>("Cloud");
 			this.ShrubTexture = content.Load<Texture2D>("Shrub");
 			this.ButtonsLineTexture = TextureUtils.create2DColouredTexture(device, 1, 1, Color.White);
-			this.ButtonsMouseOverColour = Color.White;
-			this.TextColour = Color.Gray;
+			this.ButtonsMouseOverColour = Color.SkyBlue;
+			this.TextColour = Color.White;
 		}
 		#endregion Support methods
 
