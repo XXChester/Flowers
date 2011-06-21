@@ -24,6 +24,7 @@ namespace Flowers {
 		public SpriteFont Font { get; set; }
 		public Texture2D ButtonsLineTexture { get; set; }
 		public Texture2D CloudTexture { get; set; }
+		public Texture2D ShrubTexture { get; set; }
 		public Color ButtonsMouseOverColour { get; set; }
 		public Color TextColour { get; set; }
 		#endregion Class properties
@@ -40,6 +41,7 @@ namespace Flowers {
 		public void loadResources(GraphicsDevice device, ContentManager content) {
 			this.Font = content.Load<SpriteFont>("HUDFont");
 			this.CloudTexture = content.Load<Texture2D>("Cloud");
+			this.ShrubTexture = content.Load<Texture2D>("Shrub");
 			this.ButtonsLineTexture = TextureUtils.create2DColouredTexture(device, 1, 1, Color.White);
 			this.ButtonsMouseOverColour = Color.White;
 			this.TextColour = Color.Gray;
@@ -57,6 +59,9 @@ namespace Flowers {
 			}
 			if (this.CloudTexture != null) {
 				this.CloudTexture.Dispose();
+			}
+			if (this.ShrubTexture != null) {
+				this.ShrubTexture.Dispose();
 			}
 		}
 		#endregion Destructor

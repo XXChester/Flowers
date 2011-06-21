@@ -20,6 +20,8 @@ namespace Flowers {
 		private Fence fence;
 		private House house;
 		private StaticDrawable2D backGround;
+		private StaticDrawable2D leftRock;
+		private StaticDrawable2D rightRock;
 		private Line2D[] lines;
 		private Cloud[] clouds;
 		private StaticDrawable2D[] shrubs;
@@ -91,48 +93,51 @@ namespace Flowers {
 			this.clouds[8] = new Cloud(new Vector2(400f, layer3Y));
 
 			// shrubs
-			this.shrubs = new StaticDrawable2D[42];
+			this.shrubs = new StaticDrawable2D[11];
 			StaticDrawable2DParams shrubParams = new StaticDrawable2DParams();
 			shrubParams.Origin = new Vector2(48f, 48f);
-			shrubParams.Scale = new Vector2(1f, .5f);
-			shrubParams.Texture = content.Load<Texture2D>("Shrub");
+			shrubParams.Scale = new Vector2(1f, 1f);
+			shrubParams.Texture = ResourceManager.getInstance().ShrubTexture;
 
-			float x = 320;
-			float y = 430;
-			float xCutoff = 48f;
-			float yCutoff = 30f;
+			float x = 300f;
+			float y = 400f;// 430;
+			float xCutoff = 110f;
+			float yCutoff = 96f;
 			int index = 0;
 			//shrubs across the top
-			for (int i = 1; i <= 12; i++) {
+			for (int i = 1; i <= 5; i++) {
 				shrubParams.Position = new Vector2(x + (i * xCutoff), y);
 				this.shrubs[index] = new StaticDrawable2D(shrubParams);
 				index += 1;
 			}
 
 			// shrubs down the left
-			x = 324;
-			y = 430;
-			for (int i = 1; i <= 9; i++) {
+			x = 324f;
+			y = 365f;
+			for (int i = 1; i <= 3; i++) {
 				shrubParams.Position = new Vector2(x, y + (i * yCutoff));
 				this.shrubs[index] = new StaticDrawable2D(shrubParams);
 				index += 1;
 			}
 			// shrubs down the right
 			x = 918f;
-			for (int i = 1; i <= 9; i++) {
+			for (int i = 1; i <= 3; i++) {
 				shrubParams.Position = new Vector2(x, y + (i * yCutoff));
 				this.shrubs[index] = new StaticDrawable2D(shrubParams);
 				index += 1;
 			}
 
-			// shrubs across the bottom
-			y = 718f;
-			x = 320f;
-			for (int i = 1; i <= 12; i++) {
-				shrubParams.Position = new Vector2(x + (i * xCutoff), y);
-				this.shrubs[index] = new StaticDrawable2D(shrubParams);
-				index += 1;
-			}
+			// create our rocks
+			StaticDrawable2DParams rockParams = new StaticDrawable2DParams();
+			rockParams.Scale = new Vector2(1.5f, 1.5f);
+
+			rockParams.Position = new Vector2(59f, 527f);
+			rockParams.Texture = content.Load<Texture2D>("LeftRock");
+			this.leftRock = new StaticDrawable2D(rockParams);
+
+			rockParams.Position = new Vector2(994f, 527);
+			rockParams.Texture = content.Load<Texture2D>("RightRock");
+			this.rightRock = new StaticDrawable2D(rockParams);
 #if WINDOWS
 #if DEBUG
 			if (this.house != null) {
@@ -148,8 +153,16 @@ namespace Flowers {
 			}
 			if (this.shrubs != null) {
 				for (int i = 0; i < this.shrubs.Length; i++) {
-					ScriptManager.getInstance().registerObject(this.shrubs[i], "shrub" + i);
+					if (this.shrubs[i] != null) {
+						ScriptManager.getInstance().registerObject(this.shrubs[i], "shrub" + i);
+					}
 				}
+			}
+			if (this.leftRock != null) {
+				ScriptManager.getInstance().registerObject(this.leftRock, "leftRock");
+			} 
+			if (this.rightRock != null) {
+				ScriptManager.getInstance().registerObject(this.rightRock, "rightRock");
 			}
 #endif
 #endif
@@ -169,6 +182,8 @@ namespace Flowers {
 			if (this.house != null) {
 				this.house.update(elapsed);
 			}
+
+			// play sfx
 			if (this.currentWaitTime == 0) {
 				this.birdChirpSFX.Play(.5f, 0f, 0f);
 				this.currentWaitTime += elapsed;
@@ -204,8 +219,16 @@ namespace Flowers {
 			}
 			if (this.shrubs != null) {
 				foreach (StaticDrawable2D shrub in this.shrubs) {
-					shrub.render(spriteBatch);
+					if (shrub != null) {
+						shrub.render(spriteBatch);
+					}
 				}
+			}
+			if (this.leftRock != null) {
+				this.leftRock.render(spriteBatch);
+			}
+			if (this.rightRock != null) {
+				this.rightRock.render(spriteBatch);
 			}
 		}
 		#endregion Support methods
@@ -236,11 +259,19 @@ namespace Flowers {
 			}
 			if (this.shrubs != null) {
 				foreach (StaticDrawable2D shrub in this.shrubs) {
-					shrub.dispose();
+					if (shrub != null) {
+						shrub.dispose();
+					}
 				}
 			}
 			if (this.birdChirpSFX != null) {
 				this.birdChirpSFX.Dispose();
+			}
+			if (this.leftRock != null) {
+				this.leftRock.dispose();
+			}
+			if (this.rightRock != null) {
+				this.rightRock.dispose();
 			}
 		}
 		#endregion Destructor

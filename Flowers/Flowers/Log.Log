@@ -34,3 +34,8 @@ Log(5 Shrubs down ending at {X:316 Y:685}
 right hand side starts at ...only use X {X:918 Y:466}
 12 shrubs across the top, starting at {X:375 Y:425}
 1192,124                1199,124     1208,124
+rightRock.position
+{X:1014 Y:544}
+{X:82 Y:544}
+{X:59 Y:527}
+{X:22 Y:194}
