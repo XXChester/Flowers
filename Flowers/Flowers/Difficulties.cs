@@ -89,19 +89,6 @@ namespace Flowers {
 		#endregion Class variables
 
 		#region Support methods
-		private bool areNodesTerminal(Flower.FlowerType[] types) {
-			bool terminal = true;
-			// if the 3 types are not the same there is no win
-			Flower.FlowerType previousType = types[0];
-			for (int i = 1; i < types.Length; i++) {
-				if (types[i] != previousType) {
-					terminal = false;
-					break;
-				}
-			}
-			return terminal;
-		}
-
 		private int max(int a, int b) {
 			return (a > b ? a : b);//if a is more than b, return a, else return b
 		}
@@ -126,25 +113,6 @@ namespace Flowers {
 			for (int i = 0; i < board.Length; i++) {
 				if (board[i] == Flower.FlowerType.None) {// get valid moves
 					cloned = LogicUtils.cloneFlowerTypes(board);
-					/*if (StateManager.TurnType.Computers == turn) {
-						cloned[i] = LogicUtils.PLAYERS_TYPE;
-						score = alphaBeta(cloned, StateManager.TurnType.Computers, alpha, beta);
-						if (score > alpha) {
-							alpha = score;
-						}
-						if (alpha >= beta) {
-							return alpha;
-						}
-					} else {
-						cloned[i] = LogicUtils.COMPUTERS_TYPE;
-						score = alphaBeta(cloned, StateManager.TurnType.Players, alpha, beta);
-						if (score < beta) {
-							beta = score;
-						}
-						if (alpha >= beta) {
-							return beta;
-						}
-					}*/
 					if (StateManager.TurnType.Computers == turn) {
 						cloned[i] = LogicUtils.COMPUTERS_TYPE;
 						score = alphaBeta(cloned, StateManager.TurnType.Players, alpha, beta);

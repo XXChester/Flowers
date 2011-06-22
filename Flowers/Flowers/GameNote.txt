@@ -47,6 +47,7 @@ Replace the programmer art with real art and make the game not only maintain its
 [*]Score is on a rock or engraved
 [*]Visual indication of who's turn it is
 [*]Add in a real moderate difficulty that does the same as the current moderate except it doesn't try to block. Change current Moderate difficulties label to "Hard"
+[]Take another pass at the clouds...redo art again and use multiple textures instead of just 1
 
 ==========================
 Persistent bugs
@@ -64,7 +65,7 @@ MinMax algorithm:	2hours
 Programming:		
 core:				9.5hours
 MinMaxAlgorithm:	5.25hours
-Alpha/Beta pruning:
+Alpha/Beta pruning:			
 polish:				11.5hours	
 
 Art:

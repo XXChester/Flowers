@@ -1,5 +1,4 @@
 Content\HUDFont.xnb
-Content\BackGround.xnb
 Content\LineColour.xnb
 Content\Cloud.xnb
 Content\DaisyAlive.xnb
@@ -7,17 +6,17 @@ Content\DaisyDying.xnb
 Content\RoseAlive.xnb
 Content\RoseDying.xnb
 Content\Fence.xnb
-Content\House.xnb
 Content\smoke1.xnb
 Content\SunLayer1.xnb
 Content\SunLayer2.xnb
-Content\Digging.xnb
-Content\BirdChirp.xnb
+Content\BackGround.xnb
 Content\RightRock.xnb
 Content\LeftRock.xnb
 Content\Cloud1.xnb
 Content\Cloud2.xnb
 Content\Cloud3.xnb
 Content\Cloud4.xnb
+Content\House.xnb
 Content\Shrub.xnb
-Content\Shrub2.xnb
+Content\Digging.xnb
+Content\BirdChirp.xnb
