@@ -107,5 +107,15 @@ namespace Flowers {
 			}
 			return newTypes;
 		}
+
+		public static Flower.FlowerType translateTurnToFlowerType(StateManager.TurnType turn) {
+			Flower.FlowerType type = Flower.FlowerType.None;
+			if (turn == StateManager.TurnType.Computers) {
+				type = COMPUTERS_TYPE;
+			} else if (turn == StateManager.TurnType.Players) {
+				type = PLAYERS_TYPE;
+			}
+			return type;
+		}
 	}
 }

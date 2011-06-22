@@ -40,8 +40,14 @@ namespace Flowers {
 			this.diggingSFX = content.Load<SoundEffect>("Digging");
 			// create our players
 			float textY = (Game1.RESOLUTION.Y - 50f);
-			this.player = new Player(content, ResourceManager.getInstance().Font, "Player", new Vector2(100f, textY), "DaisyAlive", "DaisyDying", LogicUtils.PLAYERS_TYPE);
-			this.computer = new Player(content, ResourceManager.getInstance().Font, "Computer", new Vector2(Game1.RESOLUTION.X - 250f, textY), "RoseAlive", "RoseDying", LogicUtils.COMPUTERS_TYPE);
+			Vector2 playersScorePosition = new Vector2(100f, textY);
+			Vector2 playersTurnSpritePosition = new Vector2(playersScorePosition.X - 75f, playersScorePosition.Y + 25f);
+			Vector2 computersScorePosition = new Vector2(Game1.RESOLUTION.X - 250f, textY);
+			Vector2 computersTurnSpritePosition = new Vector2(computersScorePosition.X + 175f, computersScorePosition.Y + 25f);
+			this.player = new Player(content, ResourceManager.getInstance().Font, "Player", playersScorePosition, playersTurnSpritePosition, "DaisyAlive", "DaisyDying", 
+				LogicUtils.PLAYERS_TYPE);
+			this.computer = new Player(content, ResourceManager.getInstance().Font, "Computer", computersScorePosition, computersTurnSpritePosition, "RoseAlive", "RoseDying", 
+				LogicUtils.COMPUTERS_TYPE);
 
 			// Replay button
 			int startX = 1000;
@@ -119,7 +125,7 @@ namespace Flowers {
 						for (int i = 0; i < this.flowers.Length; i++) {
 							flower = this.flowers[i];
 							if (flower.Type == Flower.FlowerType.None) {
-								if (PickingUtils.pickRectangle(mousePos, SpritePositioner.getInstance().getPositionsRectangle(flower.Index))) {
+								if (PickingUtils.pickRectangle(mousePos, FlowerBuilder.SpritePositioner.getInstance().getPositionsRectangle(flower.Index))) {
 									if (StateManager.getInstance().WhosTurnIsIt == StateManager.TurnType.Players) {
 										this.diggingSFX.Play();
 										flower.initSprites(this.player);

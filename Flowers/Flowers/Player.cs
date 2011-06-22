@@ -16,6 +16,8 @@ namespace Flowers {
 	public class Player : IRenderable {
 		#region Class variables
 		private string name;
+		private Animated2DSprite activeTurnSprite;
+		private Animated2DSprite inactiveTurnSprite;
 		#endregion Class variables
 
 		#region Class properties
@@ -27,7 +29,8 @@ namespace Flowers {
 		#endregion Class properties
 
 		#region Constructor
-		public Player(ContentManager content, SpriteFont font, string name, Vector2 position, string aliveTexture, string dyingTexture, Flower.FlowerType flowerType) {
+		public Player(ContentManager content, SpriteFont font, string name, Vector2 scorePosition, Vector2 turnSpritePosition, string aliveTexture, string dyingTexture, 
+			Flower.FlowerType flowerType) {
 			this.name = name;
 			this.AliveTexture = content.Load<Texture2D>(aliveTexture);
 			this.DyingTexture = content.Load<Texture2D>(dyingTexture);
@@ -36,8 +39,11 @@ namespace Flowers {
 			Text2DParams textParams = new Text2DParams();
 			textParams.Font = font;
 			textParams.LightColour = ResourceManager.getInstance().TextColour;
-			textParams.Position = position;
+			textParams.Position = scorePosition;
 			this.Text = new Text2D(textParams);
+
+			this.activeTurnSprite = FlowerBuilder.getFlowerSprite(content, turnSpritePosition, this.AliveTexture, AnimationManager.AnimationState.PlayForwardOnce);
+			this.inactiveTurnSprite = FlowerBuilder.getFlowerSprite(content, turnSpritePosition, this.DyingTexture, AnimationManager.AnimationState.PlayForwardOnce);
 		}
 		#endregion Constructor
 
@@ -52,15 +58,35 @@ namespace Flowers {
 
 		public void update(float elapsed) {
 			this.Text.WrittenText = name + ": " + this.Score;
+			if (LogicUtils.translateTurnToFlowerType(StateManager.getInstance().WhosTurnIsIt) == this.FlowerType) {
+				this.activeTurnSprite.update(elapsed);
+				this.inactiveTurnSprite.reset();
+				this.inactiveTurnSprite.AnimationManager.State = AnimationManager.AnimationState.PlayForwardOnce;
+			} else {
+				this.inactiveTurnSprite.update(elapsed);
+				this.activeTurnSprite.reset();
+				this.activeTurnSprite.AnimationManager.State = AnimationManager.AnimationState.PlayForwardOnce;
+			}
 		}
 
 		public void render(SpriteBatch spriteBatch) {
 			this.Text.render(spriteBatch);
+			if (LogicUtils.translateTurnToFlowerType(StateManager.getInstance().WhosTurnIsIt) == this.FlowerType) {
+				this.activeTurnSprite.render(spriteBatch);
+			} else {
+				this.inactiveTurnSprite.render(spriteBatch);
+			}
 		}
 		#endregion Support methods
 
 		#region Destructor
 		public void dispose() {
+			if (this.activeTurnSprite != null) {
+				this.activeTurnSprite.dispose();
+			}
+			if (this.inactiveTurnSprite != null) {
+				this.inactiveTurnSprite.dispose();
+			}
 			if (this.AliveTexture != null) {
 				this.AliveTexture.Dispose();
 			}

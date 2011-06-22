@@ -120,6 +120,7 @@
     <Compile Include="Difficulties.cs" />
     <Compile Include="Fence.cs" />
     <Compile Include="Flower.cs" />
+    <Compile Include="FlowerBuilder.cs" />
     <Compile Include="GameDisplay.cs" />
     <Compile Include="House.cs" />
     <Compile Include="InGameMenu.cs" />
@@ -133,7 +134,6 @@
     <Compile Include="ResourceManager.cs" />
     <Compile Include="SmokeEmitter.cs" />
     <Compile Include="SmokeParticle.cs" />
-    <Compile Include="SpritePositioner.cs" />
     <Compile Include="StateManager.cs" />
     <Compile Include="Sun.cs" />
     <Compile Include="Winner.cs" />

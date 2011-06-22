@@ -45,8 +45,8 @@ Replace the programmer art with real art and make the game not only maintain its
 [*]Delay computers move by a CONSTANT so it doesn't move right away
 [*]Sfx
 [*]Score is on a rock or engraved
-[]Visual indication of who's turn it is
-
+[*]Visual indication of who's turn it is
+[]Add in a real moderate difficulty that does the same as the current moderate except it doesn't try to block. Change current Moderate difficulties label to "Hard"
 
 ==========================
 Persistent bugs
@@ -65,7 +65,7 @@ Programming:
 core:				9.5hours
 MinMaxAlgorithm:	5.25hours
 Alpha/Beta pruning:
-polish:				10.25hours
+polish:				11.25hours	
 
 Art:
 	14.75hours

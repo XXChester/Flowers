@@ -36,22 +36,8 @@ namespace Flowers {
 		#region Constructor
 		public Flower(ContentManager content, int index) {
 			this.index = index;
-			BaseAnimationManagerParams animationParams = new BaseAnimationManagerParams();
-			animationParams.FrameRate = 125f;
-			animationParams.TotalFrameCount = 5;
-			Animated2DSpriteParams spriteParams = new Animated2DSpriteParams();
-			spriteParams.Content = content;
-			spriteParams.FramesHeight = 96;
-			spriteParams.FramesStartHeight = 0;
-			spriteParams.FramesStartWidth = 0;
-			spriteParams.FramesWidth = 96;
-			spriteParams.LoadingType = Animated2DSprite.LoadingType.CustomizedSheetDefineFrames;
-			spriteParams.Position = SpritePositioner.getInstance().getPosition(index);
-			spriteParams.SpaceBetweenFrames = 0;
-			spriteParams.Origin = new Vector2(40f,80f);
-			spriteParams.AnimationParams = animationParams;
-			this.aliveSprite = new Animated2DSprite(spriteParams);
-			this.dyingSprite = new Animated2DSprite(spriteParams);
+			this.aliveSprite = FlowerBuilder.getFlowerSprite(content, index);
+			this.dyingSprite = FlowerBuilder.getFlowerSprite(content, index);
 			reset();
 #if WINDOWS
 #if DEBUG
