@@ -15,7 +15,7 @@ namespace Flowers {
 
 		public static Animated2DSprite getFlowerSprite(ContentManager content, Vector2 position, Texture2D texture, AnimationManager.AnimationState animationState) {
 			BaseAnimationManagerParams animationParams = new BaseAnimationManagerParams();
-			animationParams.FrameRate = 125f;
+			animationParams.FrameRate = 100f;
 			animationParams.TotalFrameCount = 5;
 			animationParams.AnimationState = animationState;
 			Animated2DSpriteParams spriteParams = new Animated2DSpriteParams();
