@@ -36,8 +36,8 @@ namespace Flowers {
 
 		#region Constructor
 		public BackGround(ContentManager content) {
-			this.birdChirpSFX = content.Load<SoundEffect>("BirdChirp");
-			Texture2D backGroundTexture = content.Load<Texture2D>("BackGround");
+			this.birdChirpSFX = LoadingUtils.loadSoundEffect(content, "BirdChirp");
+			Texture2D backGroundTexture = LoadingUtils.loadTexture2D(content, "BackGround");
 			StaticDrawable2DParams backGroundParams = new StaticDrawable2DParams();
 			backGroundParams.Texture = backGroundTexture;
 			this.backGround = new StaticDrawable2D(backGroundParams);
@@ -46,7 +46,7 @@ namespace Flowers {
 			this.house = new House(content);
 
 			// create the boards lines
-			Texture2D linesTexture =  content.Load<Texture2D>("LineColour");
+			Texture2D linesTexture = LoadingUtils.loadTexture2D(content, "LineColour");
 			Line2DParams lineParams = new Line2DParams();
 			lineParams.Texture = linesTexture;
 			lineParams.LightColour = Color.White;
@@ -132,11 +132,11 @@ namespace Flowers {
 			rockParams.Scale = new Vector2(1.5f, 1.5f);
 
 			rockParams.Position = new Vector2(59f, 527f);
-			rockParams.Texture = content.Load<Texture2D>("LeftRock");
+			rockParams.Texture = LoadingUtils.loadTexture2D(content, "LeftRock");
 			this.leftRock = new StaticDrawable2D(rockParams);
 
 			rockParams.Position = new Vector2(994f, 527);
-			rockParams.Texture = content.Load<Texture2D>("RightRock");
+			rockParams.Texture = LoadingUtils.loadTexture2D(content, "RightRock");
 			this.rightRock = new StaticDrawable2D(rockParams);
 #if WINDOWS
 #if DEBUG

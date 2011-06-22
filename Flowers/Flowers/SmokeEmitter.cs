@@ -31,7 +31,7 @@ namespace Flowers {
 
 		#region Constructor
 		public SmokeEmitter(ContentManager content) {
-			this.particleTexture = content.Load<Texture2D>("Smoke1");
+			this.particleTexture = LoadingUtils.loadTexture2D(content, "Smoke1");
 			this.particleParms = new BaseParticle2DParams();
 			this.particleParms.Scale = new Vector2(.25f, .25f);
 			this.particleParms.Position = new Vector2(1199f, 122f);

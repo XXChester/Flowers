@@ -1755,5 +1755,34 @@
             Gets or sets the Texture of the static drawable object
             </summary>
         </member>
+        <member name="T:GWNorthEngine.Utils.LoadingUtils">
+            <summary>
+            Contains helper methods for loading data from the file system
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Utils.LoadingUtils.loadTexture2D(Microsoft.Xna.Framework.Content.ContentManager,System.String)">
+            <summary>
+            Loads a texture via the ContentManager and assigns the texture a name for debugging purposes
+            </summary>
+            <param name="content">ContentManager object</param>
+            <param name="textureName">Name of the texture</param>
+            <returns>Texture2D object</returns>
+        </member>
+        <member name="M:GWNorthEngine.Utils.LoadingUtils.loadSpriteFont(Microsoft.Xna.Framework.Content.ContentManager,System.String)">
+            <summary>
+            Loads a SpriteFont via the ContentManager and assigns the font a name for debugging purposes
+            </summary>
+            <param name="content">ContentManager object</param>
+            <param name="spriteFontName">Name of the sprite font</param>
+            <returns>Texture2D object</returns>
+        </member>
+        <member name="M:GWNorthEngine.Utils.LoadingUtils.loadSoundEffect(Microsoft.Xna.Framework.Content.ContentManager,System.String)">
+            <summary>
+            Loads a SoundEffect via the ContentManager and assigns the sound effect a name for debugging purposes
+            </summary>
+            <param name="content">ContentManager object</param>
+            <param name="soundEffectName">Name of the sound effect</param>
+            <returns>Texture2D object</returns>
+        </member>
     </members>
 </doc>

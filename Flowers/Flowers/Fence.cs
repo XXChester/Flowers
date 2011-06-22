@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Media;
 using GWNorthEngine.Model;
 using GWNorthEngine.Model.Params;
 using GWNorthEngine.Scripting;
+using GWNorthEngine.Utils;
 namespace Flowers {
 	public class Fence : IRenderable {
 		#region Class variables
@@ -26,7 +27,7 @@ namespace Flowers {
 		public Fence(ContentManager content) {
 			int size = 9;
 			this.pieces = new StaticDrawable2D[size];
-			Texture2D fenceTexture = content.Load<Texture2D>("Fence");
+			Texture2D fenceTexture = LoadingUtils.loadTexture2D(content, "Fence");
 			StaticDrawable2DParams parms = new StaticDrawable2DParams();
 			parms.Texture = fenceTexture;
 			parms.Scale = new Vector2(1f, 1.5f);

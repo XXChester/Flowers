@@ -39,9 +39,9 @@ namespace Flowers {
 		}
 
 		public void loadResources(GraphicsDevice device, ContentManager content) {
-			this.Font = content.Load<SpriteFont>("HUDFont");
-			this.CloudTexture = content.Load<Texture2D>("Cloud");
-			this.ShrubTexture = content.Load<Texture2D>("Shrub");
+			this.Font = LoadingUtils.loadSpriteFont(content, "HUDFont");
+			this.CloudTexture = LoadingUtils.loadTexture2D(content, "Cloud");
+			this.ShrubTexture = LoadingUtils.loadTexture2D(content, "Shrub");
 			this.ButtonsLineTexture = TextureUtils.create2DColouredTexture(device, 1, 1, Color.White);
 			this.ButtonsMouseOverColour = Color.SkyBlue;
 			this.TextColour = Color.White;
