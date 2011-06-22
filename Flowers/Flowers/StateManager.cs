@@ -12,6 +12,7 @@ namespace Flowers {
 			InitEasyGame,
 			InitModerateGame,
 			InitHardGame,
+			InitImpossibleGame,
 			Active,
 			InitGameOver,
 			GameOver,
@@ -61,6 +62,10 @@ namespace Flowers {
 					this.PreviousState = GameState.MainMenu;
 					this.currentState = GameState.Active;
 				} else if (value == GameState.InitHardGame) {
+					this.activeDifficulty = new HardDifficulty();
+					this.PreviousState = GameState.MainMenu;
+					this.currentState = GameState.Active;
+				} else if (value == GameState.InitImpossibleGame) {
 					this.activeDifficulty = new ImpossibleDifficulty();
 					this.PreviousState = GameState.MainMenu;
 					this.currentState = GameState.Active;

@@ -52,6 +52,22 @@ namespace Flowers {
 			int result = -1;
 			// is there a win possible?
 			if (!LogicUtils.isWinOrBlockAvailable(board, LogicUtils.COMPUTERS_TYPE, ref result)) {
+				//didn't find anything so generate a move
+				result = base.generateMove(board);
+			}
+			return result;
+		}
+		#endregion Support methods
+	}
+	#endregion Moderate difficulty
+
+	#region Hard difficulty
+	public class HardDifficulty : Difficulty {
+		#region Support methods
+		public override int getMove(Flower[] board) {
+			int result = -1;
+			// is there a win possible?
+			if (!LogicUtils.isWinOrBlockAvailable(board, LogicUtils.COMPUTERS_TYPE, ref result)) {
 				// is there a block available?
 				if (!LogicUtils.isWinOrBlockAvailable(board, LogicUtils.PLAYERS_TYPE, ref result)) {
 					//didn't find anything so generate a move
@@ -62,7 +78,7 @@ namespace Flowers {
 		}
 		#endregion Support methods
 	}
-	#endregion Moderate difficulty
+	#endregion Hard difficulty
 
 	#region Impossible difficulty
 	public class ImpossibleDifficulty : Difficulty {

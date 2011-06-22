@@ -19,7 +19,8 @@ namespace Flowers {
 		private const int BUTTON_ID_EASY = 1;
 		private const int BUTTON_ID_MODERATE = 2;
 		private const int BUTTON_ID_IMPOSSIBLE = 3;
-		private const int BUTTON_ID_EXIT = 4;
+		private const int BUTTON_ID_HARD = 4;
+		private const int BUTTON_ID_EXIT = 5;
 		#endregion Class variables
 
 		#region Class propeties
@@ -28,7 +29,7 @@ namespace Flowers {
 
 		#region Constructor
 		public MainMenu(ContentManager content) {
-			this.buttons = new ColouredButton[4];
+			this.buttons = new ColouredButton[5];
 			const float textXDiff = 50f;
 			int startX = 1000;
 			ColouredButtonParams buttonParams = new ColouredButtonParams();
@@ -41,31 +42,38 @@ namespace Flowers {
 
 			buttonParams.ID = BUTTON_ID_EASY;
 			buttonParams.StartX = startX;
-			buttonParams.StartY = 425;
+			buttonParams.StartY = 415;
 			buttonParams.Text = "Easy";
 			buttonParams.TextsPosition = new Vector2(startX + textXDiff, buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
 			this.buttons[0] = new ColouredButton(buttonParams);
 
 			buttonParams.ID = BUTTON_ID_MODERATE;
 			buttonParams.StartX = startX;
-			buttonParams.StartY = 500;
+			buttonParams.StartY = 475;
 			buttonParams.Text = "Moderate";
 			buttonParams.TextsPosition = new Vector2(startX + (textXDiff - 15f), buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
 			this.buttons[1] = new ColouredButton(buttonParams);
 
+			buttonParams.ID = BUTTON_ID_HARD;
+			buttonParams.StartX = startX;
+			buttonParams.StartY = 535;
+			buttonParams.Text = "Hard";
+			buttonParams.TextsPosition = new Vector2(startX + textXDiff, buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
+			this.buttons[2] = new ColouredButton(buttonParams);
+
 			buttonParams.ID = BUTTON_ID_IMPOSSIBLE;
 			buttonParams.StartX = startX;
-			buttonParams.StartY = 575;
+			buttonParams.StartY = 595;
 			buttonParams.Text = "Impossible";
 			buttonParams.TextsPosition = new Vector2(startX + (textXDiff - 30f), buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
-			this.buttons[2] = new ColouredButton(buttonParams);
+			this.buttons[3] = new ColouredButton(buttonParams);
 
 			buttonParams.ID = BUTTON_ID_EXIT;
 			buttonParams.StartX = startX;
-			buttonParams.StartY = 650;
+			buttonParams.StartY = 655;
 			buttonParams.Text = "Exit";
 			buttonParams.TextsPosition = new Vector2(startX + textXDiff, buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
-			this.buttons[3] = new ColouredButton(buttonParams);
+			this.buttons[4] = new ColouredButton(buttonParams);
 #if WINDOWS
 #if DEBUG
 			if (this.buttons != null) {
@@ -95,8 +103,11 @@ namespace Flowers {
 								} else if (BUTTON_ID_MODERATE == button.ID) {
 									StateManager.getInstance().CurrentState = StateManager.GameState.InitModerateGame;
 									StateManager.getInstance().CurrentTransitionState = StateManager.TransitionState.TransitionOut;
-								} else if (BUTTON_ID_IMPOSSIBLE == button.ID) {
+								} else if (BUTTON_ID_HARD == button.ID) {
 									StateManager.getInstance().CurrentState = StateManager.GameState.InitHardGame;
+									StateManager.getInstance().CurrentTransitionState = StateManager.TransitionState.TransitionOut;
+								} else if (BUTTON_ID_IMPOSSIBLE == button.ID) {
+									StateManager.getInstance().CurrentState = StateManager.GameState.InitImpossibleGame;
 									StateManager.getInstance().CurrentTransitionState = StateManager.TransitionState.TransitionOut;
 								} else if (BUTTON_ID_EXIT == button.ID) {
 									StateManager.getInstance().CurrentState = StateManager.GameState.ShutDown;
