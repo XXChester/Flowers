@@ -77,6 +77,7 @@ namespace Flowers {
 			foreach (Flower flower in this.flowers) {
 				flower.reset();
 			}
+			this.currentDelay = 0f;
 			if (fullReset) {
 				this.computer.Score = 0;
 				this.player.Score = 0;
@@ -199,7 +200,9 @@ namespace Flowers {
 				StateManager.getInstance().CurrentState = StateManager.GameState.InGameMenu;
 				StateManager.getInstance().CurrentTransitionState = StateManager.TransitionState.TransitionOut;
 			}
-			this.currentDelay += elapsed;
+			if (StateManager.getInstance().CurrentState == StateManager.GameState.Active) {
+				this.currentDelay += elapsed;
+			}
 			base.update(elapsed);
 		}
 
