@@ -20,7 +20,7 @@ namespace Flowers {
 		public const Flower.FlowerType PLAYERS_TYPE = Flower.FlowerType.Daisy;
 		public const Flower.FlowerType COMPUTERS_TYPE = Flower.FlowerType.Rose;
 
-		public static bool checkBoardsState(Flower.FlowerType[] board, Flower.FlowerType flowerType, out int[] winningIndexes) {
+		private static bool checkBoardsState(Flower.FlowerType[] board, Flower.FlowerType flowerType, out int[] winningIndexes) {
 			bool foundMatch = false;
 			winningIndexes = null;
 			for (int i = 0; i < CHECKS_HEIGHT; i++) {

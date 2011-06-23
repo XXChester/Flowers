@@ -72,7 +72,7 @@ Programming:
 core:				9.5hours
 MinMaxAlgorithm:	5.25hours
 Simple pruning:		.25hours
-Alpha/Beta pruning:		.5hours
+Alpha/Beta pruning:		.5hours	5pm-
 polish:				11.5hours	
 Specific bugs:		1.5hours
 
