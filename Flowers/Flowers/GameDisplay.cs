@@ -63,11 +63,6 @@ namespace Flowers {
 			buttonParams.Text = "Replay";
 			buttonParams.TextsPosition = new Vector2(startX + 35f, buttonParams.StartY + ResourceManager.BUTTONS_TEXT_Y_DIFFERENCE);
 			this.replayButton = new ColouredButton(buttonParams);
-#if WINDOWS
-#if DEBUG
-			
-#endif
-#endif
 			reset(true);
 		}
 		#endregion Constructor
@@ -89,6 +84,12 @@ namespace Flowers {
 					StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Players;
 				}
 			}
+			//pruning proof
+			/*this.flowers[8].initSprites(this.computer);
+			this.flowers[3].initSprites(this.player);
+			this.flowers[0].initSprites(this.computer);
+			this.flowers[7].initSprites(this.player);
+			StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Computers;*/
 			// if we just finished a game we need to re-activate the game
 			if (StateManager.getInstance().CurrentState == StateManager.GameState.GameOver) {
 				StateManager.getInstance().CurrentState = StateManager.GameState.Active;

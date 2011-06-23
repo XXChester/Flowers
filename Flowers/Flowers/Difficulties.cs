@@ -140,10 +140,13 @@ namespace Flowers {
 				return beta;
 			}
 		}
-
-		private int miniMax(Flower.FlowerType[] types, Flower.FlowerType turn) {
+		//Alpha: a score the computer knows with certanty it can achieve
+		//Beta: a score the human knows with certanty it can achieve
+		//If beta becomes <= alpha, further investigation is useless
+		private int miniMax(Flower.FlowerType[] types, Flower.FlowerType turn, ref int numberOfMoves) {
 			int bestMove;
 			int move;
+			numberOfMoves++;
 			Winner winner;
 			if (LogicUtils.isGameOver(types, out winner)) {
 				if (winner.winningType == LogicUtils.COMPUTERS_TYPE) {
@@ -166,7 +169,7 @@ namespace Flowers {
 						cloned = LogicUtils.cloneFlowerTypes(types);
 						// get our result
 						cloned[i] = turn;
-						move = miniMax(cloned, inversedTurn);
+						move = miniMax(cloned, inversedTurn, ref numberOfMoves);
 						// interpret our result
 						if (LogicUtils.COMPUTERS_TYPE.Equals(turn) && move > bestMove) {
 							bestMove = move;
@@ -195,15 +198,19 @@ namespace Flowers {
 			} else {
 				int move;
 				int bestMove = -INFINITY;
+				int bestMoveCount = INFINITY;
+				int numberOfMoves;
 				Flower.FlowerType[] cloned;
 				for (int i = 0; i < types.Length; i++) {
 					if (types[i] == Flower.FlowerType.None) {// only process empty nodes
+						numberOfMoves = 0;
 						cloned = LogicUtils.cloneFlowerTypes(types);// clone our board
 						cloned[i] = LogicUtils.COMPUTERS_TYPE;// change this piece to the computers piece
-						move = miniMax(cloned, LogicUtils.PLAYERS_TYPE);//run the algorithm
-						if (move > bestMove) {// interpret the results
+						move = miniMax(cloned, LogicUtils.PLAYERS_TYPE, ref numberOfMoves);//run the algorithm
+						if (move > bestMove || (move == bestMove && numberOfMoves < bestMoveCount)) {// interpret the results
 							result = i;
 							bestMove = move;
+							bestMoveCount = numberOfMoves;
 						}
 					}
 				}
