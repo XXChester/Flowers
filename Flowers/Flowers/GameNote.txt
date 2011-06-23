@@ -25,9 +25,8 @@ Raw version of the game functional with programmer art
 [*]Implement flow mechanism
 [*]Implement Min Max algorithm (Impossible AI)
 [*]Implement simple pruning
-[]Implement Alpha/Beta pruning on the algorithm to make it faster...although in TicTacToe you will never see this performance increase...this is more of a best practises step
+[*]Implement Alpha/Beta pruning on the algorithm to make it faster...although in TicTacToe you will never see this performance increase...this is more of a best practises step
 		-This can also give you the wrong move without this....wrong in the sense that you will still win but in more moves opposed to picking the first option to win
-
 
 ============================
 	Polish(Phase 2)
@@ -61,6 +60,33 @@ Persistent bugs
 	-Resolution: Very difficult to track down but the problem was that in the reset method of the game, the computers move delay was > the wait delay time and for some reason
 		this was causing the flicker that was noticable as soon as the computer moved and the subsequent failure of that place displaying upon cats game
 
+===========================
+ALPHA/BETA METRICS
+==========================
+Format is (board_index: number_of_branches_searched)
+
+Pre alpha beta when I moved to position 0 on the board;
+1: 8232
+2: 7584
+3: 8232
+4: 7332
+5: 6380
+6: 7584
+7: 6380
+8: 7980
+
+Post alpha beta when I moved to position 0 on the board;
+1: 749
+2: 641
+3: 336
+4: 844
+5: 365
+6: 335
+7: 381
+8: 438
+
+That proves the importance of alpha/beta pruning, cut the searches exponentially, if this were a bigger game like chess this performance upgrade would be critical
+
 ============================
 		Time
 ============================
@@ -72,7 +98,7 @@ Programming:
 core:				9.5hours
 MinMaxAlgorithm:	5.25hours
 Simple pruning:		.25hours
-Alpha/Beta pruning:		.5hours	5pm-
+Alpha/Beta pruning:		1hours
 polish:				11.5hours	
 Specific bugs:		1.5hours
 
