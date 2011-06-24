@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using GWNorthEngine.Utils;
 namespace Flowers {
 	#region Base difficulty class
@@ -100,10 +97,8 @@ namespace Flowers {
 				}
 			} else {
 				if (LogicUtils.COMPUTERS_TYPE.Equals(turn)) {
-					//bestMove = -INFINITY;
 					bestMove = alpha;
 				} else {
-					//bestMove = INFINITY;
 					bestMove = beta;
 				}
 				Flower.FlowerType[] cloned = null;
@@ -130,11 +125,6 @@ namespace Flowers {
 								return beta;
 							}
 						}
-						/*if (LogicUtils.COMPUTERS_TYPE.Equals(turn) && move > bestMove) {
-							bestMove = move;
-						} else if (LogicUtils.PLAYERS_TYPE.Equals(turn) && move < bestMove) {
-							bestMove = move;
-						}*/
 					}
 				}
 			}
@@ -143,7 +133,6 @@ namespace Flowers {
 			} else {
 				return beta;
 			}
-			//return bestMove;
 		}
 
 		public override int getMove(Flower[] board) {

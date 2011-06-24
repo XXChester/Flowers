@@ -101,6 +101,7 @@ Simple pruning:		.25hours
 Alpha/Beta pruning:		1hours
 polish:				11.75hours
 Specific bugs:		1.5hours
+Post development cleanup:	8:45pm-
 
 Art:
 	15.25hours	

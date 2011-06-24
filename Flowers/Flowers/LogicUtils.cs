@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace Flowers {
 	public static class LogicUtils {
 		private const int CHECKS_WIDTH = 3;
