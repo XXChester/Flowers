@@ -12,14 +12,13 @@ namespace Flowers {
 		private BaseParticle2DParams particleParms;
 		private List<SmokeParticle> smokeParticles;
 		private float elapsedSpawnTime;
+		private float elapsedEmittingTime;
+		private bool smoking;
 		private const float SPAWN_DELAY = 500f;
 		private const float TIME_TO_LIVE = 5000f;
+		private const float EMITTER_TIME_TO_LIVE = 35000f;//smoke for 35 seconds
 		private readonly Vector2 MOVEMENT_SPEED = new Vector2(-5f / 1000f, -16f / 1000);//speed per second
 		#endregion Class variables
-
-		#region Class properties
-
-		#endregion Class properties
 
 		#region Constructor
 		public SmokeEmitter(ContentManager content) {
@@ -34,12 +33,15 @@ namespace Flowers {
 			this.particleParms.Direction = MOVEMENT_SPEED;
 			this.smokeParticles = new List<SmokeParticle>();
 			this.elapsedSpawnTime = SPAWN_DELAY;
+			this.elapsedEmittingTime = 0f;
+			this.smoking = true;
 		}
 		#endregion Constructor
 
 		#region Support methods
 		public void update(float elapsed) {
 			this.elapsedSpawnTime += elapsed;
+			this.elapsedEmittingTime += elapsed;
 			List<int> indexesUpForRemoval = new List<int>();
 			BaseParticle2D smokeParticle = null;
 			for (int i = 0; i < this.smokeParticles.Count; i++) {
@@ -63,9 +65,15 @@ namespace Flowers {
 			}
 
 			// add any new particles if required
-			if (this.elapsedSpawnTime >= SPAWN_DELAY) {
+			if (this.smoking && this.elapsedSpawnTime >= SPAWN_DELAY) {
 				this.smokeParticles.Add(new SmokeParticle(this.particleParms));
 				this.elapsedSpawnTime = 0f;
+			}
+
+			// check if it is time to turn the chimney off
+			if (this.elapsedEmittingTime >= EMITTER_TIME_TO_LIVE) {
+				this.smoking = !smoking;
+				this.elapsedEmittingTime = 0f;
 			}
 		}
 
