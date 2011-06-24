@@ -8,6 +8,8 @@ namespace Flowers {
 	public class InGameMenu : Display {
 		#region Class variables
 		private Button[] buttons;
+		private ResetDelegate resetDelegate;
+		public delegate void ResetDelegate();
 		private const int BUTTON_ID_RETURN_TO_GAME = 1;
 		private const int BUTTON_ID_EXIT_TO_MAIN_MENU = 2;
 		#endregion Class variables
@@ -17,7 +19,8 @@ namespace Flowers {
 		#endregion Class properties
 
 		#region Constructor
-		public InGameMenu() {
+		public InGameMenu(ResetDelegate resetDelegate) {
+			this.resetDelegate = resetDelegate;
 			this.buttons = new ColouredButton[2];
 			int startX = 1000 - 25;
 			ColouredButtonParams buttonParams = new ColouredButtonParams();
@@ -67,6 +70,7 @@ namespace Flowers {
 								if (BUTTON_ID_EXIT_TO_MAIN_MENU == button.ID) {
 									StateManager.getInstance().CurrentState = StateManager.GameState.MainMenu;
 									StateManager.getInstance().CurrentTransitionState = StateManager.TransitionState.TransitionOut;
+									this.resetDelegate.Invoke();
 								} else if (BUTTON_ID_RETURN_TO_GAME == button.ID) {
 									StateManager.getInstance().CurrentState = StateManager.getInstance().PreviousState;
 									StateManager.getInstance().CurrentTransitionState = StateManager.TransitionState.TransitionOut;

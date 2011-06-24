@@ -44,9 +44,13 @@ namespace Flowers {
 		protected override void LoadContent() {
 			ResourceManager.getInstance().loadResources(GraphicsDevice, Content);
 			this.backGround = new BackGround(Content);
-			this.mainMenu = new MainMenu(Content);
+			this.mainMenu = new MainMenu();
 			this.gameDisplay = new GameDisplay(Content);
-			this.inGameMenu = new InGameMenu();
+			this.inGameMenu = new InGameMenu(
+				delegate() {//anonymous delegate declaration
+				((GameDisplay)this.gameDisplay).reset(true);
+			}
+			);
 #if WINDOWS
 #if DEBUG
 			ScriptManager.getInstance().LogFile = "Log.log";
@@ -60,11 +64,6 @@ namespace Flowers {
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime) {
-			if (StateManager.getInstance().PreviousState == StateManager.GameState.InGameMenu && StateManager.getInstance().CurrentState == StateManager.GameState.MainMenu) {
-				// if we just came here we need to reset our Game
-				((GameDisplay)this.gameDisplay).reset(true);
-			}
-
 			// Transitioning code
 			if (StateManager.getInstance().CurrentState == StateManager.GameState.MainMenu) {
 				if (StateManager.getInstance().PreviousState == StateManager.GameState.MainMenu && 

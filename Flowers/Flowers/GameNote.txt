@@ -93,6 +93,7 @@ That proves the importance of alpha/beta pruning, cut the searches exponentially
 Planning:
 Game mechanics:	3hours
 MinMax algorithm:	2hours
+Total: 5hours
 
 Programming:		
 core:				9.5hours
@@ -101,12 +102,14 @@ Simple pruning:		.25hours
 Alpha/Beta pruning:		1hours
 polish:				11.75hours
 Specific bugs:		1.5hours
-Post development cleanup:	8:45pm-
+Post development cleanup:	.5hours
+Total time:	29.75hours
 
 Art:
 	15.25hours	
 Sound:
 	.5 hours
 	
-Total Time:
+Total Time:		50.5 hours
+Total lines:	1935
 	

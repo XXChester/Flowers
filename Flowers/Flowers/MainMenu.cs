@@ -21,7 +21,7 @@ namespace Flowers {
 		#endregion Class properties
 
 		#region Constructor
-		public MainMenu(ContentManager content) {
+		public MainMenu() {
 			this.buttons = new ColouredButton[5];
 			const float textXDiff = 50f;
 			int startX = 1000;
