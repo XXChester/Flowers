@@ -45,7 +45,7 @@ namespace Flowers {
 			this.CloudTexture2 = LoadingUtils.loadTexture2D(content, "Cloud2");
 			this.ShrubTexture = LoadingUtils.loadTexture2D(content, "Shrub");
 			this.ButtonsLineTexture = TextureUtils.create2DColouredTexture(device, 1, 1, Color.White);
-			this.ButtonsMouseOverColour = Color.SkyBlue;
+			this.ButtonsMouseOverColour = Color.Yellow;
 			this.TextColour = Color.White;
 		}
 		#endregion Support methods

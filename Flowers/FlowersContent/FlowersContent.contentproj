@@ -56,13 +56,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CloudOrig.png">
-      <Name>CloudOrig</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="DaisyAlive.png">
       <Name>DaisyAlive</Name>
       <Importer>TextureImporter</Importer>
