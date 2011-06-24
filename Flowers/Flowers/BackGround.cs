@@ -82,15 +82,15 @@ namespace Flowers {
 			float layer1Y =  20f;
 			float layer2Y = 70f;
 			float layer3Y = 130f;
-			this.clouds[0] = new Cloud(new Vector2(500f, layer1Y));
-			this.clouds[1] = new Cloud(new Vector2(1000f, layer1Y));
-			this.clouds[2] = new Cloud(new Vector2(1400f, layer1Y));
-			this.clouds[3] = new Cloud(new Vector2(200f, layer2Y));
-			this.clouds[4] = new Cloud(new Vector2(700f, layer2Y));
-			this.clouds[5] = new Cloud(new Vector2(1200f, layer2Y));
-			this.clouds[6] = new Cloud(new Vector2(10f, layer3Y));
-			this.clouds[7] = new Cloud(new Vector2(900f, layer3Y));
-			this.clouds[8] = new Cloud(new Vector2(400f, layer3Y));
+			this.clouds[0] = new Cloud(new Vector2(500f, layer1Y), ResourceManager.getInstance().CloudTexture2, SpriteEffects.FlipHorizontally);
+			this.clouds[1] = new Cloud(new Vector2(1000f, layer1Y), ResourceManager.getInstance().CloudTexture1);
+			this.clouds[2] = new Cloud(new Vector2(1400f, layer1Y), ResourceManager.getInstance().CloudTexture2);
+			this.clouds[3] = new Cloud(new Vector2(200f, layer2Y), ResourceManager.getInstance().CloudTexture1);
+			this.clouds[4] = new Cloud(new Vector2(700f, layer2Y), ResourceManager.getInstance().CloudTexture2);
+			this.clouds[5] = new Cloud(new Vector2(1200f, layer2Y), ResourceManager.getInstance().CloudTexture2, SpriteEffects.FlipHorizontally);
+			this.clouds[6] = new Cloud(new Vector2(10f, layer3Y), ResourceManager.getInstance().CloudTexture2);
+			this.clouds[7] = new Cloud(new Vector2(900f, layer3Y), ResourceManager.getInstance().CloudTexture1, SpriteEffects.FlipHorizontally);
+			this.clouds[8] = new Cloud(new Vector2(400f, layer3Y), ResourceManager.getInstance().CloudTexture1);
 
 			// shrubs
 			this.shrubs = new StaticDrawable2D[11];

@@ -23,7 +23,8 @@ namespace Flowers {
 		#region Class propeties
 		public SpriteFont Font { get; set; }
 		public Texture2D ButtonsLineTexture { get; set; }
-		public Texture2D CloudTexture { get; set; }
+		public Texture2D CloudTexture1 { get; set; }
+		public Texture2D CloudTexture2 { get; set; }
 		public Texture2D ShrubTexture { get; set; }
 		public Color ButtonsMouseOverColour { get; set; }
 		public Color TextColour { get; set; }
@@ -40,7 +41,8 @@ namespace Flowers {
 
 		public void loadResources(GraphicsDevice device, ContentManager content) {
 			this.Font = LoadingUtils.loadSpriteFont(content, "HUDFont");
-			this.CloudTexture = LoadingUtils.loadTexture2D(content, "Cloud");
+			this.CloudTexture1 = LoadingUtils.loadTexture2D(content, "Cloud1");
+			this.CloudTexture2 = LoadingUtils.loadTexture2D(content, "Cloud2");
 			this.ShrubTexture = LoadingUtils.loadTexture2D(content, "Shrub");
 			this.ButtonsLineTexture = TextureUtils.create2DColouredTexture(device, 1, 1, Color.White);
 			this.ButtonsMouseOverColour = Color.SkyBlue;
@@ -57,8 +59,11 @@ namespace Flowers {
 			if (this.ButtonsLineTexture != null) {
 				this.ButtonsLineTexture.Dispose();
 			}
-			if (this.CloudTexture != null) {
-				this.CloudTexture.Dispose();
+			if (this.CloudTexture1 != null) {
+				this.CloudTexture1.Dispose();
+			}
+			if (this.CloudTexture2 != null) {
+				this.CloudTexture2.Dispose();
 			}
 			if (this.ShrubTexture != null) {
 				this.ShrubTexture.Dispose();

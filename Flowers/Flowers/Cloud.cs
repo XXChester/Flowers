@@ -26,10 +26,15 @@ namespace Flowers {
 		#endregion Class properties
 
 		#region Constructor
-		public Cloud(Vector2 position) {
+		public Cloud(Vector2 position, Texture2D texture) 
+		: this(position, texture, SpriteEffects.None) {
+		}
+
+		public Cloud(Vector2 position, Texture2D texture, SpriteEffects spriteEffect) {
 			StaticDrawable2DParams parms = new StaticDrawable2DParams();
-			parms.Texture = ResourceManager.getInstance().CloudTexture;
+			parms.Texture = texture;
 			parms.Position = position;
+			parms.SpriteEffect = spriteEffect;
 			this.drawable = new StaticDrawable2D(parms);
 		}
 		#endregion Constructor
