@@ -114,29 +114,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackGround.cs" />
-    <Compile Include="Cloud.cs" />
-    <Compile Include="Display.cs" />
-    <Compile Include="Difficulties.cs" />
-    <Compile Include="Fence.cs" />
-    <Compile Include="Flower.cs" />
-    <Compile Include="FlowerBuilder.cs" />
-    <Compile Include="GameDisplay.cs" />
-    <Compile Include="House.cs" />
-    <Compile Include="InGameMenu.cs" />
-    <Compile Include="IRenderable.cs" />
-    <Compile Include="LogicUtils.cs" />
-    <Compile Include="MainMenu.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Displays\BackGround.cs" />
+    <Compile Include="Displays\Display.cs" />
+    <Compile Include="Displays\GameDisplay.cs" />
+    <Compile Include="Displays\InGameMenu.cs" />
+    <Compile Include="Displays\MainMenu.cs" />
+    <Compile Include="Helpers\FlowerBuilder.cs" />
+    <Compile Include="Logic\Difficulties.cs" />
+    <Compile Include="Logic\LogicUtils.cs" />
+    <Compile Include="Logic\Winner.cs" />
+    <Compile Include="Managers\ResourceManager.cs" />
+    <Compile Include="Managers\StateManager.cs" />
+    <Compile Include="Models\Cloud.cs" />
+    <Compile Include="Models\Fence.cs" />
+    <Compile Include="Models\Flower.cs" />
+    <Compile Include="Models\House.cs" />
+    <Compile Include="Models\IRenderable.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\SmokeEmitter.cs" />
+    <Compile Include="Models\SmokeParticle.cs" />
+    <Compile Include="Models\Sun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="ResourceManager.cs" />
-    <Compile Include="SmokeEmitter.cs" />
-    <Compile Include="SmokeParticle.cs" />
-    <Compile Include="StateManager.cs" />
-    <Compile Include="Sun.cs" />
-    <Compile Include="Winner.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
