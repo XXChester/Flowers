@@ -110,6 +110,6 @@ Art:
 Sound:
 	.5 hours
 	
-Total Time:		50.5 hours
+Total Time:	50.5 hours
 Total lines:	1935
 	
