@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using GWNorthEngine.Engine;
-using GWNorthEngine.Model.Params;
+using GWNorthEngine.Engine.Params;
 using GWNorthEngine.Scripting;
 namespace Flowers {
 	/// <summary>
