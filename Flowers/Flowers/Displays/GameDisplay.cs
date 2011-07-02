@@ -123,7 +123,7 @@ namespace Flowers {
 							if (flower.Type == Flower.FlowerType.None) {
 								if (PickingUtils.pickRectangle(mousePos, FlowerBuilder.SpritePositioner.getInstance().getPositionsRectangle(flower.Index))) {
 									if (StateManager.getInstance().WhosTurnIsIt == StateManager.TurnType.Players) {
-										this.diggingSFX.Play();
+										SoundManager.getInstance().SFXEngine.playSoundEffect(this.diggingSFX);
 										flower.initSprites(this.player);
 										StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Computers;
 										this.currentDelay = 0f;
@@ -139,7 +139,7 @@ namespace Flowers {
 				} else if (StateManager.getInstance().WhosTurnIsIt == StateManager.TurnType.Computers) {
 					if (this.currentDelay >= DELAY) {
 						int move = StateManager.getInstance().ActiveDifficulty.getMove(this.flowers);
-						this.diggingSFX.Play();
+						SoundManager.getInstance().SFXEngine.playSoundEffect(this.diggingSFX);
 						this.flowers[move].initSprites(this.computer);
 						StateManager.getInstance().WhosTurnIsIt = StateManager.TurnType.Players;
 					}

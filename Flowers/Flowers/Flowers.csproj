@@ -124,6 +124,7 @@
     <Compile Include="Logic\LogicUtils.cs" />
     <Compile Include="Logic\Winner.cs" />
     <Compile Include="Managers\ResourceManager.cs" />
+    <Compile Include="Managers\SoundManager.cs" />
     <Compile Include="Managers\StateManager.cs" />
     <Compile Include="Models\Cloud.cs" />
     <Compile Include="Models\Fence.cs" />

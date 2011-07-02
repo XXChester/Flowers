@@ -178,7 +178,7 @@ namespace Flowers {
 
 			// play sfx
 			if (this.currentWaitTime == 0) {
-				this.birdChirpSFX.Play(.5f, 0f, 0f);
+				SoundManager.getInstance().SFXEngine.playSoundEffect(this.birdChirpSFX, .5f);
 				this.currentWaitTime += elapsed;
 			} else if (this.currentWaitTime >= CHIRP_WAIT_TIME) {
 				this.currentWaitTime = 0f;

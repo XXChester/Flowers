@@ -136,6 +136,7 @@ namespace Flowers {
 			float elapsed = gameTime.ElapsedGameTime.Milliseconds;
 			this.backGround.update(elapsed);
 			this.activeDisplay.update(elapsed);
+			SoundManager.getInstance().update();
 			base.Update(gameTime);
 		}
 
@@ -177,6 +178,7 @@ namespace Flowers {
 			if (this.gameDisplay != null) {
 				this.gameDisplay.dispose();
 			}
+			SoundManager.getInstance().dispose();
 			ResourceManager.getInstance().dispose();
 			base.UnloadContent();
 		}
