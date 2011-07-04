@@ -18,7 +18,7 @@ namespace Flowers {
 		public static readonly Vector2 RESOLUTION = new Vector2(1280f, 720f);
 		#endregion Class variables
 
-		#region Cosntructor
+		#region Constructor
 		public Game1() {
 			BaseRendererParams parms = new BaseRendererParams();
 			parms.WindowsText = "Flowers";
