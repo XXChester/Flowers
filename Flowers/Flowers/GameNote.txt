@@ -53,7 +53,7 @@ Replace the programmer art with real art and make the game not only maintain its
 Persistent bugs
 =========================
 [*]In DEBUG mode the XNA audio engine throws an exception if you exit as a sound effect is playing
-	-Not sure how to fix this sense it is an internal framework problem
+	-Problem with the XNA framework when you manually(correctly) dispose of sound effects on closing. The solution is to let the ContentManager handle the disposale of SFX's
 [*]When the game is a cats game, without hitting replay you hit escape and exit to the main menu and enter a difficulty and when the game goes to game over again,
 	one of the pieces on the board will blank out instead of dying like everything else. Might have something to do with the computer going first in the new game.
 	The square that blanks out appears to be the first move
