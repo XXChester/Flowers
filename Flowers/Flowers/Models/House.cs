@@ -18,7 +18,11 @@ namespace Flowers {
 			houseParams.Texture = houseTexture;
 			houseParams.Position = new Vector2(1000f, 100f);
 			this.house = new StaticDrawable2D(houseParams);
-			this.chimneySmokeEmitter = new SmokeEmitter(content);
+
+			BaseParticle2DEmitterParams particleEmitterParams = new BaseParticle2DEmitterParams();
+			particleEmitterParams.ParticleTexture = LoadingUtils.loadTexture2D(content, "Smoke1");
+			particleEmitterParams.SpawnDelay = SmokeEmitter.SPAWN_DELAY;
+			this.chimneySmokeEmitter = new SmokeEmitter(particleEmitterParams);
 		}
 		#endregion Constructor
 

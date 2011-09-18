@@ -20,6 +20,7 @@ namespace Flowers {
 			base.fadeOutAsLifeProgresses();
 			base.scaleAsLifeProgresses(SCALE_BY);
 			base.rotateAsLifeProgresses(ROTATION_SPEED);
+			base.position += (base.direction * elapsed);
 		}
 		#endregion Support methods
 	}

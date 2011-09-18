@@ -112,6 +112,11 @@
             Gets or sets the Colour in which the sprite is to be rendered in
             </summary>
         </member>
+        <member name="P:GWNorthEngine.Model.Base2DSpriteDrawable.Origin">
+            <summary>
+            Gets or sets the Origin in which the sprite is rendered around
+            </summary>
+        </member>
         <member name="T:GWNorthEngine.Model.Line2D">
             <summary>
             Line class that simply draws a line to the screen
@@ -170,10 +175,68 @@
             Gets or sets the end position of the line
             </summary>
         </member>
+        <member name="T:GWNorthEngine.AI.AStar.BaseCosts">
+            <summary>
+            Base governing implementation of the cost module for determining tiles costs
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.AI.AStar.BaseCosts.#ctor(System.Single)">
+            <summary>
+            Builsd the basic cost class
+            </summary>
+            <param name="diagonalMultiplier">Multiplier used for diagonal movement determination</param>
+        </member>
+        <member name="M:GWNorthEngine.AI.AStar.BaseCosts.getDiagonalCost(System.Int32)">
+            <summary>
+            Determines the diagonal cost associated with a tile
+            </summary>
+            <param name="currentPositionsCost">Value if the tile were a straight move not a diagonal move</param>
+            <returns>Diagonal cost of the tile</returns>
+        </member>
+        <member name="M:GWNorthEngine.AI.AStar.BaseCosts.getCost(GWNorthEngine.AI.AStar.PathFinder.TypeOfSpace)">
+            <summary>
+            Determines the cost of a tile based on its type
+            </summary>
+            <param name="space"></param>
+            <returns></returns>
+        </member>
+        <member name="P:GWNorthEngine.AI.AStar.BaseCosts.StandardCost">
+            <summary>
+            Cost of a standard Walkable tile
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.AI.AStar.BaseCosts.VariableTerrainLowCost">
+            <summary>
+            Cost of a Variable Terrain Low Cost tile
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.AI.AStar.BaseCosts.VariableTerrainMediumCost">
+            <summary>
+            Cost of a Variable Terrain Medium Cost tile
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.AI.AStar.BaseCosts.VariableTerrainHighCost">
+            <summary>
+            Cost of a Variable Terrain High Cost tile
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.AI.AStar.BaseCosts.DiagonalMultiplier">
+            <summary>
+            Gets or sets the Diagonal Multiplier used for determining the cost of diagonal moves
+            </summary>
+        </member>
         <member name="T:GWNorthEngine.Utils.LoadingUtils">
             <summary>
             Contains helper methods for loading data from the file system
             </summary>
+        </member>
+        <member name="M:GWNorthEngine.Utils.LoadingUtils.setCommonAttributes(Microsoft.Xna.Framework.Graphics.Texture2D,System.String)">
+            <summary>
+            Sets all of the common data for the Texture2D
+            </summary>
+            <param name="texture">Loaded Texture2D to set the data on</param>
+            <param name="fileName">Name of the file</param>
+            <returns>Texture2D with the custom data appended to it</returns>
         </member>
         <member name="M:GWNorthEngine.Utils.LoadingUtils.loadTexture2D(Microsoft.Xna.Framework.Content.ContentManager,System.String)">
             <summary>
@@ -182,6 +245,15 @@
             <param name="content">ContentManager object</param>
             <param name="textureName">Name of the texture</param>
             <returns>Texture2D object</returns>
+        </member>
+        <member name="M:GWNorthEngine.Utils.LoadingUtils.loadTexture2D(Microsoft.Xna.Framework.Graphics.GraphicsDevice,System.String)">
+            <summary>
+            Loads a Texture2D not via the Content pipeline
+            </summary>
+            <param name="device">active GraphicsDevice reference</param>
+            <param name="fileNameWithPathAndExtension">Texute's name we are trying to load with the full path and file extension (Assets\Test.png)</param>
+            <returns>Texture2D object</returns>
+            <author>Largely based on http://jakepoz.com/jake_poznanski__speeding_up_xna.html </author>
         </member>
         <member name="M:GWNorthEngine.Utils.LoadingUtils.loadSpriteFont(Microsoft.Xna.Framework.Content.ContentManager,System.String)">
             <summary>
@@ -256,6 +328,124 @@
             Buttons ID used for determining if a button was clicked
             </summary>
         </member>
+        <member name="T:GWNorthEngine.Audio.BaseSoundEngine">
+            <summary>
+            Base implementation of a sound engine
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Audio.BaseSoundEngine.#ctor(GWNorthEngine.Audio.Params.BaseSoundEngineParams)">
+            <summary>
+            Constructs a SoundEngine object based on the data passed in via the params object
+            </summary>
+            <param name="parms"></param>
+        </member>
+        <member name="M:GWNorthEngine.Audio.BaseSoundEngine.update">
+            <summary>
+            Monitors current Sound instances and flags them for cleanup if they have finished playing
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Audio.BaseSoundEngine.dispose">
+            <summary>
+            Cleans up resources used by the SoundEngine
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Audio.BaseSoundEngine.Volume">
+            <summary>
+            Gets or sets the volume to play the audio at
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Audio.BaseSoundEngine.Muted">
+            <summary>
+            Gets or sets whether to play audio or not
+            </summary>
+        </member>
+        <member name="T:GWNorthEngine.Audio.SFXEngine">
+            <summary>
+            Sound effect engine, properly plays sound effects
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Audio.SFXEngine.#ctor(GWNorthEngine.Audio.Params.SFXEngineParams)">
+            <summary>
+            Builds a SFXEngine based on the parameter objects data
+            </summary>
+            <param name="parms">SFXEngineParams object containing the data required to build the SFXEngine</param>
+        </member>
+        <member name="M:GWNorthEngine.Audio.SFXEngine.playSoundEffect(Microsoft.Xna.Framework.Audio.SoundEffect)">
+            <summary>
+            Plays a sound effect with the generic data of the SFXEngine such as volume, etc
+            </summary>
+            <param name="sfx">SoundEffect to play</param>
+        </member>
+        <member name="M:GWNorthEngine.Audio.SFXEngine.playSoundEffect(Microsoft.Xna.Framework.Audio.SoundEffect,System.Boolean)">
+            <summary>
+            Plays a sound effect with the generic data of the SFXEngine such as volume, etc
+            </summary>
+            <param name="sfx">SoundEffect to play</param>
+            <param name="loop">Determines whether to loop the sound effect</param>
+        </member>
+        <member name="M:GWNorthEngine.Audio.SFXEngine.playSoundEffect(Microsoft.Xna.Framework.Audio.SoundEffect,System.Single)">
+            <summary>
+            Plays a sound effect with a specific volume
+            </summary>
+            <param name="sfx">SoundEffect to play</param>
+            <param name="volume">Volume to play the sound effect at</param>
+        </member>
+        <member name="M:GWNorthEngine.Audio.SFXEngine.playSoundEffect(Microsoft.Xna.Framework.Audio.SoundEffect,System.Single,System.Boolean)">
+            <summary>
+            Plays a sound effect with a specific volume
+            </summary>
+            <param name="sfx">SoundEffect to play</param>
+            <param name="volume">Volume to play the sound effect at</param>
+            <param name="loop">Determines whether to loop the sound effect</param>
+        </member>
+        <member name="M:GWNorthEngine.Audio.SFXEngine.playSoundEffect(Microsoft.Xna.Framework.Audio.SoundEffect,System.Single,System.Single,System.Single,System.Boolean)">
+            <summary>
+            Plays a sound effect at a specific volume, pan and pitch
+            </summary>
+            <param name="sfx">Sound effect to play</param>
+            <param name="volume">Volume to play the sound effect at</param>
+            <param name="pan">Pan to play the sound effect at</param>
+            <param name="pitch">Pitch to play the sound effect at</param>
+            <param name="loop">Determines whether to loop the sound effect</param>
+        </member>
+        <member name="M:GWNorthEngine.Audio.SFXEngine.stop(System.String)">
+            <summary>
+            Stops all sound effects that match the name passed in and are not already stopped
+            </summary>
+            <param name="name">Name of the sound effect we are trying to stop</param>
+        </member>
+        <member name="M:GWNorthEngine.Audio.SFXEngine.isPlaying(System.String)">
+            <summary>
+            Determines if a SoundEffect is playing based on its name
+            </summary>
+            <param name="name">Name to look up</param>
+            <returns>True if the sound if playing, otherwise false</returns>
+        </member>
+        <member name="M:GWNorthEngine.Audio.SFXEngine.update">
+            <summary>
+            Monitors current SoundEffectInstances and flags them for cleanup if they have finished playing
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Audio.SFXEngine.Finalize">
+            <summary>
+            Cleans up the SFXEngines resources
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Audio.SFXEngine.dispose">
+            <summary>
+            Cleans up the SFXEngines resources
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Audio.SFXEngine.Pan">
+            <summary>
+            Gets or sets the panning of the sound effects
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Audio.SFXEngine.Pitch">
+            <summary>
+            Gets or sets the pitch of the sound effects
+            </summary>
+        </member>
         <member name="T:GWNorthEngine.Utils.TransitionUtils">
             <summary>
             Helper methods for screen and object transitions
@@ -291,6 +481,21 @@
             <param name="translationType">type to translate to</param>
             <param name="value">string version of the data</param>
             <returns>Object translated to</returns>
+        </member>
+        <member name="T:GWNorthEngine.Model.Params.BaseParticle2DEmitterParams">
+            <summary>
+            Object containing the data required to build a BaseParticle2DEmitter object
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Model.Params.BaseParticle2DEmitterParams.SpawnDelay">
+            <summary>
+            Gets or sets the rate which a particle should be created at
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Model.Params.BaseParticle2DEmitterParams.ParticleTexture">
+            <summary>
+            Gets or sets the texture used for particle generation
+            </summary>
         </member>
         <member name="T:GWNorthEngine.Model.Params.ColouredButtonParams">
             <summary>
@@ -382,6 +587,21 @@
             Random number generator used to break ties in the path
             </summary>
         </member>
+        <member name="F:GWNorthEngine.AI.AStar.PathFinder.restrictionType">
+            <summary>
+            Type of restriction against the board on moves that we can generate
+            </summary>
+        </member>
+        <member name="F:GWNorthEngine.AI.AStar.PathFinder.costs">
+            <summary>
+            Costs associated with the board's tiles
+            </summary>
+        </member>
+        <member name="F:GWNorthEngine.AI.AStar.PathFinder.ABSOLUTE_PARENT_POSITION">
+            <summary>
+            Constant that defines the parent at the start of the linked list of path nodes
+            </summary>
+        </member>
         <member name="M:GWNorthEngine.AI.AStar.PathFinder.#ctor(System.Int32,System.Int32,GWNorthEngine.AI.AStar.PathFinder.RestrictionType)">
             <summary>
             Builds a base A* PathFinder instance for on the fly processing
@@ -404,13 +624,22 @@
             <param name="parent">Parent node of the new nodes to be processed</param>
             <param name="parentsIndex">Index of the parent in the open list</param>
         </member>
-        <member name="M:GWNorthEngine.AI.AStar.PathFinder.getDistance(Microsoft.Xna.Framework.Point,System.Int32@,System.Int32@)">
+        <member name="M:GWNorthEngine.AI.AStar.PathFinder.getDistance(Microsoft.Xna.Framework.Point,GWNorthEngine.AI.AStar.PathNode,System.Int32@,System.Int32@)">
             <summary>
             Retrieves the start distance and the end distance from the current position
             </summary>
             <param name="currentPosition">Current position we are at in the search</param>
+            <param name="parentNode">Node that will be the parent of this position we are determining the distance for</param>
             <param name="startDistance">Output the distance from the start</param>
             <param name="endDistance">Output the distance from the end</param>
+        </member>
+        <member name="M:GWNorthEngine.AI.AStar.PathFinder.getDistanceToStart(Microsoft.Xna.Framework.Point,GWNorthEngine.AI.AStar.PathNode)">
+            <summary>
+            Gets the distance from the start based on the path we have already found and its associated costs
+            </summary>
+            <param name="currentPosition">Current tile position we are at</param>
+            <param name="parentNode">Node that will be the parent of this position we are determining the distance for</param>
+            <returns>G cost of the A* algorithm (The distance from the start)</returns>
         </member>
         <member name="M:GWNorthEngine.AI.AStar.PathFinder.getDistance(Microsoft.Xna.Framework.Point,Microsoft.Xna.Framework.Point)">
             <summary>
@@ -448,6 +677,11 @@
             Gets the path leading from the starting position to the ending position if there is one
             </summary>
         </member>
+        <member name="P:GWNorthEngine.AI.AStar.PathFinder.Costs">
+            <summary>
+            Gets or sets the class used to generate costs of the boards tiles
+            </summary>
+        </member>
         <member name="T:GWNorthEngine.AI.AStar.PathFinder.TypeOfSpace">
             <summary>
             Type of spaces the board can contain
@@ -473,6 +707,21 @@
             Goal position on the board
             </summary>
         </member>
+        <member name="F:GWNorthEngine.AI.AStar.PathFinder.TypeOfSpace.VariableTerrainLowCost">
+            <summary>
+            Variable terrain with a higher cost than standard with an extra cost that is low
+            </summary>
+        </member>
+        <member name="F:GWNorthEngine.AI.AStar.PathFinder.TypeOfSpace.VariableTerrainMediumCost">
+            <summary>
+            Variable terrain with a higher cost than standard with an extra cost that is medium
+            </summary>
+        </member>
+        <member name="F:GWNorthEngine.AI.AStar.PathFinder.TypeOfSpace.VariableTerrainHighCost">
+            <summary>
+            Variable terrain with a higher cost than standard with an extra cost that is high
+            </summary>
+        </member>
         <member name="T:GWNorthEngine.AI.AStar.PathFinder.RestrictionType">
             <summary>
             Restriction type used for searching of the next node
@@ -483,10 +732,66 @@
             Can only generates moves in a zig zag pattern, cannot cut corners or move diagonally
             </summary>
         </member>
-        <member name="F:GWNorthEngine.AI.AStar.PathFinder.RestrictionType.All">
+        <member name="F:GWNorthEngine.AI.AStar.PathFinder.RestrictionType.None">
             <summary>
             Can generate moves in any direction
             </summary>
+        </member>
+        <member name="T:GWNorthEngine.AI.AStar.DefaultCosts">
+            <summary>
+            Default Cost implementation for variable terrain
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.AI.AStar.DefaultCosts.#ctor">
+            <summary>
+            Constructs the DefaultClass implementation with a diagonal multiplier of 1.5f
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.AI.AStar.DefaultCosts.StandardCost">
+            <summary>
+            Cost of a standard Walkable tile (cost: 10)
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.AI.AStar.DefaultCosts.VariableTerrainLowCost">
+            <summary>
+            Cost of a Variable Terrain Low Cost tile (cost: StandardCost * 2)
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.AI.AStar.DefaultCosts.VariableTerrainMediumCost">
+            <summary>
+            Cost of a Variable Terrain Medium Cost tile (cost: StandardCost * 3)
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.AI.AStar.DefaultCosts.VariableTerrainHighCost">
+            <summary>
+            Cost of a Variable Terrain High Cost tile (cost: StandardCost * 4)
+            </summary>
+        </member>
+        <member name="T:GWNorthEngine.Utils.StringUtils">
+            <summary>
+            Helper methods for manipulating string values
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Utils.StringUtils.scrubPathAndExtFromFileName(System.String)">
+            <summary>
+            Stribs the file path and extension (if they exist) off of a file name
+            </summary>
+            <param name="fileName">filename to alter</param>
+            <returns>filename with the path and extension ripped off if they were present</returns>
+        </member>
+        <member name="M:GWNorthEngine.Utils.StringUtils.scrubPathFromFileName(System.String)">
+            <summary>
+            Scrubs the directory information off of a file name
+            </summary>
+            <param name="fileName">filename to alter</param>
+            <returns>filename with the path ripped off if it were present</returns>
+        </member>
+        <member name="M:GWNorthEngine.Utils.StringUtils.scrubExtensionFromFilename(System.String)">
+            <summary>
+            Scrubs the file extension from a file name
+            </summary>
+            <param name="fileName">filename to alter</param>
+            <returns>filename with the extension ripped off if it were present</returns>
         </member>
         <member name="T:GWNorthEngine.Tools.TilePlacer.TileValues">
             <summary>
@@ -508,7 +813,7 @@
             Tile that you cannot pass through
             </summary>
         </member>
-        <member name="F:GWNorthEngine.Tools.TilePlacer.TileValues.StandOns">
+        <member name="F:GWNorthEngine.Tools.TilePlacer.TileValues.SpawnPoint">
             <summary>
             Tiles that you stand on
             </summary>
@@ -516,6 +821,26 @@
         <member name="F:GWNorthEngine.Tools.TilePlacer.TileValues.Climbers">
             <summary>
             Tiles that you can climb
+            </summary>
+        </member>
+        <member name="F:GWNorthEngine.Tools.TilePlacer.TileValues.Walkable">
+            <summary>
+            Moveable piece on the board
+            </summary>
+        </member>
+        <member name="F:GWNorthEngine.Tools.TilePlacer.TileValues.VariableTerrainLowCost">
+            <summary>
+            Variable terrain with a higher cost than standard with an extra cost that is low
+            </summary>
+        </member>
+        <member name="F:GWNorthEngine.Tools.TilePlacer.TileValues.VariableTerrainMediumCost">
+            <summary>
+            Variable terrain with a higher cost than standard with an extra cost that is medium
+            </summary>
+        </member>
+        <member name="F:GWNorthEngine.Tools.TilePlacer.TileValues.VariableTerrainHighCost">
+            <summary>
+            Variable terrain with a higher cost than standard with an extra cost that is high
             </summary>
         </member>
         <member name="T:GWNorthEngine.Scripting.ScriptManager">
@@ -645,11 +970,6 @@
             <param name="startDistance">Distance from the start</param>
             <param name="endDistance">Distance from the end</param>
         </member>
-        <member name="M:GWNorthEngine.AI.AStar.PathNode.calculateFScore">
-            <summary>
-            Calculates and assigns the FScore of a node based on its G and H scores
-            </summary>
-        </member>
         <member name="M:GWNorthEngine.AI.AStar.PathNode.fScoresEqual(GWNorthEngine.AI.AStar.PathNode)">
             <summary>
             Determines if two Nodes have an equal F score and H score
@@ -665,17 +985,17 @@
         </member>
         <member name="P:GWNorthEngine.AI.AStar.PathNode.H">
             <summary>
-            Get or sets the H score of a node
+            Get or sets the H score of a node (Estimated cost to move to the destination point from the current position)
             </summary>
         </member>
         <member name="P:GWNorthEngine.AI.AStar.PathNode.G">
             <summary>
-            Gets or sets the G score of a node
+            Gets or sets the G score of a node (Cost to move from the starting point to the current position)
             </summary>
         </member>
         <member name="P:GWNorthEngine.AI.AStar.PathNode.FScore">
             <summary>
-            Gets or sets the total F score of a node
+            Gets the total F score of a node
             </summary>
         </member>
         <member name="P:GWNorthEngine.AI.AStar.PathNode.Position">
@@ -686,6 +1006,162 @@
         <member name="P:GWNorthEngine.AI.AStar.PathNode.Parent">
             <summary>
             Gets or sets the nodes parent node
+            </summary>
+        </member>
+        <member name="T:GWNorthEngine.Input.InputManager">
+            <summary>
+            Manager that handles the states of different input devices
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.#ctor">
+            <summary>
+            Sets the default values of the input manager
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.getInstance">
+            <summary>
+            Retrieves the singleton instance
+            </summary>
+            <returns>InputManager</returns>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.update">
+            <summary>
+            Main loop that updates all of the devices
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.wasKeyPressed(Microsoft.Xna.Framework.Input.Keys)">
+            <summary>
+            Determines if a key was just pressed down
+            </summary>
+            <param name="key">Key that we are checking for</param>
+            <returns>True if the key was just pressed, otherwise false</returns>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.wasKeyReleased(Microsoft.Xna.Framework.Input.Keys)">
+            <summary>
+            Determines if a key was just released
+            </summary>
+            <param name="key">Key that we are checking for</param>
+            <returns>True if the key was just released, otherwise false</returns>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.isKeyDown(Microsoft.Xna.Framework.Input.Keys)">
+            <summary>
+            Determines if a key is held down
+            </summary>
+            <param name="key">Key that we are checking for</param>
+            <returns>True if the key is held, otherwise false</returns>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.wasButtonPressed(GWNorthEngine.Input.MouseButton)">
+            <summary>
+            Determines if a button was just pressed down
+            </summary>
+            <param name="button">Button that we are checking for</param>
+            <returns>True if the button was just pressed, otherwise false</returns>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.wasButtonReleased(GWNorthEngine.Input.MouseButton)">
+            <summary>
+            Determines if a button was just released
+            </summary>
+            <param name="button">Button that we are checking for</param>
+            <returns>True if the button was just released, otherwise false</returns>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.isButtonDown(GWNorthEngine.Input.MouseButton)">
+            <summary>
+            Determines if a button is held down
+            </summary>
+            <param name="button">Button that we are checking for</param>
+            <returns>True if the button is held down, otherwise false</returns>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.wasLeftButtonPressed">
+            <summary>
+            Determines if the left mouse button was just pressed down
+            </summary>
+            <returns>True if the button was just pressed, otherwise false</returns>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.wasLeftButtonReleased">
+            <summary>
+            Determines if the left mouse button was just released
+            </summary>
+            <returns>True if the button was just released, otherwise false</returns>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.isLeftButtonDown">
+            <summary>
+            Determines if the left mouse button is held down
+            </summary>
+            <returns>True if the button is held down, otherwise false</returns>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.wasRightButtonPressed">
+            <summary>
+            Determines if the right mouse button was just pressed down
+            </summary>
+            <returns>True if the button was just pressed, otherwise false</returns>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.wasRightButtonReleased">
+            <summary>
+            Determines if the left mouse button was just released
+            </summary>
+            <returns>True if the button was just released, otherwise false</returns>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.isRightButtonDown">
+            <summary>
+            Determines if the right mouse button is held down
+            </summary>
+            <returns>True if the button is held down, otherwise false</returns>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.wasMiddleButtonPressed">
+            <summary>
+            Determines if the middle mouse button was just pressed down
+            </summary>
+            <returns>True if the button was just pressed, otherwise false</returns>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.wasMiddleButtonReleased">
+            <summary>
+            Determines if the left mouse button was just released
+            </summary>
+            <returns>True if the button was just released, otherwise false</returns>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.isMiddleButtonDown">
+            <summary>
+            Determines if the middle mouse button is held down
+            </summary>
+            <returns>True if the button is held down, otherwise false</returns>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.wasButtonPressed(Microsoft.Xna.Framework.PlayerIndex,Microsoft.Xna.Framework.Input.Buttons)">
+            <summary>
+            Determines if a specific player just pressed a buton
+            </summary>
+            <param name="playerIndex">Player we are checking</param>
+            <param name="button">Button that we are checking</param>
+            <returns>True if the player's button was just pressed, otherwise false</returns>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.wasButtonReleased(Microsoft.Xna.Framework.PlayerIndex,Microsoft.Xna.Framework.Input.Buttons)">
+            <summary>
+            Determines if a specific player's buton was just released
+            </summary>
+            <param name="playerIndex">Player we are checking</param>
+            <param name="button">Button that we are checking</param>
+            <returns>True if the player's button was just released, otherwise false</returns>
+        </member>
+        <member name="M:GWNorthEngine.Input.InputManager.isButtonDown(Microsoft.Xna.Framework.PlayerIndex,Microsoft.Xna.Framework.Input.Buttons)">
+            <summary>
+            Determines if a specific player is holding a button down
+            </summary>
+            <param name="playerIndex">Player we are checking</param>
+            <param name="button">Button that we are checking</param>
+            <returns>True if the player's button is held down, otherwise false</returns>
+        </member>
+        <member name="P:GWNorthEngine.Input.InputManager.MouseX">
+            <summary>
+            Returns the mouses X position
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Input.InputManager.MouseY">
+            <summary>
+            Returns the mouses Y position
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Input.InputManager.MousePosition">
+            <summary>
+            Returns a Vector2 of the mouses position
             </summary>
         </member>
         <member name="T:GWNorthEngine.Model.BaseParticle2D">
@@ -835,14 +1311,13 @@
             Models the data that is a direct result from loading a TilePlacer map
             </summary>
         </member>
-        <member name="M:GWNorthEngine.Tools.TilePlacer.LoadResult.#ctor(System.Int32,System.Int32,GWNorthEngine.Tools.TilePlacer.MapTile[0:,0:],GWNorthEngine.Tools.TilePlacer.TileValues[0:,0:])">
+        <member name="M:GWNorthEngine.Tools.TilePlacer.LoadResult.#ctor(System.Int32,System.Int32,GWNorthEngine.Tools.TilePlacer.Layer[])">
             <summary>
             Constructs a LoadResult object
             </summary>
             <param name="height">Height of the map</param>
             <param name="width">Width of the map</param>
-            <param name="mapTiles">MapTile objects that make the map</param>
-            <param name="tileValues">TileValues of the types of tiles that make up the map</param>
+            <param name="layers">Layers of MapTile objects that make the map</param>
         </member>
         <member name="P:GWNorthEngine.Tools.TilePlacer.LoadResult.Height">
             <summary>
@@ -854,14 +1329,9 @@
             Gets or sets the width of the map
             </summary>
         </member>
-        <member name="P:GWNorthEngine.Tools.TilePlacer.LoadResult.MapTiles">
+        <member name="P:GWNorthEngine.Tools.TilePlacer.LoadResult.Layers">
             <summary>
-            Gets or sets the MapTile array representation of the map
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Tools.TilePlacer.LoadResult.TileValues">
-            <summary>
-            Gets or sets the TileValues array representation of the map
+            Gets or sets the Layers of the map
             </summary>
         </member>
         <member name="T:GWNorthEngine.Model.Params.BaseAnimationManagerParams">
@@ -960,6 +1430,12 @@
             Resets the sprite
             </summary>
         </member>
+        <member name="M:GWNorthEngine.Model.Animated2DSprite.reset(System.Boolean)">
+            <summary>
+            Resets the sprite with the option to make the animation sequence fire as soon as a "Play" state is entered
+            </summary>
+            <param name="cockAnimation">Option to make an animation fire as soon as a "Play" state is entered</param>
+        </member>
         <member name="M:GWNorthEngine.Model.Animated2DSprite.update(System.Single)">
             <summary>
             Updates the sprite, by default only the animation
@@ -1022,6 +1498,50 @@
         <member name="F:GWNorthEngine.Engine.RunningMode.Debug">
             <summary>
             Front end application is in debug mode
+            </summary>
+        </member>
+        <member name="T:GWNorthEngine.Audio.Params.SFXEngineParams">
+            <summary>
+            Object containing the required data to build a SFXEngine instance
+            </summary>
+        </member>
+        <member name="T:GWNorthEngine.Audio.Params.BaseSoundEngineParams">
+            <summary>
+            Object containing the data required to build the BaseSoundEngine
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Audio.Params.BaseSoundEngineParams.#ctor">
+            <summary>
+            Builds the default settings for setting up a BaseSoundEngine. The default settings are listed below
+            Volume:		100%(1f)
+            Muted:	false
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Audio.Params.BaseSoundEngineParams.Volume">
+            <summary>
+            Gets or sets the volume to play sound effects at
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Audio.Params.BaseSoundEngineParams.Muted">
+            <summary>
+            Gets or sets whether audio is to be played
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Audio.Params.SFXEngineParams.#ctor">
+            <summary>
+            Builds the default settings for setting up a SFXEngine. The default settings are listed below.
+            Pan:		0f(Centered)
+            Pitch:		0f(Unity)
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Audio.Params.SFXEngineParams.Pan">
+            <summary>
+            Gets or sets the panning of the sound effects
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Audio.Params.SFXEngineParams.Pitch">
+            <summary>
+            Gets or sets the pitch of the sound effects
             </summary>
         </member>
         <member name="T:GWNorthEngine.Utils.TextureUtils">
@@ -1459,6 +1979,94 @@
             Gets or sets the Line2D object used by the button
             </summary>
         </member>
+        <member name="T:GWNorthEngine.Audio.MusicEngine">
+            <summary>
+            Music engine, handles playing a play list
+            </summary>
+        </member>
+        <member name="F:GWNorthEngine.Audio.MusicEngine.internalTrackNumber">
+            <summary>
+            This should only be used within the music engine and NEVER for an update, use the TrackNumber property for updates
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Audio.MusicEngine.#ctor(GWNorthEngine.Audio.Params.MusicEngineParams)">
+            <summary>
+            Builds a MusicEngine based on the data passed in via the parameter object
+            </summary>
+            <param name="parms">MusicEngineParams object containing the required data</param>
+        </member>
+        <member name="M:GWNorthEngine.Audio.MusicEngine.add(Microsoft.Xna.Framework.Media.Song)">
+            <summary>
+            Adds a Song object to the play list
+            </summary>
+            <param name="song">Song object to add</param>
+        </member>
+        <member name="M:GWNorthEngine.Audio.MusicEngine.add(System.Collections.Generic.List{Microsoft.Xna.Framework.Media.Song})">
+            <summary>
+            Adds a list of Song objects to the play list
+            </summary>
+            <param name="playList"></param>
+        </member>
+        <member name="M:GWNorthEngine.Audio.MusicEngine.playNextTrack">
+            <summary>
+            Plays the next track in the play list
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Audio.MusicEngine.playPreviousTrack">
+            <summary>
+            Plays the previous track in the play list
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Audio.MusicEngine.play">
+            <summary>
+            Plays whichever track is up
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Audio.MusicEngine.stop">
+            <summary>
+            Stops the current track
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Audio.MusicEngine.pause">
+            <summary>
+            Pauses the current track
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Audio.MusicEngine.unpause">
+            <summary>
+            Unpauses the current track
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Audio.MusicEngine.update">
+            <summary>
+            Progresses the sound track alongs its path at the end of a sound
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Audio.MusicEngine.dispose">
+            <summary>
+            Cleans up resources used by the music engine
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Audio.MusicEngine.TrackNumber">
+            <summary>
+            Gets the track number we are sitting at
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Audio.MusicEngine.currentTrack">
+            <summary>
+            Gets the current track that is playing
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Audio.MusicEngine.Muted">
+            <summary>
+            Gets or sets whether the engine is muted
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Audio.MusicEngine.Volume">
+            <summary>
+            Gets or sets the volume of the engine
+            </summary>
+        </member>
         <member name="T:GWNorthEngine.Utils.CollisionUtils">
             <summary>
             Helper methods for determining collision between objects
@@ -1577,6 +2185,121 @@
             </summary>
             <param name="parent">Parent node of the new nodes to be processed</param>
             <param name="parentsIndex">Index of the parent in the open list</param>
+        </member>
+        <member name="T:GWNorthEngine.Model.BaseParticle2DEmitter">
+            <summary>
+            Models the basis of every particle emitter
+            </summary>
+        </member>
+        <member name="F:GWNorthEngine.Model.BaseParticle2DEmitter.elapsedSpawnTime">
+            <summary>
+            Elapsed time since the last particle was spawned
+            </summary>
+        </member>
+        <member name="F:GWNorthEngine.Model.BaseParticle2DEmitter.spawnDelay">
+            <summary>
+            Spawn delay to create new particles
+            </summary>
+        </member>
+        <member name="F:GWNorthEngine.Model.BaseParticle2DEmitter.particleTexture">
+            <summary>
+            Texture the particles are using
+            </summary>
+        </member>
+        <member name="F:GWNorthEngine.Model.BaseParticle2DEmitter.particleParams">
+            <summary>
+            Basic params object used to create the particle
+            </summary>
+        </member>
+        <member name="F:GWNorthEngine.Model.BaseParticle2DEmitter.particles">
+            <summary>
+            List of emitted particles
+            </summary>
+        </member>
+        <member name="F:GWNorthEngine.Model.BaseParticle2DEmitter.RANDOM">
+            <summary>
+            Random number generator
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Model.BaseParticle2DEmitter.#ctor(GWNorthEngine.Model.Params.BaseParticle2DEmitterParams)">
+            <summary>
+            Builds the base particle emitter
+            </summary>
+            <param name="parms">BaseParticle2DEmitterParams object containing the data required to build the particle emitter</param>
+        </member>
+        <member name="M:GWNorthEngine.Model.BaseParticle2DEmitter.createParticle">
+            <summary>
+            Default implementation of creating a particle...default implementation is setting the elapsedSpawnTime back to 0f;
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Model.BaseParticle2DEmitter.update(System.Single)">
+            <summary>
+            Updates the particle emitter and its particles. Also handles the removal of old particles
+            </summary>
+            <param name="elapsed"></param>
+        </member>
+        <member name="M:GWNorthEngine.Model.BaseParticle2DEmitter.render(Microsoft.Xna.Framework.Graphics.SpriteBatch)">
+            <summary>
+            Renders the emitters active particles
+            </summary>
+            <param name="spriteBatch"></param>
+        </member>
+        <member name="M:GWNorthEngine.Model.BaseParticle2DEmitter.dispose">
+            <summary>
+            Disposes of the emitters texture used to generate the particles
+            </summary>
+        </member>
+        <member name="T:GWNorthEngine.Engine.Params.BaseRendererParams">
+            <summary>
+            Object containing the data required to build the BaseRenderer
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Engine.Params.BaseRendererParams.#ctor">
+            <summary>
+            Builds the default settings for setting up the the BaseRenderer. The default settings are below;
+            ScreenHeight:			600
+            ScreenWidth:			800
+            MouseVisiblity:			true
+            FullScreen:				false
+            ContentRootDirectory:	"Content"
+            WindowText:				"PLEASE FILL ME IN!"
+            RunningMOdeL			Release
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Engine.Params.BaseRendererParams.ScreenWidth">
+            <summary>
+            Gets or sets the initial screen width for the game
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Engine.Params.BaseRendererParams.ScreenHeight">
+            <summary>
+            Gets or sets the initial screen height for the game
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Engine.Params.BaseRendererParams.ContentRootDirectory">
+            <summary>
+            Gets or sets the content root directory for the game
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Engine.Params.BaseRendererParams.WindowsText">
+            <summary>
+            Gets or sets the windows text for the game
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Engine.Params.BaseRendererParams.MouseVisible">
+            <summary>
+            Gets or sets whether the mouse is visible in the application
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Engine.Params.BaseRendererParams.FullScreen">
+            <summary>
+            Gets or sets whether the game will be run in full screen mode or note
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Engine.Params.BaseRendererParams.RunningMode">
+            <summary>
+            Gets or sets whether the game is running in Release or Debug mode
+            </summary>
         </member>
         <member name="T:GWNorthEngine.Model.TexturedButton">
             <summary>
@@ -1697,6 +2420,27 @@
             UnloadContent will be called once per game and is the place to unload all content
             </summary>
         </member>
+        <member name="T:GWNorthEngine.Tools.TilePlacer.Layer">
+            <summary>
+            Models the data that makes up a layer of a full map
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Tools.TilePlacer.Layer.#ctor(GWNorthEngine.Tools.TilePlacer.MapTile[0:,0:])">
+            <summary>
+            Constructs a Layer based off the xml loaded via the MapLoader
+            </summary>
+            <param name="tiles">Array of MapTile objects loaded from the xml</param>
+        </member>
+        <member name="M:GWNorthEngine.Tools.TilePlacer.Layer.dispose">
+            <summary>
+            Cleans up the tiles
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Tools.TilePlacer.Layer.Tiles">
+            <summary>
+            Gets or sets the tiles used to draw the map
+            </summary>
+        </member>
         <member name="T:GWNorthEngine.Scripting.Utils.ScriptUtils">
             <summary>
             Helpful methods for scripting
@@ -1724,6 +2468,32 @@
             <param name="paramType">Type of the value</param>
             <returns>Clean parameter</returns>
         </member>
+        <member name="T:GWNorthEngine.Audio.Params.MusicEngineParams">
+            <summary>
+            Object containing the required data to build a MusicEngine instance
+            </summary>
+        </member>
+        <member name="M:GWNorthEngine.Audio.Params.MusicEngineParams.#ctor">
+            <summary>
+            Builds the default settings for setting up a MusicEngine. The default settings are listed below.
+            
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Audio.Params.MusicEngineParams.PlayList">
+            <summary>
+            Gets or sets the list of Song objects to play in the music engine
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Audio.Params.MusicEngineParams.StartTrack">
+            <summary>
+            Gets or sets the track to start playing in the music engine
+            </summary>
+        </member>
+        <member name="P:GWNorthEngine.Audio.Params.MusicEngineParams.State">
+            <summary>
+            Gets or sets the state of the music engine
+            </summary>
+        </member>
         <member name="T:GWNorthEngine.Tools.TilePlacer.MapLoader">
             <summary>
             Loads a TilePlacer map file
@@ -1737,15 +2507,15 @@
             <param name="height">Height of the map</param>
             <param name="width">Width of the map</param>
         </member>
-        <member name="M:GWNorthEngine.Tools.TilePlacer.MapLoader.loadMap(Microsoft.Xna.Framework.Content.ContentManager,System.Xml.XmlDocument,System.Int32,GWNorthEngine.Tools.TilePlacer.MapTile[0:,0:]@,GWNorthEngine.Tools.TilePlacer.TileValues[0:,0:]@)">
+        <member name="M:GWNorthEngine.Tools.TilePlacer.MapLoader.loadLayer(Microsoft.Xna.Framework.Content.ContentManager,System.Xml.Linq.XElement,System.Int32,System.Int32)">
             <summary>
-            Loads the tiles of a map
+            Loads a layer from the xml
             </summary>
-            <param name="content">ContentManager used to load textures for the map</param>
-            <param name="map">XmlDocument object containing the tile information</param>
-            <param name="width">Width of the map</param>
-            <param name="mapTiles">MapTiles[,] loaded via the xml</param>
-            <param name="tileValues">TileValues[,] loaded via the xml</param>
+            <param name="content">ContentManager object to load textures</param>
+            <param name="xmlLayer">XML of the layer to load</param>
+            <param name="height">Height of the layer</param>
+            <param name="width">Width of the layer</param>
+            <returns>Layer object</returns>
         </member>
         <member name="M:GWNorthEngine.Tools.TilePlacer.MapLoader.load(Microsoft.Xna.Framework.Content.ContentManager,System.String)">
             <summary>
@@ -1834,6 +2604,15 @@
             Resets the animation sequence that the AnimationManager is controlling
             </summary>
             <param name="maxFrameCount">Max frames used to reset reverse sprites</param>
+        </member>
+        <member name="M:GWNorthEngine.Model.AnimationManager.resetAnimation(System.Int32,System.Boolean)">
+            <summary>
+            Resets the animation sequence that the AnimationManager is controlling and has an option to set the animation so that it will
+            fire as soon the state is changed to a "play" state
+            </summary>
+            <param name="maxFrameCount">Max frames used to reset reverse sprites</param>
+            <param name="cockAnimation">Determines if we are setting the animation up to fire right away as soon as a "Play" state is entered or whether
+            we want it set to replay the whole wait time</param>
         </member>
         <member name="M:GWNorthEngine.Model.AnimationManager.update(System.Single,System.Int32)">
             <summary>
@@ -1925,289 +2704,24 @@
             Gets or sets the Texture of the static drawable object
             </summary>
         </member>
-        <member name="T:GWNorthEngine.Engine.Params.BaseRendererParams">
+        <member name="T:GWNorthEngine.Input.MouseButton">
             <summary>
-            Object containing the data required to build the BaseRenderer
+            Enum to represent available Mouse buttons which are used in the InputManager
             </summary>
         </member>
-        <member name="M:GWNorthEngine.Engine.Params.BaseRendererParams.#ctor">
+        <member name="F:GWNorthEngine.Input.MouseButton.Left">
             <summary>
-            Builds the default settings for setting up the the BaseRenderer. The default settings are below;
-            ScreenHeight:			600
-            ScreenWidth:			800
-            MouseVisiblity:			true
-            FullScreen:				false
-            ContentRootDirectory:	"Content"
-            WindowText:				"PLEASE FILL ME IN!"
-            RunningMOdeL			Release
+            Left mouse button
             </summary>
         </member>
-        <member name="P:GWNorthEngine.Engine.Params.BaseRendererParams.ScreenWidth">
+        <member name="F:GWNorthEngine.Input.MouseButton.Right">
             <summary>
-            Gets or sets the initial screen width for the game
+            Right mouse button
             </summary>
         </member>
-        <member name="P:GWNorthEngine.Engine.Params.BaseRendererParams.ScreenHeight">
+        <member name="F:GWNorthEngine.Input.MouseButton.Middle">
             <summary>
-            Gets or sets the initial screen height for the game
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Engine.Params.BaseRendererParams.ContentRootDirectory">
-            <summary>
-            Gets or sets the content root directory for the game
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Engine.Params.BaseRendererParams.WindowsText">
-            <summary>
-            Gets or sets the windows text for the game
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Engine.Params.BaseRendererParams.MouseVisible">
-            <summary>
-            Gets or sets whether the mouse is visible in the application
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Engine.Params.BaseRendererParams.FullScreen">
-            <summary>
-            Gets or sets whether the game will be run in full screen mode or note
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Engine.Params.BaseRendererParams.RunningMode">
-            <summary>
-            Gets or sets whether the game is running in Release or Debug mode
-            </summary>
-        </member>
-        <member name="T:GWNorthEngine.Audio.Params.SFXEngineParams">
-            <summary>
-            Object containing the required data to build a SFXEngine instance
-            </summary>
-        </member>
-        <member name="T:GWNorthEngine.Audio.Params.BaseSoundEngineParams">
-            <summary>
-            Object containing the data required to build the BaseSoundEngine
-            </summary>
-        </member>
-        <member name="M:GWNorthEngine.Audio.Params.BaseSoundEngineParams.#ctor">
-            <summary>
-            Builds the default settings for setting up a BaseSoundEngine. The default settings are listed below
-            Volume:		100%(1f)
-            Muted:	false
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Audio.Params.BaseSoundEngineParams.Volume">
-            <summary>
-            Gets or sets the volume to play sound effects at
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Audio.Params.BaseSoundEngineParams.Muted">
-            <summary>
-            Gets or sets whether audio is to be played
-            </summary>
-        </member>
-        <member name="M:GWNorthEngine.Audio.Params.SFXEngineParams.#ctor">
-            <summary>
-            Builds the default settings for setting up a SFXEngine. The default settings are listed below.
-            Pan:		0f(Centered)
-            Pitch:		0f(Unity)
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Audio.Params.SFXEngineParams.Pan">
-            <summary>
-            Gets or sets the panning of the sound effects
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Audio.Params.SFXEngineParams.Pitch">
-            <summary>
-            Gets or sets the pitch of the sound effects
-            </summary>
-        </member>
-        <member name="T:GWNorthEngine.Audio.BaseSoundEngine">
-            <summary>
-            Base implementation of a sound engine
-            </summary>
-        </member>
-        <member name="M:GWNorthEngine.Audio.BaseSoundEngine.#ctor(GWNorthEngine.Audio.Params.BaseSoundEngineParams)">
-            <summary>
-            Constructs a SoundEngine object based on the data passed in via the params object
-            </summary>
-            <param name="parms"></param>
-        </member>
-        <member name="M:GWNorthEngine.Audio.BaseSoundEngine.dispose">
-            <summary>
-            Cleans up resources used by the SoundEngine
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Audio.BaseSoundEngine.Volume">
-            <summary>
-            Gets or sets the volume to play the audio at
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Audio.BaseSoundEngine.Muted">
-            <summary>
-            Gets or sets whether to play audio or not
-            </summary>
-        </member>
-        <member name="T:GWNorthEngine.Audio.SFXEngine">
-            <summary>
-            Sound effect engine, properly plays sound effects
-            </summary>
-        </member>
-        <member name="M:GWNorthEngine.Audio.SFXEngine.#ctor(GWNorthEngine.Audio.Params.SFXEngineParams)">
-            <summary>
-            Builds a SFXEngine based on the parameter objects data
-            </summary>
-            <param name="parms">SFXEngineParams object containing the data required to build the SFXEngine</param>
-        </member>
-        <member name="M:GWNorthEngine.Audio.SFXEngine.playSoundEffect(Microsoft.Xna.Framework.Audio.SoundEffect)">
-            <summary>
-            Plays a sound effect with the generic data of the SFXEngine such as volume, etc
-            </summary>
-            <param name="sfx">SoundEffect to play</param>
-        </member>
-        <member name="M:GWNorthEngine.Audio.SFXEngine.playSoundEffect(Microsoft.Xna.Framework.Audio.SoundEffect,System.Single)">
-            <summary>
-            Plays a sound effect with a specific volume
-            </summary>
-            <param name="sfx">SoundEffect to play</param>
-            <param name="volume">Volume to play the sound effect at</param>
-        </member>
-        <member name="M:GWNorthEngine.Audio.SFXEngine.playSoundEffect(Microsoft.Xna.Framework.Audio.SoundEffect,System.Single,System.Single,System.Single)">
-            <summary>
-            Plays a sound effect at a specific volume, pan and pitch
-            </summary>
-            <param name="sfx">Sound effect to play</param>
-            <param name="volume">Volume to play the sound effect at</param>
-            <param name="pan">Pan to play the sound effect at</param>
-            <param name="pitch">Pitch to play the sound effect at</param>
-        </member>
-        <member name="M:GWNorthEngine.Audio.SFXEngine.stop(System.String)">
-            <summary>
-            Stops all sound effects that match the name passed in and are not already stopped
-            </summary>
-            <param name="name">Name of the sound effect we are trying to stop</param>
-        </member>
-        <member name="M:GWNorthEngine.Audio.SFXEngine.update">
-            <summary>
-            Monitors current SoundEffectInstances and flags them for cleanup if they have finished playing
-            </summary>
-        </member>
-        <member name="M:GWNorthEngine.Audio.SFXEngine.Finalize">
-            <summary>
-            Cleans up the SFXEngines resources
-            </summary>
-        </member>
-        <member name="M:GWNorthEngine.Audio.SFXEngine.dispose">
-            <summary>
-            Cleans up the SFXEngines resources
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Audio.SFXEngine.Pan">
-            <summary>
-            Gets or sets the panning of the sound effects
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Audio.SFXEngine.Pitch">
-            <summary>
-            Gets or sets the pitch of the sound effects
-            </summary>
-        </member>
-        <member name="T:GWNorthEngine.Audio.MusicEngine">
-            <summary>
-            Music engine, handles playing a play list
-            </summary>
-        </member>
-        <member name="M:GWNorthEngine.Audio.MusicEngine.#ctor(GWNorthEngine.Audio.Params.MusicEngineParams)">
-            <summary>
-            Builds a MusicEngine based on the data passed in via the parameter object
-            </summary>
-            <param name="parms">MusicEngineParams object containing the required data</param>
-        </member>
-        <member name="M:GWNorthEngine.Audio.MusicEngine.add(Microsoft.Xna.Framework.Media.Song)">
-            <summary>
-            Adds a Song object to the play list
-            </summary>
-            <param name="song">Song object to add</param>
-        </member>
-        <member name="M:GWNorthEngine.Audio.MusicEngine.add(System.Collections.Generic.List{Microsoft.Xna.Framework.Media.Song})">
-            <summary>
-            Adds a list of Song objects to the play list
-            </summary>
-            <param name="playList"></param>
-        </member>
-        <member name="M:GWNorthEngine.Audio.MusicEngine.playNextTrack">
-            <summary>
-            Plays the next track in the play list
-            </summary>
-        </member>
-        <member name="M:GWNorthEngine.Audio.MusicEngine.playPreviousTrack">
-            <summary>
-            Plays the previous track in the play list
-            </summary>
-        </member>
-        <member name="M:GWNorthEngine.Audio.MusicEngine.play">
-            <summary>
-            Plays whichever track is up
-            </summary>
-        </member>
-        <member name="M:GWNorthEngine.Audio.MusicEngine.stop">
-            <summary>
-            Stops the current track
-            </summary>
-        </member>
-        <member name="M:GWNorthEngine.Audio.MusicEngine.pause">
-            <summary>
-            Pauses the current track
-            </summary>
-        </member>
-        <member name="M:GWNorthEngine.Audio.MusicEngine.unpause">
-            <summary>
-            Unpauses the current track
-            </summary>
-        </member>
-        <member name="M:GWNorthEngine.Audio.MusicEngine.dispose">
-            <summary>
-            Cleans up resources used by the music engine
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Audio.MusicEngine.currentTrack">
-            <summary>
-            Gets the current track that is playing
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Audio.MusicEngine.Muted">
-            <summary>
-            Gets or sets whether the engine is muted
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Audio.MusicEngine.Volume">
-            <summary>
-            Gets or sets the volume of the engine
-            </summary>
-        </member>
-        <member name="T:GWNorthEngine.Audio.Params.MusicEngineParams">
-            <summary>
-            Object containing the required data to build a MusicEngine instance
-            </summary>
-        </member>
-        <member name="M:GWNorthEngine.Audio.Params.MusicEngineParams.#ctor">
-            <summary>
-            Builds the default settings for setting up a MusicEngine. The default settings are listed below.
-            
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Audio.Params.MusicEngineParams.PlayList">
-            <summary>
-            Gets or sets the list of Song objects to play in the music engine
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Audio.Params.MusicEngineParams.StartTrack">
-            <summary>
-            Gets or sets the track to start playing in the music engine
-            </summary>
-        </member>
-        <member name="P:GWNorthEngine.Audio.Params.MusicEngineParams.State">
-            <summary>
-            Gets or sets the state of the music engine
+            Middle mouse button
             </summary>
         </member>
     </members>
