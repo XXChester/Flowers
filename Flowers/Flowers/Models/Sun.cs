@@ -22,13 +22,13 @@ namespace Flowers {
 		#region Constructor
 		public Sun(ContentManager content) {
 			StaticDrawable2DParams parms = new StaticDrawable2DParams();
-			Texture2D sunTx = LoadingUtils.loadTexture2D(content, "SunLayer1");
+			Texture2D sunTx = LoadingUtils.load<Texture2D>(content, "SunLayer1");
 			parms.Texture = sunTx;
 			parms.Scale = new Vector2(START_SCALE, START_SCALE);
 			parms.Origin = new Vector2(48f, 48f);
 			parms.Position = new Vector2(70f, 70f);
 			this.innerLayer = new StaticDrawable2D(parms);
-			parms.Texture = LoadingUtils.loadTexture2D(content, "SunLayer2");
+			parms.Texture = LoadingUtils.load<Texture2D>(content, "SunLayer2");
 			this.outterLayer = new StaticDrawable2D(parms);
 #if WINDOWS
 #if DEBUG

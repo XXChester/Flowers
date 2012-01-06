@@ -13,14 +13,14 @@ namespace Flowers {
 
 		#region Constructor
 		public House(ContentManager content) {
-			Texture2D houseTexture = LoadingUtils.loadTexture2D(content, "House");
+			Texture2D houseTexture = LoadingUtils.load<Texture2D>(content, "House");
 			StaticDrawable2DParams houseParams = new StaticDrawable2DParams();
 			houseParams.Texture = houseTexture;
 			houseParams.Position = new Vector2(1000f, 100f);
 			this.house = new StaticDrawable2D(houseParams);
 
 			BaseParticle2DEmitterParams particleEmitterParams = new BaseParticle2DEmitterParams();
-			particleEmitterParams.ParticleTexture = LoadingUtils.loadTexture2D(content, "Smoke1");
+			particleEmitterParams.ParticleTexture = LoadingUtils.load<Texture2D>(content, "Smoke1");
 			particleEmitterParams.SpawnDelay = SmokeEmitter.SPAWN_DELAY;
 			this.chimneySmokeEmitter = new SmokeEmitter(particleEmitterParams);
 		}

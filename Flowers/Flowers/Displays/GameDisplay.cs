@@ -31,7 +31,7 @@ namespace Flowers {
 				this.flowers[i] = new Flower(content, i);
 			}
 
-			this.diggingSFX = LoadingUtils.loadSoundEffect(content, "Digging");
+			this.diggingSFX = LoadingUtils.load<SoundEffect>(content, "Digging");
 			// create our players
 			float textY = (Game1.RESOLUTION.Y - 50f);
 			Vector2 playersScorePosition = new Vector2(100f, textY);

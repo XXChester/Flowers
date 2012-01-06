@@ -19,7 +19,7 @@ namespace Flowers {
 		public Fence(ContentManager content) {
 			int size = 9;
 			this.pieces = new StaticDrawable2D[size];
-			Texture2D fenceTexture = LoadingUtils.loadTexture2D(content, "Fence");
+			Texture2D fenceTexture = LoadingUtils.load<Texture2D>(content, "Fence");
 			StaticDrawable2DParams parms = new StaticDrawable2DParams();
 			parms.Texture = fenceTexture;
 			parms.Scale = new Vector2(1f, 1.5f);

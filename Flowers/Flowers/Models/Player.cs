@@ -24,8 +24,8 @@ namespace Flowers {
 		public Player(ContentManager content, SpriteFont font, string name, Vector2 scorePosition, Vector2 turnSpritePosition, string aliveTexture, string dyingTexture, 
 			Flower.FlowerType flowerType) {
 			this.name = name;
-			this.AliveTexture = LoadingUtils.loadTexture2D(content, aliveTexture);
-			this.DyingTexture = LoadingUtils.loadTexture2D(content, dyingTexture);
+			this.AliveTexture = LoadingUtils.load<Texture2D>(content, aliveTexture);
+			this.DyingTexture = LoadingUtils.load<Texture2D>(content, dyingTexture);
 			this.FlowerType = flowerType;
 			this.Score = 0;
 			Text2DParams textParams = new Text2DParams();
