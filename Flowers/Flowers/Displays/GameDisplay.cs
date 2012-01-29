@@ -13,7 +13,7 @@ namespace Flowers {
 		private Flower[] flowers;
 		private Player player;
 		private Player computer;
-		private Button replayButton;
+		private IButton replayButton;
 		private SoundEffect diggingSFX;
 		private float currentDelay;
 		private const float DELAY = 750f;//Time the conmputer takes to place a move

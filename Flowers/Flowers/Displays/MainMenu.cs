@@ -8,7 +8,7 @@ using GWNorthEngine.Scripting;
 namespace Flowers {
 	public class MainMenu : Display {
 		#region Class variables
-		private Button[] buttons;
+		private IButton[] buttons;
 		private const int BUTTON_ID_EASY = 1;
 		private const int BUTTON_ID_MODERATE = 2;
 		private const int BUTTON_ID_IMPOSSIBLE = 3;
@@ -84,7 +84,7 @@ namespace Flowers {
 			if (this.buttons != null) {
 				Vector2 mousePos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
 				MouseState currentState = Mouse.GetState();
-				foreach (Button button in this.buttons) {
+				foreach (IButton button in this.buttons) {
 					if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.None) {
 						button.processActorsMovement(mousePos);
 						if (button.isActorOver(mousePos)) {
@@ -137,7 +137,7 @@ namespace Flowers {
 
 		public override void render(SpriteBatch spriteBatch) {
 			if (this.buttons != null) {
-				foreach (Button button in this.buttons) {
+				foreach (IButton button in this.buttons) {
 					button.render(spriteBatch);
 				}
 			}
@@ -147,7 +147,7 @@ namespace Flowers {
 		#region Destructor
 		public override void dispose() {
 			if (this.buttons != null) {
-				foreach (Button button in this.buttons) {
+				foreach (IButton button in this.buttons) {
 					button.dispose();
 				}
 			}

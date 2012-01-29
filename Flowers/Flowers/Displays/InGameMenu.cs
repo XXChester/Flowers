@@ -7,7 +7,7 @@ using GWNorthEngine.Scripting;
 namespace Flowers {
 	public class InGameMenu : Display {
 		#region Class variables
-		private Button[] buttons;
+		private IButton[] buttons;
 		private ResetDelegate resetDelegate;
 		public delegate void ResetDelegate();
 		private const int BUTTON_ID_RETURN_TO_GAME = 1;
@@ -61,7 +61,7 @@ namespace Flowers {
 			if (this.buttons != null) {
 				Vector2 mousePos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
 				MouseState currentState = Mouse.GetState();
-				foreach (Button button in this.buttons) {
+				foreach (IButton button in this.buttons) {
 					button.processActorsMovement(mousePos);
 					if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.None) {
 						if (button.isActorOver(mousePos)) {
@@ -106,7 +106,7 @@ namespace Flowers {
 
 		public override void render(SpriteBatch spriteBatch) {
 			if (this.buttons != null) {
-				foreach (Button button in this.buttons) {
+				foreach (IButton button in this.buttons) {
 					button.render(spriteBatch);
 				}
 			}
@@ -116,7 +116,7 @@ namespace Flowers {
 		#region Destructor
 		public override void dispose() {
 			if (this.buttons != null) {
-				foreach (Button button in this.buttons) {
+				foreach (IButton button in this.buttons) {
 					button.dispose();
 				}
 			}

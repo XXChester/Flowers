@@ -14,15 +14,10 @@ namespace Flowers {
 			animationParams.FrameRate = 100f;
 			animationParams.TotalFrameCount = 5;
 			animationParams.AnimationState = animationState;
-			Animated2DSpriteParams spriteParams = new Animated2DSpriteParams();
-			spriteParams.Content = content;
+			BaseAnimated2DSpriteParams spriteParams = new Animated2DSpriteLoadSingleRow();
 			spriteParams.FramesHeight = 96;
-			spriteParams.FramesStartHeight = 0;
-			spriteParams.FramesStartWidth = 0;
 			spriteParams.FramesWidth = 96;
-			spriteParams.LoadingType = Animated2DSprite.LoadingType.CustomizedSheetDefineFrames;
 			spriteParams.Position = position;
-			spriteParams.SpaceBetweenFrames = 0;
 			spriteParams.Origin = new Vector2(40f, 80f);
 			spriteParams.Texture2D = texture;
 			spriteParams.AnimationParams = animationParams;
