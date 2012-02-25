@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using GWNorthEngine.Model;
+using GWNorthEngine.Logic;
+using GWNorthEngine.Logic.Params;
 using GWNorthEngine.Utils;
 namespace Flowers {
 	public class Flower : IRenderable {
@@ -42,7 +44,7 @@ namespace Flowers {
 		public void initSprites(Player player) {
 			this.type = player.FlowerType;
 			this.aliveSprite.Texture = player.AliveTexture;
-			this.aliveSprite.AnimationManager.State = AnimationManager.AnimationState.PlayForwardOnce;
+			this.aliveSprite.AnimationManager.State = AnimationState.PlayForwardOnce;
 			this.activeSprite = this.aliveSprite;
 			this.dyingSprite.Texture = player.DyingTexture;
 		}
@@ -67,7 +69,7 @@ namespace Flowers {
 			if (this.type != FlowerType.None) {
 				if (StateManager.getInstance().CurrentState == StateManager.GameState.InitGameOver) {
 					if (StateManager.getInstance().Winner.winningType != this.type || !StateManager.getInstance().Winner.winningIndexes.Contains(this.index)) {
-						this.dyingSprite.AnimationManager.State = AnimationManager.AnimationState.PlayForwardOnce;
+						this.dyingSprite.AnimationManager.State = AnimationState.PlayForwardOnce;
 						this.dyingSprite.reset();
 						this.activeSprite = this.dyingSprite;
 					}

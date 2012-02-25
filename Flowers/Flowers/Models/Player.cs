@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using GWNorthEngine.Model;
 using GWNorthEngine.Model.Params;
+using GWNorthEngine.Logic;
+using GWNorthEngine.Logic.Params;
 using GWNorthEngine.Utils;
 namespace Flowers {
 	public class Player : IRenderable {
@@ -34,8 +36,8 @@ namespace Flowers {
 			textParams.Position = scorePosition;
 			this.Text = new Text2D(textParams);
 
-			this.activeTurnSprite = FlowerBuilder.getFlowerSprite(content, turnSpritePosition, this.AliveTexture, AnimationManager.AnimationState.PlayForwardOnce);
-			this.inactiveTurnSprite = FlowerBuilder.getFlowerSprite(content, turnSpritePosition, this.DyingTexture, AnimationManager.AnimationState.PlayForwardOnce);
+			this.activeTurnSprite = FlowerBuilder.getFlowerSprite(content, turnSpritePosition, this.AliveTexture, AnimationState.PlayForwardOnce);
+			this.inactiveTurnSprite = FlowerBuilder.getFlowerSprite(content, turnSpritePosition, this.DyingTexture, AnimationState.PlayForwardOnce);
 		}
 		#endregion Constructor
 
@@ -57,11 +59,11 @@ namespace Flowers {
 			if (LogicUtils.translateTurnToFlowerType(StateManager.getInstance().WhosTurnIsIt) == this.FlowerType) {
 				this.activeTurnSprite.update(elapsed);
 				this.inactiveTurnSprite.reset();
-				this.inactiveTurnSprite.AnimationManager.State = AnimationManager.AnimationState.PlayForwardOnce;
+				this.inactiveTurnSprite.AnimationManager.State = AnimationState.PlayForwardOnce;
 			} else {
 				this.inactiveTurnSprite.update(elapsed);
 				this.activeTurnSprite.reset();
-				this.activeTurnSprite.AnimationManager.State = AnimationManager.AnimationState.PlayForwardOnce;
+				this.activeTurnSprite.AnimationManager.State = AnimationState.PlayForwardOnce;
 			}
 		}
 

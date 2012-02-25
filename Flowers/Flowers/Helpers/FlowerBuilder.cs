@@ -3,13 +3,15 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using GWNorthEngine.Model;
 using GWNorthEngine.Model.Params;
+using GWNorthEngine.Logic;
+using GWNorthEngine.Logic.Params;
 namespace Flowers {
 	public class FlowerBuilder {
 		public static Animated2DSprite getFlowerSprite(ContentManager content, int index) {
-			return getFlowerSprite(content, FlowerBuilder.SpritePositioner.getInstance().getPosition(index), null, AnimationManager.AnimationState.Paused);
+			return getFlowerSprite(content, FlowerBuilder.SpritePositioner.getInstance().getPosition(index), null, AnimationState.Paused);
 		}
 
-		public static Animated2DSprite getFlowerSprite(ContentManager content, Vector2 position, Texture2D texture, AnimationManager.AnimationState animationState) {
+		public static Animated2DSprite getFlowerSprite(ContentManager content, Vector2 position, Texture2D texture, AnimationState animationState) {
 			BaseAnimationManagerParams animationParams = new BaseAnimationManagerParams();
 			animationParams.FrameRate = 100f;
 			animationParams.TotalFrameCount = 5;
