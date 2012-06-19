@@ -10,8 +10,9 @@ namespace Flowers {
 	public class Player : IRenderable {
 		#region Class variables
 		private string name;
-		private Animated2DSprite activeTurnSprite;
-		private Animated2DSprite inactiveTurnSprite;
+		private Animated2DSprite myTurnSprite;
+		private Animated2DSprite notMyTurnSprite;
+		private Animated2DSprite activeSprite;
 		#endregion Class variables
 
 		#region Class properties
@@ -36,8 +37,8 @@ namespace Flowers {
 			textParams.Position = scorePosition;
 			this.Text = new Text2D(textParams);
 
-			this.activeTurnSprite = FlowerBuilder.getFlowerSprite(content, turnSpritePosition, this.AliveTexture, AnimationState.PlayForwardOnce);
-			this.inactiveTurnSprite = FlowerBuilder.getFlowerSprite(content, turnSpritePosition, this.DyingTexture, AnimationState.PlayForwardOnce);
+			this.myTurnSprite = FlowerBuilder.getFlowerSprite(content, turnSpritePosition, this.AliveTexture, AnimationState.PlayForwardOnce);
+			this.notMyTurnSprite = FlowerBuilder.getFlowerSprite(content, turnSpritePosition, this.DyingTexture, AnimationState.PlayForwardOnce);
 		}
 		#endregion Constructor
 
@@ -45,45 +46,44 @@ namespace Flowers {
 		public void updateColour(float transitionTime) {
 			if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionIn) {
 				this.Text.LightColour = TransitionUtils.fadeIn(ResourceManager.getInstance().TextColour, Display.TRANSITION_TIME, transitionTime);
-				this.activeTurnSprite.LightColour = TransitionUtils.fadeIn(Color.White, Display.TRANSITION_TIME, transitionTime);
-				this.inactiveTurnSprite.LightColour = TransitionUtils.fadeIn(Color.White, Display.TRANSITION_TIME, transitionTime);
+				this.myTurnSprite.LightColour = TransitionUtils.fadeIn(Color.White, Display.TRANSITION_TIME, transitionTime);
+				this.notMyTurnSprite.LightColour = TransitionUtils.fadeIn(Color.White, Display.TRANSITION_TIME, transitionTime);
 			} else if (StateManager.getInstance().CurrentTransitionState == StateManager.TransitionState.TransitionOut) {
 				this.Text.LightColour = TransitionUtils.fadeOut(ResourceManager.getInstance().TextColour, Display.TRANSITION_TIME, transitionTime);
-				this.activeTurnSprite.LightColour = TransitionUtils.fadeOut(Color.White, Display.TRANSITION_TIME, transitionTime);
-				this.inactiveTurnSprite.LightColour = TransitionUtils.fadeOut(Color.White, Display.TRANSITION_TIME, transitionTime);
+				this.myTurnSprite.LightColour = TransitionUtils.fadeOut(Color.White, Display.TRANSITION_TIME, transitionTime);
+				this.notMyTurnSprite.LightColour = TransitionUtils.fadeOut(Color.White, Display.TRANSITION_TIME, transitionTime);
 			}
 		}
 
 		public void update(float elapsed) {
 			this.Text.WrittenText = name + ": " + this.Score;
+
 			if (LogicUtils.translateTurnToFlowerType(StateManager.getInstance().WhosTurnIsIt) == this.FlowerType) {
-				this.activeTurnSprite.update(elapsed);
-				this.inactiveTurnSprite.reset();
-				this.inactiveTurnSprite.AnimationManager.State = AnimationState.PlayForwardOnce;
+				this.activeSprite = this.myTurnSprite;
+				this.myTurnSprite.update(elapsed);
+				this.notMyTurnSprite.reset();
+				this.notMyTurnSprite.AnimationManager.State = AnimationState.PlayForwardOnce;
 			} else {
-				this.inactiveTurnSprite.update(elapsed);
-				this.activeTurnSprite.reset();
-				this.activeTurnSprite.AnimationManager.State = AnimationState.PlayForwardOnce;
+				this.activeSprite = this.notMyTurnSprite;
+				this.notMyTurnSprite.update(elapsed);
+				this.myTurnSprite.reset();
+				this.myTurnSprite.AnimationManager.State = AnimationState.PlayForwardOnce;
 			}
 		}
 
 		public void render(SpriteBatch spriteBatch) {
 			this.Text.render(spriteBatch);
-			if (LogicUtils.translateTurnToFlowerType(StateManager.getInstance().WhosTurnIsIt) == this.FlowerType) {
-				this.activeTurnSprite.render(spriteBatch);
-			} else {
-				this.inactiveTurnSprite.render(spriteBatch);
-			}
+			this.activeSprite.render(spriteBatch);
 		}
 		#endregion Support methods
 
 		#region Destructor
 		public void dispose() {
-			if (this.activeTurnSprite != null) {
-				this.activeTurnSprite.dispose();
+			if (this.myTurnSprite != null) {
+				this.myTurnSprite.dispose();
 			}
-			if (this.inactiveTurnSprite != null) {
-				this.inactiveTurnSprite.dispose();
+			if (this.notMyTurnSprite != null) {
+				this.notMyTurnSprite.dispose();
 			}
 			if (this.AliveTexture != null) {
 				this.AliveTexture.Dispose();

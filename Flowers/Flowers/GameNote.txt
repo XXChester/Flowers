@@ -105,8 +105,7 @@ Specific bugs:		1.5hours
 Post development cleanup:	.5hours
 Total time:	29.75hours
 
-Art:
-	15.25hours	
+Art: 	15.25hours	
 Sound:
 	.75 hours
 	
