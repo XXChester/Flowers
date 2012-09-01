@@ -567,21 +567,6 @@
             </summary>
             <param name="parms">SFXEngineParams object containing the data required to build the SFXEngine</param>
         </member>
-        <member name="M:GWNorthEngine.Audio.SFXEngine.playSoundEffect(Microsoft.Xna.Framework.Audio.SoundEffect,System.Boolean)">
-            <summary>
-            Plays a sound effect with the generic data of the SFXEngine such as volume, etc
-            </summary>
-            <param name="sfx">SoundEffect to play</param>
-            <param name="loop">Determines whether to loop the sound effect</param>
-        </member>
-        <member name="M:GWNorthEngine.Audio.SFXEngine.playSoundEffect(Microsoft.Xna.Framework.Audio.SoundEffect,System.Single,System.Boolean)">
-            <summary>
-            Plays a sound effect with a specific volume
-            </summary>
-            <param name="sfx">SoundEffect to play</param>
-            <param name="volume">Volume to play the sound effect at</param>
-            <param name="loop">Determines whether to loop the sound effect</param>
-        </member>
         <member name="M:GWNorthEngine.Audio.SFXEngine.playSoundEffect(Microsoft.Xna.Framework.Audio.SoundEffect,System.Single,System.Single,System.Single,System.Boolean)">
             <summary>
             Plays a sound effect at a specific volume, pan and pitch

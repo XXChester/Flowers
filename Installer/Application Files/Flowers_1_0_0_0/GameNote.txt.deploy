@@ -1,0 +1,114 @@
+============================
+	Objectives
+============================
+Objectives of this demo is to write a simple 2d game with the ported engine code for XNA to identify remaining bugs and to finally write something in XNA. I 
+am expecting this demo to be my highest poilished demo. I am hoping to get the whole game functional within 10 hours and polish there after.
+
+
+============================
+	Core(Phase 1)
+============================
+Raw version of the game functional with programmer art
+[*]Planning
+[*]Placeholder art
+[*]Model objects
+[*]Make each model script accessible
+[*]Render basic background with programmer art
+[*]Render the board
+[*]Render pieces on click
+[*]Render basic HUD
+[*]Implement easy
+[*]Implement board state mechanics (Cats game/Win/etc)		--Lock up on cats games atm(logging for the night..figure out tomorrow)
+[*]Implement moderate difficulty
+[*]Render main menu screen
+[*]Render in game menu screen
+[*]Implement flow mechanism
+[*]Implement Min Max algorithm (Impossible AI)
+[*]Implement simple pruning
+[*]Implement Alpha/Beta pruning on the algorithm to make it faster...although in TicTacToe you will never see this performance increase...this is more of a best practises step
+		-This can also give you the wrong move without this....wrong in the sense that you will still win but in more moves opposed to picking the first option to win
+
+============================
+	Polish(Phase 2)
+============================
+Replace the programmer art with real art and make the game not only maintain its functionality but also add a nice playable environment
+[*]Background
+[*]Screen fades in and out
+[*]All sprites not part of the winning line do their dying animation
+[*]Sun sprite
+[*]Clouds
+[*]House
+[*]Fence
+[*]Garden
+[*]Bush around the gardens edge
+[*]Smoke particles from the house's chimney
+[*]Delay computers move by a CONSTANT so it doesn't move right away
+[*]Sfx
+[*]Score is on a rock or engraved
+[*]Visual indication of who's turn it is
+[*]Add in a real moderate difficulty that does the same as the current moderate except it doesn't try to block. Change current Moderate difficulties label to "Hard"
+[*]Take another pass at the clouds...redo art again and use multiple textures instead of just 1
+
+==========================
+Persistent bugs
+=========================
+[*]In DEBUG mode the XNA audio engine throws an exception if you exit as a sound effect is playing
+	-Problem with the XNA framework when you manually(correctly) dispose of sound effects on closing. The solution is to let the ContentManager handle the disposale of SFX's
+[*]When the game is a cats game, without hitting replay you hit escape and exit to the main menu and enter a difficulty and when the game goes to game over again,
+	one of the pieces on the board will blank out instead of dying like everything else. Might have something to do with the computer going first in the new game.
+	The square that blanks out appears to be the first move
+	-Resolution: Very difficult to track down but the problem was that in the reset method of the game, the computers move delay was > the wait delay time and for some reason
+		this was causing the flicker that was noticable as soon as the computer moved and the subsequent failure of that place displaying upon cats game
+
+===========================
+ALPHA/BETA METRICS
+==========================
+Format is (board_index: number_of_branches_searched)
+
+Pre alpha beta when I moved to position 0 on the board;
+1: 8232
+2: 7584
+3: 8232
+4: 7332
+5: 6380
+6: 7584
+7: 6380
+8: 7980
+
+Post alpha beta when I moved to position 0 on the board;
+1: 749
+2: 641
+3: 336
+4: 844
+5: 365
+6: 335
+7: 381
+8: 438
+
+That proves the importance of alpha/beta pruning, cut the searches exponentially, if this were a bigger game like chess this performance upgrade would be critical
+
+============================
+		Time
+============================
+Planning:
+Game mechanics:	3hours
+MinMax algorithm:	2hours
+Total: 5hours
+
+Programming:		
+core:				9.5hours
+MinMaxAlgorithm:	5.25hours
+Simple pruning:		.25hours
+Alpha/Beta pruning:		1hours
+polish:				11.75hours
+Specific bugs:		1.5hours
+Post development cleanup:	.5hours
+Total time:	29.75hours
+
+Art: 	15.25hours	
+Sound:
+	.75 hours
+	
+Total Time:	50.75 hours
+Total lines:	1944
+	
