@@ -1,8 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using GWNorthEngine.Model;
 using GWNorthEngine.Model.Params;
+using GWNorthEngine.Model.Effects;
+using GWNorthEngine.Model.Effects.Params;
 using GWNorthEngine.Scripting;
 using GWNorthEngine.Utils;
 namespace Flowers {
@@ -12,7 +15,6 @@ namespace Flowers {
 		private StaticDrawable2D outterLayer;
 		private const float START_SCALE = 1.2f;
 		private const float END_SCALE = 1.25f;
-		private readonly Vector2 SCALE_SPEED = new Vector2(5f / 1000f, 5f / 1000f);
 		#endregion Class variables
 
 		#region Class propeties
@@ -30,6 +32,15 @@ namespace Flowers {
 			this.innerLayer = new StaticDrawable2D(parms);
 			parms.Texture = LoadingUtils.load<Texture2D>(content, "SunLayer2");
 			this.outterLayer = new StaticDrawable2D(parms);
+
+			PulseEffectParams effectParms = new PulseEffectParams {
+				Reference = this.outterLayer,
+				ScaleBy = 5f / 1000f,
+				ScaleDownTo = START_SCALE,
+				ScaleUpTo = END_SCALE
+			};
+			this.outterLayer.addEffect(new PulseEffect(effectParms));
+			
 #if WINDOWS
 #if DEBUG
 			if (this.innerLayer != null) {
@@ -46,7 +57,7 @@ namespace Flowers {
 		#region Support methods
 		public void update(float elapsed) {
 			if (this.outterLayer != null) {
-				this.outterLayer.scalingPulse(START_SCALE, END_SCALE, SCALE_SPEED);
+				this.outterLayer.update(elapsed);
 			}
 		}
 

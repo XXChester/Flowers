@@ -2,8 +2,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using GWNorthEngine.Engine;
 using GWNorthEngine.Model;
 using GWNorthEngine.Model.Params;
+using GWNorthEngine.Model.Effects;
+using GWNorthEngine.Model.Effects.Params;
 using GWNorthEngine.Utils;
 namespace Flowers {
 	public class SmokeEmitter : BaseParticle2DEmitter {
@@ -35,7 +38,26 @@ namespace Flowers {
 
 		#region Support methods
 		public override void createParticle() {
-			base.particles.Add(new SmokeParticle(base.particleParams));
+			SmokeParticle particle = new SmokeParticle(base.particleParams);
+			ScaleOverTimeEffectParams scaleEffectParms = new ScaleOverTimeEffectParams {
+				Reference = particle,
+				ScaleBy = new Vector2(1f / 1000f, .75f / 1000f)
+			};
+			particle.addEffect(new ScaleOverTimeEffect(scaleEffectParms));
+			RotateOverTimeEffectParams rotateEffectParms = new RotateOverTimeEffectParams {
+				Reference = particle,
+				RotateBy = 20f / 1000f
+			};
+			particle.addEffect(new RotateOverTimeEffect(rotateEffectParms));
+			FadeEffectParams fadeEffectParms = new FadeEffectParams {
+				Reference = particle,
+				State = FadeEffect.FadeState.Out,
+				TotalTransitionTime = TIME_TO_LIVE,
+				OriginalColour = Color.Black
+			};
+			particle.addEffect(new FadeEffect(fadeEffectParms));
+
+			base.particles.Add(particle);
 			base.createParticle();
 		}
 		public override void update(float elapsed) {

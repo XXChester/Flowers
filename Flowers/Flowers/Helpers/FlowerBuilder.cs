@@ -21,7 +21,7 @@ namespace Flowers {
 			spriteParams.FramesWidth = 96;
 			spriteParams.Position = position;
 			spriteParams.Origin = new Vector2(40f, 80f);
-			spriteParams.Texture2D = texture;
+			spriteParams.Texture = texture;
 			spriteParams.AnimationParams = animationParams;
 			return new Animated2DSprite(spriteParams);
 		}
