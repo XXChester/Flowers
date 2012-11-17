@@ -35,7 +35,7 @@ namespace Flowers {
 
 			PulseEffectParams effectParms = new PulseEffectParams {
 				Reference = this.outterLayer,
-				ScaleBy = 5f / 1000f,
+				ScaleBy = .25f,
 				ScaleDownTo = START_SCALE,
 				ScaleUpTo = END_SCALE
 			};

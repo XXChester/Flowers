@@ -41,12 +41,12 @@ namespace Flowers {
 			SmokeParticle particle = new SmokeParticle(base.particleParams);
 			ScaleOverTimeEffectParams scaleEffectParms = new ScaleOverTimeEffectParams {
 				Reference = particle,
-				ScaleBy = new Vector2(1f / 1000f, .75f / 1000f)
+				ScaleBy = new Vector2(.1f, .075f)
 			};
 			particle.addEffect(new ScaleOverTimeEffect(scaleEffectParms));
 			RotateOverTimeEffectParams rotateEffectParms = new RotateOverTimeEffectParams {
 				Reference = particle,
-				RotateBy = 20f / 1000f
+				RotateBy = 2f
 			};
 			particle.addEffect(new RotateOverTimeEffect(rotateEffectParms));
 			FadeEffectParams fadeEffectParms = new FadeEffectParams {
